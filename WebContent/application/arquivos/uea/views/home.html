@@ -1,0 +1,72 @@
+<div role="tabpanel" class="panel tab-pane active" id="home">
+  <div class="panel-body">
+  	<div class="col-md-7">
+  		<h2 class="title2"><span class="fa fa-arrow-down"></span> Últimas publicações</h2>
+  		<div class="row">
+	  		<div class="pull-right">
+		  		<ul class="nav nav-pills filter">
+				  <li role="tab" data-toggle="tab" class="active"><a href="#/">Últimas</a></li>
+				  <li role="tab" data-toggle="tab"><a href="#/">Recomendados</a></li>
+				  <li role="tab" data-toggle="tab"><a href="#/">Populares</a></li>
+				</ul>
+			</div>
+		</div>
+	    <div class="list-group" id="latest" ng-init="articles = [1, 2, 3, 4]" ng-controller="Latest">
+		  <a href="#" class="list-group-item" ng-repeat="article in articles track by $index">
+		    <h4 class="list-group-item-heading">How to Choose a Good Scientific Problem</h4>
+		    <p class="list-group-item-text">Uri Alon in <span class="label label-warning">Molecular Cell</span> (2009)</p>
+		    <blockquote>
+		    	Choosing good problems is essential for being a good scientist. But what is a good problem, and how do you choose one? The subject is not usually discussed explicitly within our profession. Scientists are expected to be smart enough to figure it out…
+		    </blockquote>
+		    <div class="row">
+		    	<div class="col-md-6">
+		    		<span class="action">Favoritar : <span class="fa fa-star-o"></span></span>
+		    		<div class="measure" ng-init="classificado = [1,2,3]; maximo = [1,2,3,4,5]">
+		    			Classificação : 
+		    			<span class="fa fa-star" ng-repeat="i in classificado"></span>
+		    			<div class="no-measure"><span class="fa fa-star-o" ng-repeat="i in maximo.slice(classificado.length)"></span></div>
+		    		</div>
+		    	</div>
+		    	<div class="col-md-6">
+		    		<p class="text-right"><strong>89,125</strong> visualizações</p>
+		    	</div>
+		    </div>
+		  </a>
+			<div class="content text-center">
+				<!-- Indicates a successful or positive action -->
+				<button type="button" class="btn btn-success" id="show-more-latest" ng-click="add()"><span class="fa fa-refresh"></span> Carregar Mais</button>
+			</div>
+		</div>
+	</div><!-- COLUNA DA ESQUERDA-->
+	<div class="col-md-5" id="recomendation">
+		<h2 class="title2"><span class="fa fa-hand-o-right"></span> Fábio, Lucas e Salomão se interessam por</h2>
+		<div class="row">
+		  <div class="col-sm-6 col-md-12">
+		    <div class="thumbnail">
+		      <div class="image"><img src="images/icon.png" /></div>
+		      <div class="caption">
+		        <h3>How To Choose a Good Scientific Problem</h3>
+		        <p>Choosing good problems is essential for being a good scientist. But what is a good problem...</p>
+		        <p><a href="#" class="btn btn-primary" role="button"><span class="fa fa-star-o"></span> Favoritar</a> 
+		        <a href="#" class="btn btn-default" role="button"><span class="fa fa-thumbs-o-down"></span> Descartar</a></p>
+		      </div>
+		    </div>
+		  </div>
+		</div>
+	</div><!-- RECOMENDACAO-->
+	<div class="col-md-5" id="top">
+		<h2 class="title2"><span class="fa fa-diamond"></span> Top publicações</h2>
+		<ul class="list-group">
+			<li ng-repeat="i in [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]">
+				<a href="#" class="list-group-item row">
+					<div class="col-md-1">
+						<span class="badge inline">{{i}}</span> 
+					</div>
+					<p class="col-md-7 title">Physical Review Letters</p>
+					<p class="col-md-4 views"><strong>4,321</strong> visualizações</p>
+				</a>
+			</li>
+		</ul>
+	</div><!-- TOP PUBLICACOES-->
+  </div>
+</div>

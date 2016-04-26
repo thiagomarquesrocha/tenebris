@@ -1,0 +1,43 @@
+/** Modificacoes 04/11/2015 - Thiago **/
+#logo-container img{ margin-bottom: -10px !important;}
+
+.login .btn{ color: #fff;}
+.login input{ border-bottom: 1px solid #83BEEC;}
+.login a{ color: #83BEEC;}
+
+/* label color */
+.login .input-field label {
+ color: #999;
+}
+/* label focus color */
+.login .input-field input[type=text]:focus + label, .login .input-field input[type=password]:focus + label {
+ color: #999;
+}
+/* label underline focus color */
+.login .input-field input[type=text]:focus, .login .input-field input[type=password]:focus {
+ border-bottom: 1px solid #999;
+ box-shadow: 0 1px 0 0 #999;
+}
+/* valid color */
+.login .input-field input[type=text].valid, .login .input-field input[type=password].valid {
+ border-bottom: 1px solid #999;
+ box-shadow: 0 1px 0 0 #999;
+}
+/* invalid color */
+.login .input-field input[type=text].invalid, .login .input-field input[type=password].invalid {
+ border-bottom: 1px solid #999;
+ box-shadow: 0 1px 0 0 #999;
+}
+/* icon prefix focus color */
+.login .input-field .prefix {
+ color: #83BEEC;
+}
+/* icon prefix focus color */
+.login .input-field .prefix.active {
+ color: #999;
+}
+
+.select-box{ min-height: 60px; margin-top: 30px }
+.select-box label{
+	left: 0 !important;
+}

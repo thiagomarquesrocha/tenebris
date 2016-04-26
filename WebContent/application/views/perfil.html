@@ -1,0 +1,119 @@
+<div role="tabpanel" class="panel tab-pane active" id="perfil">
+ 		<div class="panel-body">
+
+		    <header class="header indigo z-depth-1">
+		        <img src="images/perfil.gif" alt="" class="circle responsive-img" ng-click="openPhotoWindow()">
+
+		        <input type="file" name="fotoPerfil" id="fotoPerfil" style="display : none" />
+
+		        <h1>{{ profile.user.namePublic }}</h1>
+
+		        <nav class="indigo">
+		            <div class="nav-wrapper">
+		                <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="mdi-navigation-menu"></i></a>
+		                <ul class="hide-on-med-and-down">
+		                    <li><a href="#/perfil" ng-click="selection='menu1'" ng-class="isActivatedMenu('menu1')">Interesses</a></li>
+		                    <li><a href="#/perfil" ng-click="selection='menu2'" ng-class="isActivatedMenu('menu2')">Instituições</a></li>
+		                    <li><a href="#/perfil" ng-click="selection='menu3'" ng-class="isActivatedMenu('menu3')">Área</a></li>
+		                    <li><a href="#/perfil" ng-click="selection='menu4'" ng-class="isActivatedMenu('menu4')">Autores</a></li>
+		                </ul>
+		                <ul class="side-nav" id="mobile-demo" style="left: -250px;">
+		                    <li><a href="#/perfil" ng-click="selection='menu1'" ng-class="isActivatedMenu('menu1')">Interesses</a></li>
+		                    <li><a href="#/perfil" ng-click="selection='menu2'" ng-class="isActivatedMenu('menu2')">Instituições</a></li>
+		                    <li><a href="#/perfil" ng-click="selection='menu3'" ng-class="isActivatedMenu('menu3')">Área</a></li>
+		                    <li><a href="#/perfil" ng-click="selection='menu4'" ng-class="isActivatedMenu('menu4')">Autores</a></li>
+		                </ul>
+		            </div>
+		        </nav>
+
+		    </header>
+
+		  <!-- CONTEUDO PRINCIPAL -->
+		  <div class="container" id="content">
+		  	<div class="row">
+			  <div class="col-sm-8" class="animate-switch-container" ng-switch on="selection">
+			  	    <div class="animate-switch" ng-switch-when="menu1">
+					  	<div class="panel-body">
+						  <form class="form-inline" ng-submit="addTag(tag)">
+								  <div class="form-group">
+								    <div class="input-field">
+								      <i class="material-icons prefix fa fa-tags"></i>
+								      <input type="text" id="icon_prefix_interesse" required class="form-control validade" id="interesse" ng-model="tag">
+								      <label for="icon_prefix_interesse">Interesse</label>
+								    </div>
+								  </div>
+								  <button type="submit" class="btn btn-primary">Adicionar</button>
+							</form>
+						</div>
+						<div class="container-fluid">
+							<ul class="collection with-header">
+								<li class="collection-header"><h4><span class="fa fa-tags"></span>  Lista</h4></li>
+						        <a href="" class="collection-item"ng-repeat="tag in profile.user.tags track by $index">{{tag.nome}}</a>
+				  			</ul>
+					  	</div>
+			  		</div>
+				  	<div class="panel-body" class="animate-switch" ng-switch-when="menu2">
+				  		<div class="panel-body">
+						  <form class="form-inline" ng-submit="addInstituition(institution)">
+								  <div class="form-group">
+								    <div class="input-field">
+								      <!-- <input type="text" id="icon_prefix_instituicao" required class="form-control validade" id="instituicao" ng-model="institution"> -->
+								      <div class="input-field select-box col s12" ng-init="listInstitutions()">
+									    <select class="desactived" ng-model="institution">
+									      <option value="" disabled selected>Selecione uma instituição</option>
+									      <option value="{{institution.nome}}" ng-repeat="institution in institutions">{{institution.nome | uppercase}}</option>
+									    </select>
+									    <label>Instituição</label>
+									  </div>
+								    </div>
+								  </div>
+								  <button type="submit" class="btn btn-primary">Adicionar</button>
+							</form>
+						</div>
+						<div class="container-fluid">
+							<ul class="collection with-header">
+								<li class="collection-header"><h4><span class="fa fa-tags"></span>  Lista</h4></li>
+						        <a href="" class="collection-item"ng-repeat="instituicao in profile.user.instituicoes track by $index">{{instituicao.nome}}</a>
+				  			</ul>
+					  	</div>
+				  	</div>
+				  	<div class="panel-body" class="animate-switch" ng-switch-when="menu3" id="about">
+				  		<div class="panel-body">
+						  <form class="form-inline" ng-submit="addArea(profile.user.area)">
+								  <div class="form-group">
+								  	<label for="icon_prefix_area">Área</label>
+								    <div class="input-field">
+								      <i class="material-icons prefix fa fa-tags"></i>
+								      <input type="text" id="icon_prefix_area" required class="form-control validade" id="area" ng-model="profile.user.area">
+								      <label for="icon_prefix_area"></label>
+								    </div>
+								  </div>
+								  <button type="submit" class="btn btn-primary">Atualizar</button>
+							</form>
+						</div>
+				  	</div>
+			  		<div class="panel-body" class="animate-switch" ng-switch-when="menu4">
+			  			<div class="panel-body">
+						  <form class="form-inline" ng-submit="addAuth(auth)">
+								  <div class="form-group">
+								    <div class="input-field">
+								      <i class="material-icons prefix fa fa-tags"></i>
+								      <input type="text" id="icon_prefix_auth" required class="form-control validade" id="auth" ng-model="auth">
+								      <label for="icon_prefix_auth">Autor</label>
+								    </div>
+								  </div>
+								  <button type="submit" class="btn btn-primary">Adicionar</button>
+							</form>
+						</div>
+						<div class="container-fluid">
+							<ul class="collection with-header">
+								<li class="collection-header"><h4><span class="fa fa-tags"></span>  Lista</h4></li>
+						        <a href="" class="collection-item"ng-repeat="auth in profile.user.autores track by $index">{{auth.nome}}</a>
+				  			</ul>
+					  	</div>
+				  	</div>
+			  		</div>
+			  </div>
+			</div>
+		  </div>
+</div>

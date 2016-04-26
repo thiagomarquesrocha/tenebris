@@ -1,0 +1,115 @@
+<div role="tabpanel" class="panel tab-pane active" id="home">
+ 		<div class="panel-body">
+
+		  <div class="container-fluid">
+		    <div class="thumbnail row">
+		      <div class="image col-sm-8"><img id="foto-perfil" src="images/perfil.gif" /></div>
+		      <div class="caption col-sm-9">
+		        <h3>Thiago Marques Rocha</h3>
+		        <p class="tags-perfil">
+		        	<span  class="fa fa-tags"></span> <span>Tags:</span> 
+		        	<a href="#/perfil" class="label label-info inline" ng-repeat="tag in user.tags track by $index">{{tag}}</a>
+		        </p>
+		        <p><span class="fa fa-university"></span> <strong>Instituição:</strong> {{user.institution}}</p>
+		        <p><span class="fa fa-tree"></span> <strong>Sobre mim:</strong> {{user.about}}</p>
+		      </div>
+		    </div>
+		  </div>
+
+		  <div class="col-sm-4">
+		    <h2 class="title2 col-md-12"><span class="fa fa-graduation-cap"></span> Dados</h2>
+		    <ul class="list-group" id="perfil-itens">
+		    	<li>
+					<a href="#/perfil" class="list-group-item row" ng-click="openPhotoWindow()" ng-class="isActivatedMenu('menu1')">
+						<div class="col-md-1">
+							<span class="badge inline">+</span> 
+						</div>
+						<p class="col-md-7 title">Adicionar foto</p>
+					</a>
+				</li>
+				<li>
+					<a href="#/perfil" class="list-group-item row" ng-click="selection='menu2'" ng-class="isActivatedMenu('menu2')">
+						<div class="col-md-1">
+							<span class="badge inline">+</span> 
+						</div>
+						<p class="col-md-7 title">Adicionar interesses</p>
+					</a>
+				</li>
+				<li>
+					<a href="#/perfil" class="list-group-item row" ng-click="selection='menu3'" ng-class="isActivatedMenu('menu3')">
+						<div class="col-md-1">
+							<span class="badge inline">+</span> 
+						</div>
+						<p class="col-md-7 title">Adicionar sobre mim</p>
+					</a>
+				</li>
+				<li>
+					<a href="#/perfil" class="list-group-item row" ng-click="selection='menu4'" ng-class="isActivatedMenu('menu4')">
+						<div class="col-md-1">
+							<span class="badge inline label-danger">+</span> 
+						</div>
+						<p class="col-md-7 title">Adicionar instituição</p>
+					</a>
+				</li>
+				<li>
+					<a href="#/perfil" class="list-group-item row" ng-click="selection='menu5'" ng-class="isActivatedMenu('menu5')">
+						<div class="col-md-1">
+							<span class="badge inline">+</span> 
+						</div>
+						<p class="col-md-7 title">Adicionar publicações</p>
+					</a>
+				</li>
+		    </ul>
+		  </div>
+
+		  <!-- CONTEUDO PRINCIPAL -->
+		  <div class="col-sm-8" class="animate-switch-container" ng-switch on="selection">
+		  	  <div class="panel-body" class="animate-switch" ng-switch-when="menu1">
+		  	  	<input type="file" name="fotoPerfil" id="fotoPerfil" style="display : none" />
+		  	  </div>
+		  	  <div class="animate-switch" ng-switch-when="menu2">
+			  	<div class="panel-body">
+				  <form class="form-inline" ng-submit="addTag(tag)">
+						  <div class="form-group">
+						    <div class="input-group">
+						      <div class="input-group-addon">Novo</div>
+						      <input type="text" required class="form-control" id="interesse" placeholder="Interesse" ng-model="tag">
+						    </div>
+						  </div>
+						  <button type="submit" class="btn btn-primary">Adicionar</button>
+					</form>
+				</div>
+				<div class="container-fluid">
+			  		<div class="list-group">
+				  		<a class="list-group-item disabled">
+						    <span class="fa fa-tags"></span> Lista
+						</a>
+			  			<a class="list-group-item" ng-repeat="tag in user.tags track by $index">{{tag}}</a>
+			  		</div>
+			  	</div>
+		  	</div>
+		  	<div class="panel-body" class="animate-switch" ng-switch-when="menu3">
+		  		<form class="form-inline" ng-submit="updateInstitution(institution)">
+						  <div class="form-group">
+						    <div class="input-group">
+						      <div class="input-group-addon"><span class="fa fa-university"></span> Instituição</div>
+						      <textarea required class="form-control noresize" row="100" cols="50" max-cols="50" id="institution" placeholder="Informe a instituição que você estuda" ng-model="institution" ng-bind="user.institution"></textarea>
+						    </div>
+						  </div>
+						  <button type="submit" class="btn btn-primary">Atualizar</button>
+				</form>
+		  	</div>
+		  	<div class="panel-body" class="animate-switch" ng-switch-when="menu4" id="about">
+		  		<form class="form-inline" ng-submit="updateAbout(about)">
+						  <div class="form-group">
+						    <div class="input-group">
+						      <div class="input-group-addon"><span class="fa fa-tree"></span> Sobre mim:</div>
+						      <textarea required class="form-control noresize" row="150" cols="50" max-cols="50" id="about" placeholder="Informe a instituição que você estuda" ng-model="about" ng-bind="user.about"></textarea>
+						    </div>
+						  </div>
+						  <button type="submit" class="btn btn-primary">Atualizar</button>
+				</form>
+		  	</div>
+		  	<div class="panel-body" class="animate-switch" ng-switch-when="menu4"></div>
+		</div>
+</div>

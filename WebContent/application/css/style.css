@@ -1,0 +1,52 @@
+.c-red{ color: #f00; }
+
+#logo-container img{ margin-bottom: -10px !important;}
+
+#user{ margin-top: 15px; margin-left: 20px}
+
+.card-content{ cursor: pointer;}
+
+#perfil header{ text-align: center; padding: 2em }
+#perfil header nav ul.hide-on-med-and-down li{ float: none; display: inline-flex}
+#perfil header img.circle{ max-width: 160px }
+#perfil header h1{ color: #fff; font-size: 15px;}
+#perfil #content{ padding: 2em }
+#perfil .form-control, #perfil .collection-item{ text-transform: capitalize }
+.select-box{ min-height: 60px }
+.select-box li:not(:first-child), .select-box select option:not(:first-child){ text-transform: uppercase; }
+
+#work .fa-star{ color: #f00;}
+#work .fa-star-o{ color: #BBB6B6 }
+#work .badge{ position: static; margin-right: 10px; padding: 3px 10px}
+#work .card-title{ text-transform: capitalize; }
+#work .card-reveal .card-title{ font-size: 20px;}
+#work .card .obs{ font-size: 13px; }
+#work .card button.fa{ background: none; border: none; }
+#work .card-reveal .submit-rating{  }
+#work .header{ text-transform: capitalize;}
+
+.loading .hide-while-loading{ display: none !important}
+.loading #loading{
+	display: block; 
+	position: absolute; top: 50%; left: 50%; margin: -30px 0 0 -121px; 
+	animation: loading 2s linear infinite alternate;
+}
+.loading{ background: #2196F3 !important}
+
+@keyframes loading {
+    from {opacity: 1; 
+    	-webkit-transform: scale(1);
+       -moz-transform: scale(1);
+        -ms-transform: scale(1);
+         -o-transform: scale(1);
+            transform: scale(1);
+        }
+    to {
+    	opacity: 0.2;
+    	-webkit-transform: scale(0.8);
+    	   -moz-transform: scale(0.8);
+    	    -ms-transform: scale(0.8);
+    	     -o-transform: scale(0.8);
+    	        transform: scale(0.8);
+    }
+}
