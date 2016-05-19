@@ -7,7 +7,7 @@ import java.sql.SQLException;
 public class ConnectionFactory {
 	
 	/**
-	 * Server openshift teste s
+	 * Server openshift
 	 */
 	
 	/*public static final String HOST_NAME = "127.11.163.130";
