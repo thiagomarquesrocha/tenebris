@@ -38,7 +38,17 @@ app = angular.module('App', ['ngRoute', 'ngProgress'])
 		controller  : 'ProfileCtrl'
 	})
 
-	.when('/obra/:obraId', {
+	.when('/obra/cadastrar', {
+		templateUrl : 'views/obra_cadastrar.html',
+		controller  : 'NewWorkCtrl'
+	})
+  
+  .when('/obra/listar', {
+		templateUrl : 'views/obra_listar.html',
+		controller  : 'MyWorksCtrl'
+	})
+  
+  .when('/obra/:obraId', {
 		templateUrl : 'views/obra.html',
 		controller  : 'ViewWorkCtrl'
 	})

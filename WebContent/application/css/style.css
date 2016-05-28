@@ -1,10 +1,12 @@
 .c-red{ color: #f00; }
+.text-w{ color: #fff }
 
 #logo-container img{ margin-bottom: -10px !important;}
 
 #user{ margin-top: 15px; margin-left: 20px}
 
 .card-content{ cursor: pointer;}
+
 
 #perfil header{ text-align: center; padding: 2em }
 #perfil header nav ul.hide-on-med-and-down li{ float: none; display: inline-flex}
@@ -15,6 +17,8 @@
 .select-box{ min-height: 60px }
 .select-box li:not(:first-child), .select-box select option:not(:first-child){ text-transform: uppercase; }
 
+#work{ padding-top: 0}
+#work .header h1{ font-size: 3.2rem }
 #work .fa-star{ color: #f00;}
 #work .fa-star-o{ color: #BBB6B6 }
 #work .badge{ position: static; margin-right: 10px; padding: 3px 10px}
@@ -24,6 +28,10 @@
 #work .card button.fa{ background: none; border: none; }
 #work .card-reveal .submit-rating{  }
 #work .header{ text-transform: capitalize;}
+
+#obra-cadastrar .header{ color: #fff }
+
+.fixing{ overflow: hidden }
 
 .loading .hide-while-loading{ display: none !important}
 .loading #loading{

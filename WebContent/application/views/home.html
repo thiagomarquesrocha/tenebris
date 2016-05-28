@@ -1,42 +1,41 @@
 <!--Work-->
 <div class="section scrollspy" id="work">
-    <div class="container">
-        <h2 class="header text_b">TCCs, Artigos, Teses e Dissertações </h2>
-        <div class="row">
-            <div class="col s12 14" ng-class="getGrid($index)" ng-repeat="work in works track by $index">
-                <div class="card">
-                    <!-- <div class="card-image waves-effect waves-block waves-light">
-                        <img class="activator" src="site/img/project1.jpg">
-                    </div> -->
-                    <div class="card-content activator" ng-click="view(work.id)">
-                        <span class="card-title activator grey-text text-darken-4">{{work.titulo}} <!-- <i class="mdi-navigation-more-vert right"></i> --></span>
-                        <p>{{ work.resumo | limitTo: 150 }} {{ work.resumo.length > 150 ? '...' : ''}}</p>
-                        <p class="activator"><a href="">{{work.autor}}</a></p>
-                        <p class="activator">{{work.time | date:'yyyy'}}</p>
-                        <p class="activator"><span class="badge amber darken-4 white-text activator">{{work.area}}</span></p>
-                        <p class="activator">
-                        	<button class="fa activator" ng-class="(i <= work.avaliacao)? 'fa-star' : 'fa-star-o'" ng-repeat="i in [1,2,3,4,5]"></button>
-                        </p>
+    <div class="panel-body">
+        <header class="fixing header white z-depth-1">
+            <div class="container">
+                <h1 class="text_b"><i class="material-icons fa fa-book"></i> TCCs, Artigos, Teses e Dissertações</h1>
+            </div>
+        </header>
+        <div class="container">
+            <div class="row">
+                <div class="col s12 14" ng-class="getGrid($index)" ng-repeat="work in works track by $index">
+                    <div class="card">
+                        <!-- <div class="card-image waves-effect waves-block waves-light">
+                            <img class="activator" src="site/img/project1.jpg">
+                        </div> -->
+                        <div class="card-content activator" ng-click="view(work.id)">
+                            <span class="card-title activator grey-text text-darken-4">{{work.titulo}} <!-- <i class="mdi-navigation-more-vert right"></i> --></span>
+                            <p>{{ work.resumo | limitTo: 150 }} {{ work.resumo.length > 150 ? '...' : ''}}</p>
+                            <p class="activator"><a href="">{{work.autor}}</a></p>
+                            <p class="activator">{{work.time | date:'yyyy'}}</p>
+                            <p class="activator"><span class="badge amber darken-4 white-text activator">{{work.area}}</span></p>
+                            <p class="activator">
+                                <button class="fa activator" ng-class="(i <= work.avaliacao)? 'fa-star' : 'fa-star-o'" ng-repeat="i in [1,2,3,4,5]"></button>
+                            </p>
+                            <a class="btn-floating btn-large waves-effect waves-light red" title="Baixar"><i class="material-icons fa fa-download"></i></a>
+                        </div>
                     </div>
-                    <!-- <div class="card-reveal">
-                        <span class="card-title grey-text text-darken-4">{{work.titulo}} <i class="mdi-navigation-close right"></i></span>
-                        <p>{{ work.resumo | limitTo: 150 }} {{ work.resumo.length > 150 ? '...' : ''}}</p>
-                        <p class="activator"><a href="">{{work.autor}}</a></p>
-                        <p class="activator">{{work.time | date:'yyyy'}}</p>
-                        <p class="activator"><span class="badge amber darken-4 white-text activator">{{work.area}}</span></p>
-                        <p class="activator">
-                        	<button class="fa" ng-show="work.avaliacao > 0 || work.submited" ng-class="(i <= work.avaliacao)? 'fa-star' : 'fa-star-o'" ng-repeat="i in [1,2,3,4,5]"></button>
-                            <div ng-show="work.avaliacao <= 0">
-                                <p class="obs"><span class="c-red">*</span> Passe o mouse sobre as estrelas e deixe sua avaliação</p>
-                                <button class="fa" ng-class="(i <= work.preavaliacao)? 'fa-star' : 'fa-star-o'" ng-repeat="i in [1,2,3,4,5]" ng-mouseenter="rating(work, $index)"></button>
-                                <button class="btn waves-effect waves-light red darken-1 submit-rating" ng-show="work.isSubmiting" ng-click="submitRating(work)">
-                                    <i class="mdi-content-send white-text"></i>
-                                </button>
-                            </div>
-                        </p>
-                    </div> -->
                 </div>
             </div>
         </div>
     </div>
+    <div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
+    <a class="btn-floating btn-large red" title="Meus acervos">
+      <i class="large material-icons fa fa-folder-open"></i>
+    </a>
+    <ul>
+      <li><a class="btn-floating green" title="Minha lista de acervos" href="#/obra/listar"><i class="material-icons fa fa-navicon"></i></a></li>
+      <li><a class="btn-floating blue darken-1" title="Cadastrar uma nova obra" href="#/obra/cadastrar"><i class="material-icons fa fa-plus"></i></a></li>
+    </ul>
+  </div>
 </div>

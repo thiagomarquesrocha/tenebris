@@ -1,7 +1,11 @@
 <!--Work-->
 <div class="section scrollspy" id="work">
+    <header class="fixing header blue darken-1 z-depth-1">
+		        <div class="container">
+                    <h1 class="text-w"><i class="material-icons fa fa-book"></i> {{ work.titulo }}</h1>
+                 </div>
+	</header>
     <div class="container">
-        <h2 class="header text_b">{{ work.titulo }} </h2>
         <div class="row">
             <div class="col s12 14" ng-class="getGrid($index)">
                 <div class="card">
@@ -9,6 +13,7 @@
                         <img class="activator" src="site/img/project1.jpg">
                     </div> -->
                     <div class="card-content activator">
+                        <p><strong>Resumo</strong></p>
                         <p>{{ work.resumo }}</p>
                         <p class="activator"><a href="">{{work.autor}}</a></p>
                         <p class="activator">{{work.time | date:'yyyy'}}</p>
