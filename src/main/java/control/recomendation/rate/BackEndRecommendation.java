@@ -1,6 +1,7 @@
 package control.recomendation.rate;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
@@ -73,7 +74,7 @@ public class BackEndRecommendation extends RecommendControl{
   return recommender.recommend(custId, noOfRecommendations);
  }
 
- public void displayRecommendations(int custId, List<RecommendedItem> recommendations) {
+ public void displayRecommendations(int custId, List<RecommendedItem> recommendations) throws SQLException {
 	  json = new SaidaJSON();
 	  System.out.println("Recommendções para usuario " + custId + " são:");
 	

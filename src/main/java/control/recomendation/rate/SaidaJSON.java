@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
 
+import control.ConnectionPool;
 import control.JSONUtil;
 import control.factory.ConnectionFactory;
 import model.Obra;
@@ -23,28 +24,15 @@ public class SaidaJSON {
 		gson = new Gson();
 	}
 	
-	public void JSON(int obraId, int usuarioId) {
+	public void JSON(int obraId, int usuarioId) throws SQLException {
 		
-	  String url = ConnectionFactory.HOST;
-	  String dbName = ConnectionFactory.BD;
-	  String driver = "com.mysql.jdbc.Driver";
-	  String userName = ConnectionFactory.USER; 
-	  String password = ConnectionFactory.PASSWORD;
-	  
-	  /*String url = "jdbc:mysql://localhost:3306/";
-	  String dbName = "csv_db";
-	  String driver = "com.mysql.jdbc.Driver";
-	  String userName = "root"; 
-	  String password = "";*/
+		Connection conn = ConnectionPool.getInstance().getConnection();
+ 		Statement st = conn.createStatement();
 	  
 	  System.out.println("ID da obra :" + obraId);
 
 	  
 	  try {
-		  
-		  Class.forName(driver).newInstance();
-		  DriverManager.registerDriver(new com.mysql.jdbc.Driver());
-		  Connection conn = DriverManager.getConnection(url+dbName,userName,password);
 		  
 		  String sql = String.format("SELECT a.*, b.avaliacao FROM (SELECT a.id as obraId, a.autor, a.resumo, a.data, LCASE(a.titulo) as titulo, b.nome as nome1, c.nome as nome2 FROM obra a, area b, instituicao c WHERE a.area=b.id AND c.id = a.instituicao AND a.id = %s) a LEFT OUTER JOIN (SELECT * FROM avaliacao WHERE obra = %s AND usuario = %s) b ON a.obraId = b.obra", obraId, obraId, usuarioId);
 		  
