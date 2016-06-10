@@ -10,6 +10,7 @@ public class Obra {
     private String resumo;
     private String data;
 	private int avaliacao;
+	private String file;
  
 	public int getid() {
         return id;
@@ -58,7 +59,7 @@ public class Obra {
     }
     
     public void setdata(String data) {
-    	this.resumo = data;
+    	this.data = data;
     }
 
 	public void setAvaliacao(int i) {
@@ -67,6 +68,14 @@ public class Obra {
 	
 	public int getAvaliacao(){
 		return avaliacao;
+	}
+
+	public void setFile(String file) {
+		this.file = file;
+	}
+	
+	public String getFile(){
+		return file;
 	}
     
 }

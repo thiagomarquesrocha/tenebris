@@ -182,7 +182,9 @@ app
   });
 })
 
-.controller('WorkCtrl', function ($rootScope, $scope, $location, $http, $filter, sharedService) {
+.controller('WorkCtrl', function ($rootScope, $scope, $location, $timeout, $http, $filter, sharedService) {
+
+  var isCanceled = false;
 
   $rootScope.activetab = $location.path();
   $scope.grid = [12];
@@ -195,7 +197,21 @@ app
   }); // ON
 
   $scope.view = function(id){
+    if(isCanceled) return;
     $location.path('/obra/' + id);
+  }
+
+  $scope.open = function(url){
+    isCanceled = true;
+    if(url){
+      console.log(url);
+      url = "\\tenebris2016\\" + url.substring(url.indexOf("\obras"));
+      console.log(url);
+      window.open(url);
+    }
+    $timeout(function(){
+      isCanceled = false;
+    }, 300);
   }
 
 	$scope.add = function(){
@@ -284,16 +300,57 @@ app
 
 })
 
-.controller('NewWorkCtrl', function($scope, $timeout){
+.controller('NewWorkCtrl', function($scope, $timeout, $http){
   $timeout(function(){
      $(document).ready(function() {
       Materialize.updateTextFields();
+      // Interface input date 
       $('.datepicker').pickadate({
         selectMonths: true, // Creates a dropdown to control month
-        selectYears: 15 // Creates a dropdown of 15 years to control year
+        selectYears: 15, // Creates a dropdown of 15 years to control year
+        onSet: function(context) {
+          console.log('Just set stuff:', context);
+          var d = context.select;
+          $scope.date = d.year + "-" + d.month + "-" + d.date;
+        }
       });
     });
   }, 200);
+
+  $scope.save = function(){
+        var user = User.getId();
+        if(!user){
+          Materialize.toast("Você precisa está logado para realizar essa operação", 4000);
+          return;
+        }
+        var file = $scope.file;
+        var uploadUrl = Actions.work.new;
+        var fd = new FormData();        
+        fd.append('title', $scope.title);
+        // 1 - EST
+        fd.append('institution', 1);
+        fd.append('auth', $scope.auth);
+        fd.append('area', 1);
+        fd.append('date', $scope.date);
+        fd.append('user', user);
+        fd.append('resume', $scope.resume);
+        fd.append('file', file);
+        $http.post(uploadUrl, fd, {
+            transformRequest: angular.identity,
+            headers: {'Content-Type': undefined}
+        })
+        .success(function(data){
+          console.log(data);
+          if(data.code == Code.OPERACAO_COMPLETADA){
+            Materialize.toast("Cadastrada com sucesso", 4000);
+            $location.path('#/');
+          }else{
+            Materialize.toast("Não foi possível cadastrar a obra, por favor tente novamente", 4000);
+          }
+        })
+        .error(function(){
+        });
+    }
 })
 
 .controller('MyWorksCtrl', function($scope){

@@ -8,38 +8,38 @@
         <div class="container">
             <div class="row">
                 <p>* Preencha todos os campos</p>
-                <form class="col s12">
+                <form class="col s12" name="cadastrar" ng-submit="save()" enctype="multipart/form-data">
                     <div class="row">
                         <div class="input-field col s12">
                         <i class="material-icons prefix fa fa-font"></i>
-                        <input id="title" type="text" class="validate" placeholder="Nome da obra">
+                        <input id="title" type="text" class="validate" placeholder="Nome da obra" ng-model="title" required>
                         <label for="title">Título</label>
                         </div>
                     </div>
                     <div class="row">
                         <div class="input-field col s12">
                         <i class="material-icons prefix fa fa-user"></i>
-                        <input id="auth" type="text" class="validate" placeholder="Nome do autor">
+                        <input id="auth" type="text" class="validate" placeholder="Nome do autor" ng-model="auth" required>
                         <label for="auth">Autor</label>
                         </div>
                     </div>
                     <div class="row">
                         <div class="input-field col s12">
                         <i class="material-icons prefix fa fa-cubes"></i>
-                        <input id="area" type="text" class="validate" placeholder="Área da obra">
+                        <input id="area" type="text" class="validate" placeholder="Área da obra" ng-model="area" required>
                         <label for="area">Área</label>
                         </div>
                     </div>
                     <div class="row">
                         <div class="input-field col s4">
                             <i class="material-icons prefix fa fa-calendar"></i>
-                            <input type="date" id="date" class="datepicker" class="validate">
+                            <input type="date" id="date" class="datepicker" class="validate" ng-model="date" required>
                             <label for="date">Data de publicação</label>
                         </div>
                         <div class="file-field input-field col s8">
                             <div class="btn red">
                                 <span><i class="fa fa-file-pdf-o"></i> PDF</span>
-                                <input type="file">
+                                <input type="file" name="file" file-model="file" accept="application/pdf" required>
                             </div>
                             <div class="file-path-wrapper">
                                 <input class="file-path validate" type="text">
@@ -49,12 +49,12 @@
                      <div class="row">
                         <div class="input-field col s12">
                             <i class="material-icons prefix fa fa-file-text-o"></i>
-                            <textarea id="textarea1" class="materialize-textarea" maxlength="200"></textarea>
+                            <textarea id="textarea1" class="materialize-textarea" maxlength="200" ng-model="resume" required></textarea>
                             <label for="textarea1">Resumo</label>
                         </div>
                     </div>
                     <div class="row">
-                        <a class="waves-effect waves-light btn-large blue darken-1"><i class="fa fa-save material-icons left"></i> Salvar</a>
+                        <button type="submit" class="waves-effect waves-light btn-large blue darken-1"><i class="fa fa-save material-icons left"></i> Salvar</button>
                     </div>
                 </form>
             </div>

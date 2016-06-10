@@ -1,4 +1,4 @@
-20/**
+/**
 	Lista de codigos retornados durante a requisicao
 	{ "code" : (String) }
 	Ex : code : SUCESS_001, ERRO_001
@@ -44,7 +44,8 @@ var Actions = {
 			"hibryd" 	: SITE + "obra/recomendacao"
 		},
 		"rate" : SITE + "obra/avaliar",
-		"view" : SITE + "obra"
+		"view" : SITE + "obra",
+		"new" : SITE + "obra/cadastrar",
 	},
 	"preferences" :{
 		add_interest : 2,

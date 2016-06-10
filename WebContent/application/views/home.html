@@ -22,7 +22,7 @@
                             <p class="activator">
                                 <button class="fa activator" ng-class="(i <= work.avaliacao)? 'fa-star' : 'fa-star-o'" ng-repeat="i in [1,2,3,4,5]"></button>
                             </p>
-                            <a class="btn-floating btn-large waves-effect waves-light red" title="Baixar"><i class="material-icons fa fa-download"></i></a>
+                            <a class="btn-floating btn-large waves-effect waves-light" ng-class="{ red : (work.file), grey : (!work.file) }" title="{{ (!work.file)? 'Não disponível' : 'Baixar' }}" ng-click="open(work.file)"><i class="material-icons fa fa-download"></i></a>
                         </div>
                     </div>
                 </div>
