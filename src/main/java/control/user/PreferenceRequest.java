@@ -5,8 +5,8 @@ import javax.servlet.http.HttpServletRequest;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import control.JSONData;
 import control.factory.InterestFactory;
-import model.JSONData;
 import model.JSONOut;
 import model.Preference;
 import model.Request;

@@ -10,7 +10,7 @@ import control.Conversor;
 import model.JSONOut;
 import model.UserWork;
 
-public class WorkSQL {
+public class WorkControl {
 
 	public static void findById(WorkDao dao, Object[] o) {
 		// Transforma em JSON a saida

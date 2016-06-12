@@ -11,9 +11,20 @@
                 <form class="col s12" name="cadastrar" ng-submit="save()" enctype="multipart/form-data">
                     <div class="row">
                         <div class="input-field col s12">
-                        <i class="material-icons prefix fa fa-font"></i>
-                        <input id="title" type="text" class="validate" placeholder="Nome da obra" ng-model="title" required>
-                        <label for="title">Título</label>
+                            <i class="material-icons prefix fa fa-font"></i>
+                            <input id="title" type="text" class="validate" placeholder="Nome da obra" ng-model="title" required>
+                            <label for="title">Título</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <i class="material-icons prefix fa fa-institution"></i>
+                            <div class="select-box" ng-init="listInstitutions()">
+                                <select class="validate" id="institution" ng-model="institution" required>
+                                    <option value="{{institution.id}}" ng-repeat="institution in institutions" ng-selected="isDefaultOption(institution)">{{institution.nome | uppercase}}</option>
+                                </select>
+                                <label for="institution">Instituição</label>
+                            </div>
                         </div>
                     </div>
                     <div class="row">
@@ -33,7 +44,7 @@
                     <div class="row">
                         <div class="input-field col s4">
                             <i class="material-icons prefix fa fa-calendar"></i>
-                            <input type="date" id="date" class="datepicker" class="validate" ng-model="date" required>
+                            <input type="date" id="date" class="datepicker" class="validate" ng-model="datepicker" required>
                             <label for="date">Data de publicação</label>
                         </div>
                         <div class="file-field input-field col s8">

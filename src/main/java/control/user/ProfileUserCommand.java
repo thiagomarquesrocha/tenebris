@@ -3,9 +3,9 @@ package control.user;
 import javax.servlet.http.HttpSession;
 import org.json.JSONObject;
 
-import control.DataFactory;
+import control.JSONData;
 import control.Print;
-import model.JSONData;
+import control.factory.DataFactory;
 import model.JSONOut;
 import model.User;
 

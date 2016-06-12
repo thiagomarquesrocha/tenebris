@@ -9,7 +9,6 @@ import control.factory.WorkCommandFactory;
 import control.recomendation.profile.Principal;
 import control.recomendation.rate.BackEndRating;
 import control.recomendation.rate.BackEndRecommendation;
-import model.MainCommand;
 import model.RecommendRate;
 /**
  * Gerenciador de Requisicoes 

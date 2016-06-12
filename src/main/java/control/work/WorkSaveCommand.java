@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
+import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.Calendar;
 import java.util.Iterator;
@@ -15,11 +17,12 @@ import org.apache.commons.fileupload.FileUpload;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
+import control.ConnectionSingleton;
+import control.JSONData;
 import control.Print;
-import model.JSONData;
+import control.area.AreaControl;
 import model.JSONOut;
 import model.Obra;
-import model.ObraDao;
 
 public class WorkSaveCommand extends WorkCommand{
 
@@ -47,7 +50,7 @@ public class WorkSaveCommand extends WorkCommand{
 	        while (iter.hasNext()) {
 	            FileItem item = (FileItem) iter.next();
 	            String field = item.getFieldName();
-	            String value = item.getString();
+	            String value = item.getString("UTF-8");
 	            // Others inputs from form
 	            if(field.equals("title")){
 	            	work.settitulo(value);
@@ -73,6 +76,7 @@ public class WorkSaveCommand extends WorkCommand{
 		                    	save(item, work, user);
 		                    	data.put(JSONOut.CODE, JSONOut.Sucess.COMPLETADA);
 		                    }catch(Exception e){
+		                    	e.printStackTrace();
 		                    	data.put(JSONOut.CODE, JSONOut.Erro.OCORREU_ALGUM_ERRO);
 		                    }
 		                }
@@ -107,14 +111,8 @@ public class WorkSaveCommand extends WorkCommand{
 		Calendar cal = Calendar.getInstance();
 		
 		String nome =  cal.get(Calendar.DAY_OF_MONTH)+ "_" + cal.get(Calendar.MONTH) + "_" + cal.get(Calendar.YEAR) + "_" + cal.get(Calendar.HOUR_OF_DAY) + "_" + cal.get(Calendar.MINUTE) + "_" + cal.getTimeInMillis() + ".pdf";
-		/*String nome = item.getName();
-		String arq[] = nome.split("\\\\");
-		for (int i = 0; i < arq.length; i++) {
-			nome = arq[i];
-		}*/
 		
 		System.out.println("Nome : " + nome);
-
 		
 		File file = new File(diretorio, nome);
 		FileOutputStream output = new FileOutputStream(file);
@@ -134,11 +132,32 @@ public class WorkSaveCommand extends WorkCommand{
 		output.flush();
 		output.close();
 		
+		// Insere a area no banco, verificando se ela já existe
+		Connection conn = ConnectionSingleton.getInstance().getConnection();
+		String area = work.getarea();
+		Long areaId = null;
+		
+		System.out.println("Area : " + area);
+		
+		try {
+			areaId = AreaControl.add(conn, area);
+		} catch (Exception e) {
+			// A obra ja existe 
+			try {
+				areaId = AreaControl.findByName(conn, area);
+			} catch (Exception e1) {
+				// Nao foi possivel recuperar o ID
+				e1.printStackTrace();
+			}
+		}
+		
+		System.out.println("ID area : " + areaId.toString());
+
 		//Guarda no banco de dados o endereço para recuperação da imagem
 		ObraDao.insereObra
 		(
 				work.getinstituicao(), 
-				work.getarea(), 
+				areaId.toString(), 
 				work.getautor(), 
 				work.gettitulo(), 
 				work.getdata(), 

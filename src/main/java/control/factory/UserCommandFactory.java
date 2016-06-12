@@ -1,6 +1,7 @@
 package control.factory;
 
 import control.user.PreferenceCRUDCommand;
+import control.MainCommand;
 import control.user.AddUserCommand;
 import control.user.ListInstitutionsCommand;
 import control.user.LoginUserCommand;
@@ -8,7 +9,6 @@ import control.user.LogoutUserCommand;
 import control.user.ProfileUserCommand;
 import control.user.SessionUserCommand;
 import control.user.UpdateAreaCommand;
-import model.MainCommand;
 import model.NoCommand;
 
 public class UserCommandFactory extends CommandFactory<MainCommand> {

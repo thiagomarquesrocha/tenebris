@@ -1,6 +1,6 @@
 package control.user;
 
-import model.Invoke;
+import control.Invoke;
 
 public class UserInvoke extends Invoke {
 	private static final UserInvoke instance = new UserInvoke();

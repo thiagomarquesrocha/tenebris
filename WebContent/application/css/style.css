@@ -7,6 +7,8 @@
 
 .card-content{ cursor: pointer;}
 
+.capitalize{ text-transform: capitalize}
+
 
 #perfil header{ text-align: center; padding: 2em }
 #perfil header nav ul.hide-on-med-and-down li{ float: none; display: inline-flex}
@@ -30,6 +32,7 @@
 #work .header{ text-transform: capitalize;}
 
 #obra-cadastrar .header{ color: #fff }
+#obra-cadastrar .select-box, #obra-cadastrar .select-box label{ margin-left: 3rem}
 
 .fixing{ overflow: hidden }
 

@@ -2,9 +2,9 @@ package control.work;
 
 import org.json.JSONObject;
 
-import control.Dao;
 import control.DataUtil;
-import model.JSONData;
+import control.JSONData;
+import model.Dao;
 import model.JSONOut;
 
 public class WorkDao extends Dao{
@@ -67,7 +67,7 @@ public class WorkDao extends Dao{
 		switch (op) {
 			case FIND_BY_ID :
 				//System.out.println("Executando a busca da obra");
-				WorkSQL.findById(this, o);
+				WorkControl.findById(this, o);
 				break;
 			default:
 				break;

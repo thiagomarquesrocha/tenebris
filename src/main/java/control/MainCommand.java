@@ -1,9 +1,11 @@
-package model;
+package control;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import control.Dao;
+import model.Command;
+import model.Dao;
+import model.Servlet;
 
 public abstract class MainCommand implements Command {
 	private Dao dao;

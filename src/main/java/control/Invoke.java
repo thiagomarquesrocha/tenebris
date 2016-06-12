@@ -1,4 +1,6 @@
-package model;
+package control;
+
+import model.Command;
 
 public class Invoke {
 	private Command command;

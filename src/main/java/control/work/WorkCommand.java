@@ -1,6 +1,6 @@
 package control.work;
 
-import model.MainCommand;
+import control.MainCommand;
 
 public abstract class WorkCommand extends MainCommand {
 	

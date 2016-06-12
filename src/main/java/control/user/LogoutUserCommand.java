@@ -2,11 +2,11 @@ package control.user;
 
 import javax.servlet.http.HttpSession;
 
-import control.DataFactory;
+import control.JSONData;
+import control.MainCommand;
 import control.Print;
-import model.JSONData;
+import control.factory.DataFactory;
 import model.JSONOut;
-import model.MainCommand;
 
 public class LogoutUserCommand extends MainCommand {
 

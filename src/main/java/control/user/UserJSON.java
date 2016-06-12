@@ -8,11 +8,11 @@ import model.JSONOut;
 
 public class UserJSON {
 	public static long getId(JSONArray json) throws JSONException, NullPointerException{
-		return json.getJSONObject(0).getLong(model.Dao.KEY_ID);
+		return json.getJSONObject(0).getLong(model.Config.KEY_ID);
 	}
 	
 	public static long getId(JSONObject data) throws JSONException, NullPointerException{
-		return data.getLong(model.Dao.KEY_ID);
+		return data.getLong(model.Config.KEY_ID);
 	}
 	
 	public static Object get(JSONObject data, String key){

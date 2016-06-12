@@ -1,6 +1,6 @@
-package control;
+package control.factory;
 
-import model.JSONData;
+import control.JSONData;
 
 /**
  * Fabrica de objetos do tipo JSON

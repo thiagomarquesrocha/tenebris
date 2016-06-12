@@ -3,7 +3,6 @@ package control;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import model.JSONData;
 import model.JSONOut;
 
 public class DataUtil {

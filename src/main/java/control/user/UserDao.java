@@ -8,10 +8,10 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import control.Conversor;
-import control.Dao;
 import control.DataUtil;
+import control.JSONData;
 import control.factory.InterestFactory;
-import model.JSONData;
+import model.Dao;
 import model.JSONOut;
 import model.Preference;
 import model.User;
@@ -167,7 +167,7 @@ public class UserDao extends Dao{
 		
 		switch(op){
 			case LIST_INSTITUTIONS :
-				UserSQL.listInstitutions(this);
+				UserControl.listInstitutions(this);
 				break;
 		}
 		
@@ -186,7 +186,7 @@ public class UserDao extends Dao{
 		
 		switch(op){
 			case UPDATE_AREA :
-				UserSQL.updateArea(this, o);
+				UserControl.updateArea(this, o);
 				break;
 		}
 		
@@ -204,10 +204,10 @@ public class UserDao extends Dao{
 		
 		switch (op) {
 			case FIND_BY_LOGIN:
-				UserSQL.findUserByLogin(this, o);
+				UserControl.findUserByLogin(this, o);
 				break;
 			case FIND_BY_ID :
-				UserSQL.findUserById(this, o);
+				UserControl.findUserById(this, o);
 				Preference pref = InterestFactory.create();
 				int total = o.length;
 				int last = o.length-1;

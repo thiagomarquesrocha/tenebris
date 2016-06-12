@@ -2,14 +2,14 @@ package control.recomendation.rate;
 
 import java.sql.*;
 
-import control.ConnectionPool;
+import control.ConnectionSingleton;
 import control.factory.ConnectionFactory;
 
 public class BackEndRating {
 	
 	public static void BackEndRat(int UserID, int ItemID, float VarRating) throws SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException {
 		
-		Connection conn = ConnectionPool.getInstance().getConnection();
+		Connection conn = ConnectionSingleton.getInstance().getConnection();
  		Statement st = conn.createStatement();
 		  
 		  try {

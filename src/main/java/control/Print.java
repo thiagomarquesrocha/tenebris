@@ -6,8 +6,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.json.JSONObject;
 
-import model.JSONData;
-
 public class Print {
 	public static void json(HttpServletResponse response, JSONData data) throws IOException{
 		response.getWriter().append(data.getJSONObject().toString()).close();

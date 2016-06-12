@@ -1,6 +1,6 @@
 package control.user;
 
-import model.MainCommand;
+import control.MainCommand;
 
 public abstract class UserCommand extends MainCommand {
 	

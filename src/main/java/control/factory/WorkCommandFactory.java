@@ -1,8 +1,8 @@
 package control.factory;
 
+import control.MainCommand;
 import control.work.WorkInfoCommand;
 import control.work.WorkSaveCommand;
-import model.MainCommand;
 import model.NoCommand;
 
 public class WorkCommandFactory extends CommandFactory<MainCommand> {

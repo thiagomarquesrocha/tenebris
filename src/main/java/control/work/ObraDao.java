@@ -1,10 +1,10 @@
-package model;
+package control.work;
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 
-import com.google.gson.Gson;
-
-import control.ConnectionPool;
+import control.ConnectionSingleton;
+import model.Obra;
 
 public class ObraDao {
 
@@ -36,16 +36,17 @@ public class ObraDao {
      */
     public static void insereObra(String instituicao, String area, String autor, String titulo, String data, String resumo, String imagem, String usuario) throws SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException {
     	
-    	  Connection conn = ConnectionPool.getInstance().getConnection();
+    	  Connection conn = ConnectionSingleton.getInstance().getConnection();
 		  
 		  String sql = "INSERT INTO obra (instituicao, area, autor, titulo, data, resumo, imagem, usuario) VALUES("+instituicao+","+area+",'"+autor+"','"+titulo+"','"+data+"','"+resumo+"',?,"+usuario+");";
+		  
+		  System.out.println("SQL :" + sql);
 		  
 		  PreparedStatement st = conn.prepareStatement(sql);
 		  
 		  st.setString(1, imagem);
 		  
 		  st.execute();
-		  conn.close();
 			  
 		 /**
 		  * @TODO Quando cadastra uma nova obra, 
@@ -67,7 +68,7 @@ public class ObraDao {
     	
     	 try {
     	
-    	  Connection conn = ConnectionPool.getInstance().getConnection();
+    	  Connection conn = ConnectionSingleton.getInstance().getConnection();
    		  Statement st = conn.createStatement();
 			  
 		String sql = "UPDATE obra SET intituicao="+instituicao+",area = "+area+",autor = "+autor+",titulo = "+titulo+",data = "+data+",resumo="+resumo+",imagem="+imagem+",usuario="+usuario+" WHERE id = "+id+";";
@@ -90,7 +91,7 @@ public static void excluiObra(int id) throws SQLException, InstantiationExceptio
 
 		     try {
 
-		    	 Connection conn = ConnectionPool.getInstance().getConnection();
+		    	 Connection conn = ConnectionSingleton.getInstance().getConnection();
 		   		 Statement st = conn.createStatement();
 
 		 		String sql = "DELETE FROM obra WHERE id = "+id+";";
@@ -109,52 +110,47 @@ public static void ListaObra(int usuario) throws SQLException, InstantiationExce
 	
 
     try {
+   	      Connection conn = ConnectionSingleton.getInstance().getConnection();
 
-   	    Connection conn = ConnectionPool.getInstance().getConnection();
-  		Statement st = conn.createStatement();
-
-  		List<Obra> list = null;
-  		Gson gson;
-  		
-
+    	  List<Obra> list = new ArrayList<>();
   		  
-  		  String sql = String.format("SELECT id, instituicao, area, autor, titulo, data from obra WHERE usuario="+usuario+";");
-  		  
-  		  //System.out.println(sql);
-  		  
-  		  PreparedStatement stmt = conn.prepareStatement(sql);
-  		  ResultSet rs = stmt.executeQuery();
-  		  
-  		  Obra obra = new Obra();
-  		  
-  		  while (rs.next()) {
-  			  
-  			  int obraId = rs.getInt("id");
-  			  String instituicao = rs.getString("instituicao");
-  			  String area = rs.getString("area");
-  			  String autor = rs.getString("autor");
-  			  String titulo = rs.getString("titulo");
-  			  String resumo = rs.getString("resumo");
-  			  String data = rs.getString("data");
-  			  Integer avaliacao = rs.getInt("avaliacao");
-  			  
-  			  obra.setid(obraId);
-  			  obra.setinstituicao(instituicao);
-  			  obra.setarea(area);
-  			  obra.setautor(autor);
-  			  obra.settitulo(titulo);
-  			  obra.setresumo(resumo);
-  			  obra.setdata(data);
-  			  obra.setAvaliacao(avaliacao);
-  			  list.add(obra);
-  		  }
-  		  
-  		  stmt.close();
-  		  conn.close();
-  		  
-  		  } catch (Exception e) {
-  			  e.printStackTrace();
-  		  }
+		  String sql = String.format("SELECT id, instituicao, area, autor, titulo, data from obra WHERE usuario="+usuario+";");
+		  
+		  //System.out.println(sql);
+		  
+		  PreparedStatement stmt = conn.prepareStatement(sql);
+		  ResultSet rs = stmt.executeQuery();
+		  
+		  Obra obra = new Obra();
+		  
+		  while (rs.next()) {
+			  
+			  int obraId = rs.getInt("id");
+			  String instituicao = rs.getString("instituicao");
+			  String area = rs.getString("area");
+			  String autor = rs.getString("autor");
+			  String titulo = rs.getString("titulo");
+			  String resumo = rs.getString("resumo");
+			  String data = rs.getString("data");
+			  Integer avaliacao = rs.getInt("avaliacao");
+			  
+			  obra.setid(obraId);
+			  obra.setinstituicao(instituicao);
+			  obra.setarea(area);
+			  obra.setautor(autor);
+			  obra.settitulo(titulo);
+			  obra.setresumo(resumo);
+			  obra.setdata(data);
+			  obra.setAvaliacao(avaliacao);
+			  list.add(obra);
+		  }
+		  
+		  stmt.close();
+		  conn.close();
+		  
+		  } catch (Exception e) {
+			  e.printStackTrace();
+		  }
     }
     
 }

@@ -2,7 +2,7 @@ package control.factory;
 
 import java.util.HashMap;
 
-import model.MainCommand;
+import control.MainCommand;
 
 /**
  * Fabrica de Comandos - estrutura base 

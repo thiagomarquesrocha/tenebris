@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import control.ConnectionPool;
+import control.ConnectionSingleton;
 import control.RequestManager;
 
 /**
@@ -27,7 +27,7 @@ public class AddUserServlet extends HttpServlet {
      */
     public AddUserServlet() {
 		// Recurepa a conexao
-		con = ConnectionPool.getInstance().getConnection();
+		con = ConnectionSingleton.getInstance().getConnection();
     }
 
 	/**

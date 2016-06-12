@@ -4,15 +4,15 @@ import java.sql.Connection;
 
 import control.factory.ConnectionFactory;
 
-public class ConnectionPool {
-	private static final ConnectionPool instance = new ConnectionPool();
+public class ConnectionSingleton {
+	private static final ConnectionSingleton instance = new ConnectionSingleton();
 	private Connection connection;
 	
-	private ConnectionPool(){
+	private ConnectionSingleton(){
 		connection = new ConnectionFactory().getConnection();
 	}
 
-	public static ConnectionPool getInstance() {
+	public static ConnectionSingleton getInstance() {
 		return instance;
 	}
 

@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
 
-import control.ConnectionPool;
+import control.ConnectionSingleton;
 import control.JSONUtil;
 import control.factory.ConnectionFactory;
 import model.Obra;
@@ -26,7 +26,7 @@ public class SaidaJSON {
 	
 	public void JSON(int obraId, int usuarioId) throws SQLException {
 		
-		Connection conn = ConnectionPool.getInstance().getConnection();
+		Connection conn = ConnectionSingleton.getInstance().getConnection();
  		Statement st = conn.createStatement();
 	  
 	  System.out.println("ID da obra :" + obraId);

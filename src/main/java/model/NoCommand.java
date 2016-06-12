@@ -1,5 +1,7 @@
 package model;
 
+import control.MainCommand;
+
 public class NoCommand extends MainCommand{
 
 	@Override

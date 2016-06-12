@@ -9,12 +9,12 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import control.Conversor;
-import control.Dao;
 import model.Area;
+import model.Dao;
 import model.JSONOut;
 import model.User;
 
-public class UserSQL {
+public class UserControl {
 	
 	public static void findUserByLogin(UserDao dao, Object[] o) {
 		// Transforma em JSON a saida

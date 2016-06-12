@@ -4,12 +4,12 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
-import control.ConnectionPool;
+import control.ConnectionSingleton;
 
 public class Execucao {
 
 	public static void main(String[] args) throws Exception {
-		Connection con = ConnectionPool.getInstance().getConnection();
+		Connection con = ConnectionSingleton.getInstance().getConnection();
 		System.out.println("Conectado!");
 		
 		PreparedStatement stmt = con.prepareStatement("SELECT * FROM nivel");

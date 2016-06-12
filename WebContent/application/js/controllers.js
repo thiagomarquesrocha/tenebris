@@ -300,9 +300,13 @@ app
 
 })
 
-.controller('NewWorkCtrl', function($scope, $timeout, $http){
+.controller('NewWorkCtrl', function($scope, $rootScope, $timeout, $location, $http){
+
+  $rootScope.activetab = $location.path();
+
   $timeout(function(){
      $(document).ready(function() {
+      $("body").animate({ scrollTop : 0 }, 1000);
       Materialize.updateTextFields();
       // Interface input date 
       $('.datepicker').pickadate({
@@ -311,29 +315,66 @@ app
         onSet: function(context) {
           console.log('Just set stuff:', context);
           var d = context.select;
-          $scope.date = d.year + "-" + d.month + "-" + d.date;
+          var day = d.date;
+          var month = d.month;
+          var year = d.year;
+          if(typeof d === "number"){
+            var dtmp = new Date(d);
+            day = dtmp.getDate();
+            month = dtmp.getMonth() + 1;
+            year = dtmp.getFullYear();
+          }
+          $scope.date = year + "-" + month + "-" + day;
         }
       });
     });
   }, 200);
 
+  $scope.isDefaultOption = function(institution){
+      //console.log(institution);
+      var isSelected = institution.id == 1;
+      return isSelected; // EST
+  }
+
+  $scope.listInstitutions = function(){
+    User.getInstitutions(function(data){
+        //console.log(data);
+        $scope.institutions = data;
+        $timeout(function(){
+          $scope.institution = 1; // EST
+          $('select').material_select();
+        }, 200);
+    });
+  }
+
   $scope.save = function(){
         var user = User.getId();
+        var d = $scope.date;
+        var institution = $scope.institution;
+        console.log(institution);
         if(!user){
           Materialize.toast("Você precisa está logado para realizar essa operação", 4000);
+          return;
+        }
+        if(!institution || institution == ''){
+          Materialize.toast("Você precisa selecionar a instituição", 4000);
+          return;
+        }
+        if(!d){
+          Materialize.toast("Você precisa selecionar a data da obra", 4000);
           return;
         }
         var file = $scope.file;
         var uploadUrl = Actions.work.new;
         var fd = new FormData();        
-        fd.append('title', $scope.title);
+        fd.append('title', $scope.title.toLowerCase());
         // 1 - EST
-        fd.append('institution', 1);
-        fd.append('auth', $scope.auth);
-        fd.append('area', 1);
+        fd.append('institution', institution);
+        fd.append('auth', $scope.auth.toLowerCase());
+        fd.append('area', $scope.area.toLowerCase());
         fd.append('date', $scope.date);
         fd.append('user', user);
-        fd.append('resume', $scope.resume);
+        fd.append('resume', $scope.resume.toLowerCase());
         fd.append('file', file);
         $http.post(uploadUrl, fd, {
             transformRequest: angular.identity,
@@ -353,7 +394,10 @@ app
     }
 })
 
-.controller('MyWorksCtrl', function($scope){
+.controller('MyWorksCtrl', function($scope, $rootScope, $location){
+
+  $rootScope.activetab = $location.path();
+
   $scope.works = [{"id":27,"instituicao":"est","area":"computação e informática","autor":"Deitel","titulo":"Sistemas Operacionais","resumo":"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integera mollis nulla. Nam pellentesqu e eu lacus a mattis. Maecenas ornare nibh in lacus feugiat con dimentum. Duis viverra nisl mi, vitae tincidunt augue\r\nfringilla.","avaliacao":3},{"id":24,"instituicao":"est","area":"computação e informática","autor":"Andrew S. Tanembaum","titulo":"Organização e Estrutura de Computadores","resumo":"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integera mollis nulla. Nam pellentesqu e eu lacus a mattis. Maecenas ornare nibh in lacus feugiat con dimentum. Duis viverra nisl mi, vitae tincidunt augue\r\nfringilla.","avaliacao":0},{"id":26,"instituicao":"est","area":"computação e informática","autor":"Iam Sommerville","titulo":"Engenharia de Software","resumo":"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integera mollis nulla. Nam pellentesqu e eu lacus a mattis. Maecenas ornare nibh in lacus feugiat con dimentum. Duis viverra nisl mi, vitae tincidunt augue\r\nfringilla.","avaliacao":3},{"id":21,"instituicao":"est","area":"engenharia da computação","autor":"Belmiro N. João","titulo":"Informática Aplicada","resumo":"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integera mollis nulla. Nam pellentesqu e eu lacus a mattis. Maecenas ornare nibh in lacus feugiat con dimentum. Duis viverra nisl mi, vitae tincidunt augue\r\nfringilla.","avaliacao":3},{"id":29,"instituicao":"est","area":"informática","autor":"H.l Capron e J.A Johson","titulo":"Introdução a informática","resumo":"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integera mollis nulla. Nam pellentesqu e eu lacus a mattis. Maecenas ornare nibh in lacus feugiat con dimentum. Duis viverra nisl mi, vitae tincidunt augue\r\nfringilla.","avaliacao":0},{"id":22,"instituicao":"est","area":"inteligÃªncia artificial","autor":"Fabio Santos Silva","titulo":"Desenvolvimento de um\r\nSistema de Recomendação de\r\nDocumentos Acadêmicos\r\nUtilizando Técnicas de\r\nFiltragem de Informação e\r\nAprendizagem de Máquina","resumo":"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integera mollis nulla. Nam pellentesqu e eu lacus a mattis. Maecenas ornare nibh in lacus feugiat con dimentum. Duis viverra nisl mi, vitae tincidunt augue\r\nfringilla.","avaliacao":0},{"id":19,"instituicao":"est","area":"inteligência artificial","autor":"Fabio Santos Silva","titulo":"PersonalTVware: Uma\r\nInfraestrutura de Suporte a\r\nSistemas de Recomendação\r\nSensÃ­veis ao Contexto para TV\r\nDigital Personalizada","resumo":"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integera mollis nulla. Nam pellentesqu e eu lacus a mattis. Maecenas ornare nibh in lacus feugiat con dimentum. Duis viverra nisl mi, vitae tincidunt augue\r\nfringilla.","avaliacao":0},{"id":28,"instituicao":"est","area":"engenharia da computação","autor":"Deitel","titulo":"Java como programar","resumo":"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integera mollis nulla. Nam pellentesqu e eu lacus a mattis. Maecenas ornare nibh in lacus feugiat con dimentum. Duis viverra nisl mi, vitae tincidunt augue\r\nfringilla.","avaliacao":0},{"id":18,"instituicao":"est","area":"inteligência artificial","autor":"George F. Lucas","titulo":"InteligÃªncia Artificial","resumo":"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integera mollis nulla. Nam pellentesqu e eu lacus a mattis. Maecenas ornare nibh in lacus feugiat con dimentum. Duis viverra nisl mi, vitae tincidunt augue\r\nfringilla.","avaliacao":0},{"id":20,"instituicao":"est","area":"educação","autor":"Thiago Marques","titulo":"NOTA 10 - Um Objeto de\r\nAprendizagem em Dispositivos\r\nMóveis Voltado Para\r\nMatemática Básica","resumo":"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integera mollis nulla. Nam pellentesqu e eu lacus a mattis. Maecenas ornare nibh in lacus feugiat con dimentum. Duis viverra nisl mi, vitae tincidunt augue\r\nfringilla.","avaliacao":0}];
 })
 
