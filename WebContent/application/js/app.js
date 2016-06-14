@@ -62,7 +62,7 @@ app = angular.module('App', ['ngRoute', 'ngProgress'])
   
   .when('/obra/listar', {
 		templateUrl : 'views/obra_listar.html',
-		controller  : 'MyWorksCtrl'
+		controller  : 'WorkCtrl'
 	})
   
   .when('/obra/:obraId', {

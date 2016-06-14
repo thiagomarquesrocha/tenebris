@@ -16,7 +16,7 @@
                             <p class="activator"><a href="">{{work.autor}}</a></p>
                             <p class="activator">{{work.time | date:'yyyy'}}</p>
                             <p class="activator"><span class="badge amber darken-4 white-text activator">{{work.area}}</span></p>
-                            <a class="btn-floating btn-large waves-effect waves-light red" title="Baixar"><i class="material-icons fa fa-download"></i></a>
+                            <a class="btn-floating btn-large waves-effect waves-light" ng-class="{ red : (work.file), grey : (!work.file) }" title="{{ (!work.file)? 'Não disponível' : 'Baixar' }}" ng-click="open(work.file)"><i class="material-icons fa fa-download"></i></a>
                             <a class="btn-floating btn-large waves-effect waves-light green" title="Editar"><i class="material-icons fa fa-edit"></i></a>
                         </div>
                     </div>

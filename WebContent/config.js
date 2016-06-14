@@ -46,6 +46,7 @@ var Actions = {
 		"rate" : SITE + "obra/avaliar",
 		"view" : SITE + "obra",
 		"new" : SITE + "obra/cadastrar",
+		"list" : SITE + "obra/listar"
 	},
 	"preferences" :{
 		add_interest : 2,

@@ -32,6 +32,7 @@ public class RequestManager {
 	public static final int ATUALIZAR_USUARIO_AREA = 12;
 	public static final int LISTAR_INSTITUICOES = 13;
 	public static final int CADASTRAR_NOVA_OBRA = 14;
+	public static final int LISTAR_OBRAS_USUARIO = 15;
 	
 	private int op;
 	HttpServletResponse response;
@@ -116,6 +117,9 @@ public class RequestManager {
 				break;
 			case CADASTRAR_NOVA_OBRA :  // Cadastrar nova obra
 				execute(CommandFacade.FACTORY_WORK, WorkCommandFactory.NEW, CommandFacade.FACTORY_WORK, DaoFactory.WORK);
+				break;
+			case LISTAR_OBRAS_USUARIO: // Listar obras de um usuario
+				execute(CommandFacade.FACTORY_WORK, WorkCommandFactory.LIST_BY_USER, CommandFacade.FACTORY_WORK, DaoFactory.WORK);
 				break;
 		}
 	}

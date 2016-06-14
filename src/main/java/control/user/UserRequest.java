@@ -18,6 +18,7 @@ public class UserRequest extends Request<User> {
 	private static final String AREA = "area";
 	private static final String AREA_ID = "areaId";
 	private static final String INSTITUTION = "institution";
+	private static final String COMMAND = "command";
 	
 	private User user;
 	
@@ -87,7 +88,7 @@ public class UserRequest extends Request<User> {
 	public User get(HttpServletRequest request) {
 		try {
 			user = UserFactory.create();
-			updateArea();
+			getParameters();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -99,7 +100,7 @@ public class UserRequest extends Request<User> {
 	public User post(StringBuffer sb) {
 		try {
 			user = UserFactory.create();
-			updateArea();	
+			getParameters();	
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -107,28 +108,35 @@ public class UserRequest extends Request<User> {
 	}
 	
 
-	private void updateArea() {
+	private void getParameters() {
 		
 		// GET
 		String id = request.getParameter(ID);
+		String command = request.getParameter(COMMAND);
 		String areaName = request.getParameter(AREA);
 		String areaId = request.getParameter(AREA_ID);
 		
+		String method = request.getMethod();
+		
 		// POST
-		if(id == null && areaName == null && areaId == null){
+		if(method.equals("POST")){
 			try {
 				JSONObject json = new JSONObject(sb.toString());
 				id = json.optString(ID);
 				areaName = json.optString(AREA);
 				areaId = json.optString(AREA_ID);
+				command = json.optString(COMMAND);
 			} catch (JSONException e) {
 				e.printStackTrace();
 			}
-		}
+		} 
+		
+		setId(id, user);
+		
+		if(command != null && command.equals("listByUser")) // ONLY USER
+			return;
 		
 		Area area = new Area();
-		if( id != null)
-			user.setId(Long.valueOf(id));
 		if(areaId != null && areaId.length() > 0)
 			area.setId(Long.valueOf(areaId));
 		if(areaName != null)
@@ -137,5 +145,10 @@ public class UserRequest extends Request<User> {
 		user.setArea(area);
 		
 		System.out.println(String.format("User = %s, ID = %s, Nome = %s", user.getId(), area.getId(), area.getNome()));
+	}
+
+	private void setId(String id, User user) {
+		if( id != null)
+			user.setId(Long.valueOf(id));
 	}
 }

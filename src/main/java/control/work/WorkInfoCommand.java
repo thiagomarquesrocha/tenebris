@@ -11,6 +11,7 @@ public class WorkInfoCommand extends WorkCommand{
 	public void execute() throws Exception {
 		// Conteudo do getResponse()
 		getResponse().setContentType("text/javascript");
+		getResponse().setCharacterEncoding("UTF-8");
 		
 		// Cria a obra e o usuario
 		UserWork userWork = WorkUserRequest.getInstance().create(getRequest());

@@ -35,14 +35,14 @@ public class JSONUtil {
 		return gson.fromJson(yourString, c);
 	}
 	
-	public static String get(HttpServletResponse response, Object object) throws IOException {
+	public static String get(Object object) throws IOException {
 		String saidafinal = gson.toJson(object);
 		String yourString = new String(saidafinal.getBytes("UTF-8"));
 		return yourString;
 	}
 	
 	public static void print(HttpServletResponse response, Object object) throws IOException {
-		String yourString = get(response, object);
+		String yourString = get(object);
 		response.getWriter().append(yourString);
 	}
 	

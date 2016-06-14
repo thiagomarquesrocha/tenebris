@@ -2,6 +2,7 @@ package control.factory;
 
 import control.MainCommand;
 import control.work.WorkInfoCommand;
+import control.work.WorkListByUserCommand;
 import control.work.WorkSaveCommand;
 import model.NoCommand;
 
@@ -12,6 +13,7 @@ public class WorkCommandFactory extends CommandFactory<MainCommand> {
 	// Comandos de obras
 	public static final String VIEW = "view work";
 	public static final String NEW = "new work";
+	public static final String LIST_BY_USER = "list by user";
 	
 	private WorkCommandFactory(){
 		
@@ -31,6 +33,9 @@ public class WorkCommandFactory extends CommandFactory<MainCommand> {
 				break;
 			case NEW:
 				c = new WorkSaveCommand();
+				break;
+			case LIST_BY_USER:
+				c = new WorkListByUserCommand();
 				break;
 			default:
 				c = new NoCommand();

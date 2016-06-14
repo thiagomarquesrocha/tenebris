@@ -15,7 +15,7 @@ public class DataUtil {
 		
 		//System.out.println("Total de parametros : " + o.length);
 		
-		// Se nao existe nenhum parametro nao eh possivel completar o cadastro
+		// Se nao existe nenhum parametro nao eh possivel completar a acao
 		if(o.length <= 0){
 			data.put(JSONOut.CODE, erroCode);
 			isInvalid = true;

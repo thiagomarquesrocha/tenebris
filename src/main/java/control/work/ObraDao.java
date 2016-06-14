@@ -7,16 +7,6 @@ import control.ConnectionSingleton;
 import model.Obra;
 
 public class ObraDao {
-
-	private int id;
-    private String instituicao;
-    private String area;
-    private String autor;
-    private String titulo;
-    private String data;
-    private String resumo;
-    private String imagem;
-    private int usuario;
     
     
     /**
@@ -106,25 +96,29 @@ public static void excluiObra(int id) throws SQLException, InstantiationExceptio
 		  
 	}
 
-public static void ListaObra(int usuario) throws SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException {
+public static List<Obra> listaObra(long usuario) throws SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException {
 	
-
+	List<Obra> list = null;
+	
     try {
    	      Connection conn = ConnectionSingleton.getInstance().getConnection();
 
-    	  List<Obra> list = new ArrayList<>();
+    	  list = new ArrayList<>();
   		  
-		  String sql = String.format("SELECT id, instituicao, area, autor, titulo, data from obra WHERE usuario="+usuario+";");
+		  String sql = String.format("SELECT a.*, b.nome area FROM (SELECT a.id, a.instituicao, a.area as areaId, a.autor, a.titulo, a.data, a.resumo, a.usuario, a.imagem as path, b.avaliacao from obra a LEFT OUTER JOIN avaliacao b ON a.id = b.obra AND a.usuario = b.usuario WHERE a.usuario=?) a, area b WHERE a.areaId = b.id");
 		  
 		  //System.out.println(sql);
 		  
 		  PreparedStatement stmt = conn.prepareStatement(sql);
-		  ResultSet rs = stmt.executeQuery();
 		  
-		  Obra obra = new Obra();
+		  // Seta o usuario
+		  stmt.setLong(1, usuario);
+		  
+		  ResultSet rs = stmt.executeQuery();
 		  
 		  while (rs.next()) {
 			  
+			  Obra obra = new Obra();
 			  int obraId = rs.getInt("id");
 			  String instituicao = rs.getString("instituicao");
 			  String area = rs.getString("area");
@@ -133,6 +127,7 @@ public static void ListaObra(int usuario) throws SQLException, InstantiationExce
 			  String resumo = rs.getString("resumo");
 			  String data = rs.getString("data");
 			  Integer avaliacao = rs.getInt("avaliacao");
+			  String file = rs.getString("path");
 			  
 			  obra.setid(obraId);
 			  obra.setinstituicao(instituicao);
@@ -142,15 +137,17 @@ public static void ListaObra(int usuario) throws SQLException, InstantiationExce
 			  obra.setresumo(resumo);
 			  obra.setdata(data);
 			  obra.setAvaliacao(avaliacao);
+			  obra.setFile(file);
 			  list.add(obra);
 		  }
 		  
 		  stmt.close();
-		  conn.close();
 		  
 		  } catch (Exception e) {
 			  e.printStackTrace();
 		  }
+    
+    	return list;
     }
     
 }

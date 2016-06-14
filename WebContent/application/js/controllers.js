@@ -193,7 +193,11 @@ app
 
   $scope.$on('handleBroadcast', function() {
     if(sharedService.message != "perfil carregado") return;
-    User.getWorks();
+    console.log($rootScope.activetab);
+    if($rootScope.activetab.match(/\/obra\/listar/gi))
+      myWorks();
+    else
+      User.getWorks();
   }); // ON
 
   $scope.view = function(id){
@@ -225,6 +229,26 @@ app
     return 'm' + $scope.grid[i % $scope.grid.length];
   }
 
+  function myWorks(){
+    var userId = User.getId();
+
+    $http({
+        method: 'POST',
+        url: Actions.work.list,
+        data : { "id" : userId, command : "listByUser" },
+    }).then(function successCallback(response) {
+        var data = response.data;
+        console.log("Data :", data);
+
+        if(data.works){
+          $scope.works = data.works;
+        }
+
+    }, function errorCallback(response) {
+        
+    });
+  }
+
   function getWork(work){
     var index = $scope.works.indexOf(work);
     var found = $scope.works[index];
@@ -233,7 +257,6 @@ app
 
   sharedService.broadcast("mudar view");
   sharedService.broadcast("usuario esta logado");
-
 })
 
 .controller('ViewWorkCtrl', function($rootScope, $scope, $http, $timeout, $routeParams, sharedService){
@@ -392,13 +415,6 @@ app
         .error(function(){
         });
     }
-})
-
-.controller('MyWorksCtrl', function($scope, $rootScope, $location){
-
-  $rootScope.activetab = $location.path();
-
-  $scope.works = [{"id":27,"instituicao":"est","area":"computação e informática","autor":"Deitel","titulo":"Sistemas Operacionais","resumo":"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integera mollis nulla. Nam pellentesqu e eu lacus a mattis. Maecenas ornare nibh in lacus feugiat con dimentum. Duis viverra nisl mi, vitae tincidunt augue\r\nfringilla.","avaliacao":3},{"id":24,"instituicao":"est","area":"computação e informática","autor":"Andrew S. Tanembaum","titulo":"Organização e Estrutura de Computadores","resumo":"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integera mollis nulla. Nam pellentesqu e eu lacus a mattis. Maecenas ornare nibh in lacus feugiat con dimentum. Duis viverra nisl mi, vitae tincidunt augue\r\nfringilla.","avaliacao":0},{"id":26,"instituicao":"est","area":"computação e informática","autor":"Iam Sommerville","titulo":"Engenharia de Software","resumo":"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integera mollis nulla. Nam pellentesqu e eu lacus a mattis. Maecenas ornare nibh in lacus feugiat con dimentum. Duis viverra nisl mi, vitae tincidunt augue\r\nfringilla.","avaliacao":3},{"id":21,"instituicao":"est","area":"engenharia da computação","autor":"Belmiro N. João","titulo":"Informática Aplicada","resumo":"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integera mollis nulla. Nam pellentesqu e eu lacus a mattis. Maecenas ornare nibh in lacus feugiat con dimentum. Duis viverra nisl mi, vitae tincidunt augue\r\nfringilla.","avaliacao":3},{"id":29,"instituicao":"est","area":"informática","autor":"H.l Capron e J.A Johson","titulo":"Introdução a informática","resumo":"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integera mollis nulla. Nam pellentesqu e eu lacus a mattis. Maecenas ornare nibh in lacus feugiat con dimentum. Duis viverra nisl mi, vitae tincidunt augue\r\nfringilla.","avaliacao":0},{"id":22,"instituicao":"est","area":"inteligÃªncia artificial","autor":"Fabio Santos Silva","titulo":"Desenvolvimento de um\r\nSistema de Recomendação de\r\nDocumentos Acadêmicos\r\nUtilizando Técnicas de\r\nFiltragem de Informação e\r\nAprendizagem de Máquina","resumo":"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integera mollis nulla. Nam pellentesqu e eu lacus a mattis. Maecenas ornare nibh in lacus feugiat con dimentum. Duis viverra nisl mi, vitae tincidunt augue\r\nfringilla.","avaliacao":0},{"id":19,"instituicao":"est","area":"inteligência artificial","autor":"Fabio Santos Silva","titulo":"PersonalTVware: Uma\r\nInfraestrutura de Suporte a\r\nSistemas de Recomendação\r\nSensÃ­veis ao Contexto para TV\r\nDigital Personalizada","resumo":"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integera mollis nulla. Nam pellentesqu e eu lacus a mattis. Maecenas ornare nibh in lacus feugiat con dimentum. Duis viverra nisl mi, vitae tincidunt augue\r\nfringilla.","avaliacao":0},{"id":28,"instituicao":"est","area":"engenharia da computação","autor":"Deitel","titulo":"Java como programar","resumo":"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integera mollis nulla. Nam pellentesqu e eu lacus a mattis. Maecenas ornare nibh in lacus feugiat con dimentum. Duis viverra nisl mi, vitae tincidunt augue\r\nfringilla.","avaliacao":0},{"id":18,"instituicao":"est","area":"inteligência artificial","autor":"George F. Lucas","titulo":"InteligÃªncia Artificial","resumo":"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integera mollis nulla. Nam pellentesqu e eu lacus a mattis. Maecenas ornare nibh in lacus feugiat con dimentum. Duis viverra nisl mi, vitae tincidunt augue\r\nfringilla.","avaliacao":0},{"id":20,"instituicao":"est","area":"educação","autor":"Thiago Marques","titulo":"NOTA 10 - Um Objeto de\r\nAprendizagem em Dispositivos\r\nMóveis Voltado Para\r\nMatemática Básica","resumo":"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integera mollis nulla. Nam pellentesqu e eu lacus a mattis. Maecenas ornare nibh in lacus feugiat con dimentum. Duis viverra nisl mi, vitae tincidunt augue\r\nfringilla.","avaliacao":0}];
 })
 
 .controller('HomeCtrl', function ($rootScope, $scope, $location) {
