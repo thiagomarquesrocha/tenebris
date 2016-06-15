@@ -13,7 +13,7 @@
                         <!-- <div class="card-image waves-effect waves-block waves-light">
                             <img class="activator" src="site/img/project1.jpg">
                         </div> -->
-                        <div class="card-content activator" ng-click="view(work.id)">
+                        <div class="card-content activator" ng-click="view(work.id)" ng-controller="WorkCtrl">
                             <span class="card-title activator grey-text text-darken-4">{{work.titulo}} <!-- <i class="mdi-navigation-more-vert right"></i> --></span>
                             <p class="capitalize">{{ work.resumo | limitTo: 150 }} {{ work.resumo.length > 150 ? '...' : ''}}</p>
                             <p class="activator capitalize"><a href="">{{work.autor}}</a></p>

@@ -23,7 +23,7 @@ public class CommandFacade {
 	private MainCommand command; // Comando que sera executado
 	private int factory; // Fabrica de objetos
 
-	public static CommandFacade getInstance() {
+	public synchronized static CommandFacade getInstance() {
 		return instance;
 	}
 	

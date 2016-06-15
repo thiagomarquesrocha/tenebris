@@ -54,25 +54,31 @@ public class ObraDao {
 		  //conn.close();
 	}
     
-    public static void atualizaObra(int id, String instituicao, String area, String autor, String titulo, String data, String resumo, String imagem, int usuario) throws SQLException {
+    public static void atualizaObra(int id, String instituicao, String area, String autor, String titulo, String data, String resumo, String imagem) throws SQLException {
     	
     	 try {
     	
     	  Connection conn = ConnectionSingleton.getInstance().getConnection();
-   		  Statement st = conn.createStatement();
-			  
-		String sql = "UPDATE obra SET intituicao="+instituicao+",area = "+area+",autor = "+autor+",titulo = "+titulo+",data = "+data+",resumo="+resumo+",imagem="+imagem+",usuario="+usuario+" WHERE id = "+id+";";
+   		    
+   		  String sql = "UPDATE obra SET instituicao="+instituicao+",area="+area+",autor=?,titulo=?,data=?,resumo=?,imagem=? WHERE id = "+id;
 		
-		st.executeUpdate(sql);
-		conn.close();
+   		  System.out.println(sql);
+   		  
+   		  PreparedStatement st = conn.prepareStatement(sql);
+   		  
+   		  // Set parameters
+   		  st.setString(1, autor);
+   		  st.setString(2, titulo);
+   		  st.setString(3, data);
+   		  st.setString(4, resumo);
+   		  st.setString(5, imagem);
+   		  
+		  st.executeUpdate();
 		  
-	}
-    
-    catch (SQLException e) {
-
-        throw new RuntimeException(e);
-
-    }
+		  st.close();
+		}catch (SQLException e) {
+	        throw new RuntimeException(e);
+	    }
     
   }
     

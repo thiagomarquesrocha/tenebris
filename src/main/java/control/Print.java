@@ -11,7 +11,7 @@ public class Print {
 		response.getWriter().append(data.getJSONObject().toString()).close();
 	}
 	
-	public static void json(HttpServletResponse response, JSONObject data) throws IOException{
+	public static void json(HttpServletResponse response, JSONObject data) throws Exception{
 		response.getWriter().append(data.toString()).close();
 	}
 }

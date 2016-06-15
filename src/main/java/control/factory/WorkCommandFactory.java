@@ -4,6 +4,7 @@ import control.MainCommand;
 import control.work.WorkInfoCommand;
 import control.work.WorkListByUserCommand;
 import control.work.WorkSaveCommand;
+import control.work.WorkUpdateCommand;
 import model.NoCommand;
 
 public class WorkCommandFactory extends CommandFactory<MainCommand> {
@@ -14,6 +15,7 @@ public class WorkCommandFactory extends CommandFactory<MainCommand> {
 	public static final String VIEW = "view work";
 	public static final String NEW = "new work";
 	public static final String LIST_BY_USER = "list by user";
+	public static final String UPDATE_WORK = "update work";
 	
 	private WorkCommandFactory(){
 		
@@ -36,6 +38,9 @@ public class WorkCommandFactory extends CommandFactory<MainCommand> {
 				break;
 			case LIST_BY_USER:
 				c = new WorkListByUserCommand();
+				break;
+			case UPDATE_WORK:
+				c = new WorkUpdateCommand();
 				break;
 			default:
 				c = new NoCommand();

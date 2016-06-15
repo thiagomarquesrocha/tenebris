@@ -36,7 +36,6 @@ public class Obra {
     }
     public void setautor(String autor) {
         this.autor = autor;
-    
     }
     
     public String gettitulo() {

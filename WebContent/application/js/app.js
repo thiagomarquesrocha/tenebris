@@ -47,7 +47,7 @@ app = angular.module('App', ['ngRoute', 'ngProgress'])
 	//Para a rota '/', carregamos o template home.html e o controller 'HomeCtrl'
 	.when('/', {
 		templateUrl : 'views/home.html',
-		controller  : 'WorkCtrl'
+		controller  : 'WorksCtrl'
 	})
 
 	.when('/perfil', {
@@ -57,7 +57,12 @@ app = angular.module('App', ['ngRoute', 'ngProgress'])
 
 	.when('/obra/cadastrar', {
 		templateUrl : 'views/obra_cadastrar.html',
-		controller  : 'NewWorkCtrl'
+		controller  : 'WorkCtrl'
+	})
+
+  .when('/obra/editar/:obraId', {
+		templateUrl : 'views/obra_editar.html',
+		controller  : 'WorkCtrl'
 	})
   
   .when('/obra/listar', {

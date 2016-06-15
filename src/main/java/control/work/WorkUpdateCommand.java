@@ -19,7 +19,7 @@ import control.area.AreaControl;
 import model.JSONOut;
 import model.Obra;
 
-public class WorkSaveCommand extends WorkCommand{
+public class WorkUpdateCommand extends WorkCommand{
 
 	@Override
 	public void execute() throws Exception {
@@ -47,7 +47,9 @@ public class WorkSaveCommand extends WorkCommand{
 	            String field = item.getFieldName();
 	            String value = item.getString("UTF-8");
 	            // Others inputs from form
-	            if(field.equals("title")){
+	            if(field.equals("id")){
+	            	work.setid(Integer.valueOf(value));
+	            }else if(field.equals("title")){
 	            	work.settitulo(value);
 	            }else if(field.equals("institution")){
 	            	work.setinstituicao(value);
@@ -67,14 +69,11 @@ public class WorkSaveCommand extends WorkCommand{
 	                if(!item.isFormField()){
 	                	if (item.getName().length() > 0) {
 	                		// Save work into directory e save into table
-		                    try{
-		                    	save(item, work, user);
-		                    	data.put(JSONOut.CODE, JSONOut.Sucess.COMPLETADA);
-		                    }catch(Exception e){
-		                    	e.printStackTrace();
-		                    	data.put(JSONOut.CODE, JSONOut.Erro.OCORREU_ALGUM_ERRO);
-		                    }
+		                    tryUpdate(data, item, work, user);
 		                }
+	                }else{// Save work into into table
+	                	work.setFile(value);
+	                	tryUpdate(data, null, work, user);
 	                }
 	            }
 	            //System.out.println("Verificando os campos enviados : " + item.getFieldName() + "," + item.isFormField());
@@ -85,11 +84,21 @@ public class WorkSaveCommand extends WorkCommand{
      	Print.json(getResponse(), data);
 	}
             
-    private void save(FileItem item, Obra work, String usuario) 
-    		throws IOException, InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException {
+    private void tryUpdate(JSONData data, FileItem item, Obra work, String user) {
+    	try{
+        	update(item, work, user);
+        	data.put(JSONOut.CODE, JSONOut.Sucess.COMPLETADA);
+        }catch(Exception e){
+        	e.printStackTrace();
+        	data.put(JSONOut.CODE, JSONOut.Erro.OCORREU_ALGUM_ERRO);
+        }
+	}
 
+	private void update(FileItem item, Obra work, String usuario) 
+    		throws IOException, InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException {
+    	
     	// Save work into directory and generate full path
-    	String path = WorkControl.saveFile(getRequest(), item);
+    	String path = (item != null)? WorkControl.saveFile(getRequest(), item) : work.getFile();
 		
 		// Insere a area no banco, verificando se ela já existe
 		Connection conn = ConnectionSingleton.getInstance().getConnection();
@@ -111,18 +120,18 @@ public class WorkSaveCommand extends WorkCommand{
 		}
 		
 		System.out.println("ID area : " + areaId.toString());
-
-		//Guarda no banco de dados o endereço para recuperação da imagem
-		ObraDao.insereObra
+		
+		// Updated table obra 
+		ObraDao.atualizaObra
 		(
+				work.getid(),
 				work.getinstituicao(), 
 				areaId.toString(), 
 				work.getautor(), 
 				work.gettitulo(), 
 				work.getdata(), 
 				work.getresumo(), 
-				path, 
-				usuario
+				path
 		);
 	}
 

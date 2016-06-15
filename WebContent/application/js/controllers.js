@@ -182,9 +182,7 @@ app
   });
 })
 
-.controller('WorkCtrl', function ($rootScope, $scope, $location, $timeout, $http, $filter, sharedService) {
-
-  var isCanceled = false;
+.controller('WorksCtrl', function ($rootScope, $scope, $location, $timeout, $http, $filter, sharedService) {
 
   $rootScope.activetab = $location.path();
   $scope.grid = [12];
@@ -193,30 +191,8 @@ app
 
   $scope.$on('handleBroadcast', function() {
     if(sharedService.message != "perfil carregado") return;
-    console.log($rootScope.activetab);
-    if($rootScope.activetab.match(/\/obra\/listar/gi))
-      myWorks();
-    else
-      User.getWorks();
+    User.getWorks();
   }); // ON
-
-  $scope.view = function(id){
-    if(isCanceled) return;
-    $location.path('/obra/' + id);
-  }
-
-  $scope.open = function(url){
-    isCanceled = true;
-    if(url){
-      console.log(url);
-      url = "\\tenebris2016\\" + url.substring(url.indexOf("\obras"));
-      console.log(url);
-      window.open(url);
-    }
-    $timeout(function(){
-      isCanceled = false;
-    }, 300);
-  }
 
 	$scope.add = function(){
 		console.log("Carrega mais...");
@@ -227,26 +203,6 @@ app
 
   $scope.getGrid = function(i){
     return 'm' + $scope.grid[i % $scope.grid.length];
-  }
-
-  function myWorks(){
-    var userId = User.getId();
-
-    $http({
-        method: 'POST',
-        url: Actions.work.list,
-        data : { "id" : userId, command : "listByUser" },
-    }).then(function successCallback(response) {
-        var data = response.data;
-        console.log("Data :", data);
-
-        if(data.works){
-          $scope.works = data.works;
-        }
-
-    }, function errorCallback(response) {
-        
-    });
   }
 
   function getWork(work){
@@ -323,16 +279,30 @@ app
 
 })
 
-.controller('NewWorkCtrl', function($scope, $rootScope, $timeout, $location, $http){
+.controller('WorkCtrl', function($scope, $rootScope, $routeParams, $timeout, $location, $http, sharedService){
+  
+  // Canceled the click between blocks from nivel
+  var isCanceled = false;
+  var picker;
+  var gettingMyWorks;
 
   $rootScope.activetab = $location.path();
 
+  // Configura os parametros 
+  Work.setHttp($http);
+  // Work id passed by parameter
+  var work = parseInt($routeParams.obraId);
+
+  console.log($rootScope.activetab);
+  
+  // Init datepicker and others configs
   $timeout(function(){
+     if($rootScope.activetab == "/") return;
      $(document).ready(function() {
       $("body").animate({ scrollTop : 0 }, 1000);
       Materialize.updateTextFields();
       // Interface input date 
-      $('.datepicker').pickadate({
+      var $input = $('.datepicker').pickadate({
         selectMonths: true, // Creates a dropdown to control month
         selectYears: 15, // Creates a dropdown of 15 years to control year
         onSet: function(context) {
@@ -347,11 +317,113 @@ app
             month = dtmp.getMonth() + 1;
             year = dtmp.getFullYear();
           }
-          $scope.date = year + "-" + month + "-" + day;
+          if(typeof d !== "string")
+            $scope.date = year + "-" + month + "-" + day;
+          else
+            $scope.date = d;
         }
       });
+      picker = $input.pickadate("picker");
+      setDate();
     });
   }, 200);
+
+  $scope.$on('handleBroadcast', function() {
+    if(sharedService.message != "perfil carregado") return;
+    if($rootScope.activetab.match(/\/obra\/listar/gi)) // List works user
+      $scope.myWorks();
+    else if($rootScope.activetab.match(/\/obra\/editar\/[0-9]{1,}/gi)){ // Edit work
+      if($scope.work) return;
+      Work.get(work, User.getId(), onWorkReceived);
+    } 
+  }); // ON
+
+  var onWorkReceived = function(data){
+    $scope.work = data;
+    if(!data) return;
+    $scope.title = data.titulo;
+    $scope.auth = data.autor;
+    $scope.date = data.data;
+    $scope.id = data.id;
+    $scope.institution = data.instituicao;
+    $scope.resume = data.resumo;
+    $scope.area = data.area;
+    $scope.file = data.path;
+    setDate();
+  }
+
+  // Date
+  function setDate(){
+    if(picker && $scope.date)
+      picker.set('select', $scope.date, { format: 'yyyy-mm-dd' });
+  }
+
+  $scope.myWorks = function(){
+    if($scope.works || gettingMyWorks) return; // Already exist the list of works
+    gettingMyWorks = true;
+    var userId = User.getId();
+
+    $http({
+        method: 'POST',
+        url: Actions.work.list,
+        data : { "id" : userId, command : "listByUser" },
+    }).then(function successCallback(response) {
+        var data = response.data;
+        console.log("Data :", data);
+
+        if(data.works){
+          $scope.works = data.works;
+        }
+
+    }, function errorCallback(response) {
+        
+    });
+  }
+
+  $scope.view = function(id, type){
+    if(isCanceled) return;
+    console.log("type ", type)
+    switch(type){
+      case "edit" :
+        isCanceled = true;
+        $location.path('/obra/editar/' + id);
+        break;
+      default:
+        isCanceled = true;
+        $location.path('/obra/' + id);
+        break;
+    }    
+
+    cancel();
+  }
+
+  $scope.open = function(url){
+    isCanceled = true;
+    if(url){
+      url = getPath(url, "\obras");
+      window.open(url);
+    }
+    cancel();
+  }
+
+  $scope.getPath = function(url, end){
+    var url = getPath(url, end);
+    return url.replace('\\tenebris2016\\obras\\', '');
+  }
+
+  function getPath(url, end){
+    if(!url) return "";
+    //console.log(url);
+    url = "\\tenebris2016\\" + url.substring(url.indexOf(end));
+    console.log(url);
+    return url;
+  }
+
+  function cancel(){
+    $timeout(function(){
+      isCanceled = false;
+    }, 300);
+  }
 
   $scope.isDefaultOption = function(institution){
       //console.log(institution);
@@ -360,17 +432,19 @@ app
   }
 
   $scope.listInstitutions = function(){
-    User.getInstitutions(function(data){
+    $timeout(function(){
+       User.getInstitutions(function(data){
         //console.log(data);
         $scope.institutions = data;
         $timeout(function(){
           $scope.institution = 1; // EST
           $('select').material_select();
         }, 200);
-    });
+      });
+    }, 200);
   }
 
-  $scope.save = function(){
+  $scope.save = function(update) {
         var user = User.getId();
         var d = $scope.date;
         var institution = $scope.institution;
@@ -388,10 +462,12 @@ app
           return;
         }
         var file = $scope.file;
-        var uploadUrl = Actions.work.new;
+        var uploadUrl = (update)? Actions.work.update : Actions.work.new;
         var fd = new FormData();        
         fd.append('title', $scope.title.toLowerCase());
         // 1 - EST
+        if(update)
+          fd.append('id', $scope.id);
         fd.append('institution', institution);
         fd.append('auth', $scope.auth.toLowerCase());
         fd.append('area', $scope.area.toLowerCase());
@@ -415,6 +491,8 @@ app
         .error(function(){
         });
     }
+
+    sharedService.broadcast("usuario esta logado");
 })
 
 .controller('HomeCtrl', function ($rootScope, $scope, $location) {
@@ -456,16 +534,51 @@ Angular = {
 };
 
 /**
-  Operacoes usuario
+ * Work Controller
+ */
+Work = (function(){
+
+  // Get info about one work by WorkId and UserId
+  function get(work, user, callback){
+    this.$http({
+          method: 'POST',
+          url: Actions.work.view,
+          data : { "id" : work, "user" : user },
+      }).then(function successCallback(response) {
+          var data = response.data.data;
+          console.log("Obra :", data);
+          if(callback != null){
+            callback((data && data[0])? data[0] : null);
+          }
+      }, function errorCallback(response) {
+          console.error("Nao foi possivel recuperar os dados da obra ", work);
+      });
+  }
+
+  var obj = Object.create(Angular, {
+    get : { value : get }
+  })
+
+  return obj;
+})();
+
+/**
+  User Controller
 **/
 User = (function(){
 
+  // Get ID from user
   function getId(){
     //console.log(this);
     return (this.$scope.profile && this.$scope.profile.user)? this.$scope.profile.user.id : 0;
   }
 
+  // Recommendation for one user
   function getWorks(){
+    if(this.$scope.works && this.$scope.works.length){
+      console.info("As obras já foram carregadas");
+      return;
+    }
     var userId = this.getId();
     if(userId == 0) return;
 
@@ -486,6 +599,7 @@ User = (function(){
     });
   }
 
+  // Get institutions avaible
   function getInstitutions(callback){
 
     var _this = this;
@@ -508,6 +622,7 @@ User = (function(){
     });
   }
 
+  // Check if user is login in
   function isLoggin(){
     if( this.$scope.profile.user ){
         console.info("Usuario esta logado");

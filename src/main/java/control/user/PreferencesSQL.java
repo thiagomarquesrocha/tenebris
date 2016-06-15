@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 import org.json.JSONArray;
+import org.json.JSONObject;
 
 import control.Conversor;
 import model.JSONOut;
@@ -38,7 +39,9 @@ public class PreferencesSQL {
 			//System.out.println("JSON : " + resultQuery.toString());
 			
 			// Gera um objeto do tipo { id : int }
-			dao.getData().getJSONObject().getJSONArray(JSONOut.DATA).getJSONObject(0).put(out, resultQuery);
+			JSONObject obj = dao.getData().getJSONObject();
+			if(obj.has(JSONOut.DATA))
+				obj.getJSONArray(JSONOut.DATA).getJSONObject(0).put(out, resultQuery);
 			//dao.getData().put(JSONOut.DATA, resultQuery);
 			
 			//System.out.println("JSON : " + dao.getData().getJSONObject().toString());

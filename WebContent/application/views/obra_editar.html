@@ -1,0 +1,79 @@
+<div id="obra-cadastrar" ng-init="isFile = false">
+    <div class="panel-body">
+       <header class="fixing header blue darken-1 z-depth-1">
+		        <div class="container">
+                    <h1><i class="material-icons fa fa-edit"></i> {{work.titulo}}</h1>
+                 </div>
+		</header>
+        <div class="container">
+            <div class="row">
+                <p>* Preencha todos os campos</p>
+                <form class="col s12" name="cadastrar" ng-submit="save('update')" enctype="multipart/form-data">
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <i class="material-icons prefix fa fa-font"></i>
+                            <input id="title" type="text" class="validate" placeholder="Nome da obra" ng-model="title" required>
+                            <label for="title">Título</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <i class="material-icons prefix fa fa-institution"></i>
+                            <div class="select-box" ng-init="listInstitutions()">
+                                <select class="validate" id="institution" ng-model="institution" required>
+                                    <option value="{{institution.id}}" ng-repeat="institution in institutions" ng-selected="isDefaultOption(institution)">{{institution.nome | uppercase}}</option>
+                                </select>
+                                <label for="institution">Instituição</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s12">
+                        <i class="material-icons prefix fa fa-user"></i>
+                        <input id="auth" type="text" class="validate" placeholder="Nome do autor" ng-model="auth" required>
+                        <label for="auth">Autor</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s12">
+                        <i class="material-icons prefix fa fa-cubes"></i>
+                        <input id="area" type="text" class="validate" placeholder="Área da obra" ng-model="area" required>
+                        <label for="area">Área</label>
+                        </div>
+                    </div>
+                    <div class="row" ng-init="isFile = false">
+                        <div class="input-field col s4">
+                            <i class="material-icons prefix fa fa-calendar"></i>
+                            <input type="date" id="date" class="datepicker" class="validate" ng-model="datepicker" required>
+                            <label for="date">Data de publicação</label>
+                        </div>
+                        <div class="file-field input-field col s8" ng-show="isFile">
+                            <div class="btn red">
+                                <span><i class="fa fa-file-pdf-o"></i> PDF</span>
+                                <input type="file" name="file" file-model="file" accept="application/pdf">
+                            </div>
+                            <div class="file-path-wrapper">
+                                <input class="file-path validate" type="text">
+                            </div>
+                        </div>
+                        <div class="file-field input-field col s8" ng-show="!isFile">
+                            <div class="btn red col s12" ng-click="isFile = true">
+                                <span><i class="fa fa-file-pdf-o"></i> {{ getPath(work.path, "\obra") }}</span>
+                            </div>
+                        </div>
+                    </div>
+                     <div class="row">
+                        <div class="input-field col s12">
+                            <i class="material-icons prefix fa fa-file-text-o"></i>
+                            <textarea id="resumo" class="materialize-textarea validate" maxlength="200" ng-model="resume" required></textarea>
+                            <label for="resumo">Resumo</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <button type="submit" class="waves-effect waves-light btn-large blue darken-1"><i class="fa fa-save material-icons left"></i> Atualizar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

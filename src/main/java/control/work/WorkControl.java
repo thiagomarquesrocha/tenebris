@@ -1,9 +1,17 @@
 package control.work;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Calendar;
 
+import javax.servlet.http.HttpServletRequest;
+
+import org.apache.commons.fileupload.FileItem;
 import org.json.JSONArray;
 
 import control.Conversor;
@@ -22,7 +30,7 @@ public class WorkControl {
 			Long user = userWork.getUser().getId();
 			
 			// cria um preparedStatement
-			String sql = String.format("SELECT a.*, b.avaliacao FROM (SELECT a.id, a.autor, a.resumo, a.data, LCASE(a.titulo) as titulo, b.nome as area, c.nome as instituicao FROM obra a, area b, instituicao c WHERE a.area=b.id AND c.id = a.instituicao AND a.id = %s) a LEFT OUTER JOIN (SELECT * FROM avaliacao WHERE obra = %s AND usuario = %s) b ON a.id = b.obra", work, work, user);
+			String sql = String.format("SELECT a.*, b.avaliacao FROM (SELECT a.id, a.autor, a.resumo, a.data, LCASE(a.titulo) as titulo, a.imagem as path, b.nome as area, c.nome as instituicao FROM obra a, area b, instituicao c WHERE a.area=b.id AND c.id = a.instituicao AND a.id = %s) a LEFT OUTER JOIN (SELECT * FROM avaliacao WHERE obra = %s AND usuario = %s) b ON a.id = b.obra", work, work, user);
 			PreparedStatement stmt = dao.getCon().prepareStatement(sql);
 			
 			// Query com os dados do usuario
@@ -59,5 +67,48 @@ public class WorkControl {
 			.put(JSONOut.DATA, null);
 			e.printStackTrace();
 		}
+	}
+
+	public static String saveFile(HttpServletRequest httpServletRequest, FileItem item) throws IOException {
+		System.out.println("Subindo a obra para o servidor...");
+    	
+		//Pega o diretório /obras dentro do diretório atual de onde a aplicação está rodando
+		String caminho = httpServletRequest.getServletContext().getRealPath("/obras") + "/";
+		
+		// Cria o diretório caso ele não exista
+		File diretorio = new File(caminho);
+		
+		System.out.println("Path : " + caminho);
+		
+		if (!diretorio.exists()){
+			diretorio.mkdir();
+		}
+		
+		// Mandar o arquivo para o diretório informado
+		Calendar cal = Calendar.getInstance();
+		
+		String nome =  cal.get(Calendar.DAY_OF_MONTH)+ "_" + cal.get(Calendar.MONTH) + "_" + cal.get(Calendar.YEAR) + "_" + cal.get(Calendar.HOUR_OF_DAY) + "_" + cal.get(Calendar.MINUTE) + "_" + cal.getTimeInMillis() + ".pdf";
+		
+		System.out.println("Nome : " + nome);
+		
+		File file = new File(diretorio, nome);
+		FileOutputStream output = new FileOutputStream(file);
+		
+		InputStream is = item.getInputStream();
+		
+		byte[] buffer = new byte[2048];
+		
+		int nLidos;
+		
+		System.out.println("Absolute Path : " + file.getAbsolutePath());
+		
+		while ((nLidos = is.read(buffer)) >= 0) {
+			output.write(buffer, 0, nLidos);
+		}
+		
+		output.flush();
+		output.close();
+		
+		return file.getAbsolutePath();
 	}
 }
