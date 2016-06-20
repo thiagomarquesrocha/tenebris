@@ -254,8 +254,14 @@ app
 
   $scope.$on('handleBroadcast', function() {
     if(sharedService.message != "perfil carregado") return;
-      // Envia para o servidor a avaliacao da obra
-      $http({
+      // Request info about work
+      getInfo(1);
+  }); // ON
+
+  // Get info about a work
+  function getInfo(tried){
+    if($scope.work && $scope.work.titulo) return;
+    $http({
           method: 'POST',
           url: Actions.work.view,
           data : { "id" : work, "user" : User.getId() },
@@ -264,16 +270,29 @@ app
           console.log("Obra :", data);
           if(!data || !data[0]){
             console.error("Nao existe essa obra");
+            if(tried <= 1)
+              getInfo(tried+1);
+            else
+              Materialize.toast("Não foi possível carregar esta obra", 4000);
             return;
           } 
           // Mostra a lista de trabalhos recomendados
           $scope.work = data[0];
           // Redireciona o scroll da tela para o topo
           $(window).scrollTop(0);
-      }, function errorCallback(response) {
-          
       });
-  }); // ON
+  }
+
+  sharedService.broadcast("usuario esta logado");
+})
+
+.controller('TimeCtrl', function($rootScope, $scope, $location, $routeParams, sharedService){
+
+  $rootScope.activetab = $location.path();
+
+  $(document).ready(function() {
+      $("body").animate({ scrollTop : 0 }, 1000);
+  });
 
   sharedService.broadcast("usuario esta logado");
 
@@ -281,15 +300,22 @@ app
 
 .controller('WorkCtrl', function($scope, $rootScope, $routeParams, $timeout, $location, $http, sharedService){
   
-  // Canceled the click between blocks from nivel
-  var isCanceled = false;
   var picker;
   var gettingMyWorks;
+  // Define if work's info has opened
+  var isOpening = false;
 
   $rootScope.activetab = $location.path();
 
   // Configura os parametros 
-  Work.setHttp($http);
+  Work
+    .setScope($scope)
+    .setRootScope($rootScope)
+    .setHttp($http)
+    .setTimeout($timeout)
+    .setLocation($location)
+    .setService(sharedService);
+
   // Work id passed by parameter
   var work = parseInt($routeParams.obraId);
 
@@ -333,11 +359,13 @@ app
     if($rootScope.activetab.match(/\/obra\/listar/gi)) // List works user
       $scope.myWorks();
     else if($rootScope.activetab.match(/\/obra\/editar\/[0-9]{1,}/gi)){ // Edit work
-      if($scope.work) return;
+      if($scope.work || isOpening) return;
+      isOpening = true;
       Work.get(work, User.getId(), onWorkReceived);
     } 
   }); // ON
 
+  // Callback when the works were received
   var onWorkReceived = function(data){
     $scope.work = data;
     if(!data) return;
@@ -358,6 +386,7 @@ app
       picker.set('select', $scope.date, { format: 'yyyy-mm-dd' });
   }
 
+  // Get list of works by user
   $scope.myWorks = function(){
     if($scope.works || gettingMyWorks) return; // Already exist the list of works
     gettingMyWorks = true;
@@ -380,57 +409,37 @@ app
     });
   }
 
-  $scope.view = function(id, type){
-    if(isCanceled) return;
-    console.log("type ", type)
-    switch(type){
-      case "edit" :
-        isCanceled = true;
-        $location.path('/obra/editar/' + id);
-        break;
-      default:
-        isCanceled = true;
-        $location.path('/obra/' + id);
-        break;
-    }    
+  // Remove a work
+  $scope.remove = function(work, index){
+    Work.setCancel(true);
+    var userId = User.getId();
 
-    cancel();
+    $http({
+        method: 'POST',
+        url: Actions.work.remove,
+        data : { "id" : work.id, user : userId, path : work.file, command : "removeWork"  },
+    }).then(function successCallback(response) {
+        var data = response.data;
+        if(DEBUG) console.log("Data :", data);
+        if(data.code == Code.OPERACAO_COMPLETADA){
+          // Remove work from list
+          try{
+            $scope.works.splice(index, 1);
+          }catch(e){console.error(e)}
+        }
+
+    });
+    Work.cancel();
   }
 
-  $scope.open = function(url){
-    isCanceled = true;
-    if(url){
-      url = getPath(url, "\obras");
-      window.open(url);
-    }
-    cancel();
-  }
-
-  $scope.getPath = function(url, end){
-    var url = getPath(url, end);
-    return url.replace('\\tenebris2016\\obras\\', '');
-  }
-
-  function getPath(url, end){
-    if(!url) return "";
-    //console.log(url);
-    url = "\\tenebris2016\\" + url.substring(url.indexOf(end));
-    console.log(url);
-    return url;
-  }
-
-  function cancel(){
-    $timeout(function(){
-      isCanceled = false;
-    }, 300);
-  }
-
+  // Check if was selected EST option
   $scope.isDefaultOption = function(institution){
       //console.log(institution);
       var isSelected = institution.id == 1;
       return isSelected; // EST
   }
 
+  // Get list of institutions available
   $scope.listInstitutions = function(){
     $timeout(function(){
        User.getInstitutions(function(data){
@@ -444,6 +453,7 @@ app
     }, 200);
   }
 
+  // Save or update a work
   $scope.save = function(update) {
         var user = User.getId();
         var d = $scope.date;
@@ -483,7 +493,7 @@ app
           console.log(data);
           if(data.code == Code.OPERACAO_COMPLETADA){
             Materialize.toast("Cadastrada com sucesso", 4000);
-            $location.path('#/');
+            $location.path('/obra/listar');
           }else{
             Materialize.toast("Não foi possível cadastrar a obra, por favor tente novamente", 4000);
           }
@@ -493,6 +503,34 @@ app
     }
 
     sharedService.broadcast("usuario esta logado");
+})
+
+.controller('WorkToolsCtrl', function($scope, $rootScope, $routeParams, $timeout, $location, $http, sharedService){
+  
+  // Configura os parametros 
+  Work
+    .setScope($scope)
+    .setRootScope($rootScope)
+    .setHttp($http)
+    .setTimeout($timeout)
+    .setLocation($location)
+    .setService(sharedService);
+
+  // Get info or edit from work
+  $scope.view = function(id, type){
+    Work.view(id, type);
+  }
+
+  // Open pdf file
+  $scope.open = function(file){
+    console.log("Abrindo o pdf/...");
+    Work.open(file);
+  }
+
+  // Get current path of file
+  $scope.getPath = function(url, end){
+    return Work.path(url, end);
+  }
 })
 
 .controller('HomeCtrl', function ($rootScope, $scope, $location) {
@@ -511,6 +549,10 @@ function createProgress($rootScope, ngProgressFactory){
   Classe para estruturas angular
 **/
 Angular = {
+  setTimeout : function($timeout){
+    this.$timeout = $timeout;
+    return this;
+  },
   setService : function(sharedService){
     this.sharedService = sharedService;
     return this;
@@ -527,6 +569,10 @@ Angular = {
     this.$scope = $scope;
     return this;
   },
+  setLocation : function($location){
+    this.$location = $location;
+    return this;
+  },
   setHttp : function($http){
     this.$http = $http;
     return this;
@@ -537,6 +583,64 @@ Angular = {
  * Work Controller
  */
 Work = (function(){
+
+  // Canceled the click between blocks from nivel
+  var isCanceled = false;
+
+  function setCancel(flag){
+    this.isCanceled = flag;
+  }
+
+  // Open pdf file
+  function open(url){
+    this.isCanceled = true;
+    if(url){
+      url = getPath(url, "\obras");
+      window.open(url);
+    }
+    cancel(this);
+  }
+
+  // Get current path of file
+  function path(url, end){
+    var url = getPath(url, end);
+    return url.replace('\\tenebris2016\\obras\\', '');
+  }
+
+  // Cut path file to shortest
+  function getPath(url, end){
+    if(!url) return "";
+    //console.log(url);
+    url = "\\tenebris2016\\" + url.substring(url.indexOf(end));
+    console.log(url);
+    return url;
+  }
+
+  // Get info or edit from work
+  function view(id, type){
+    if(this.isCanceled) return;
+    console.log("type ", type)
+    switch(type){
+      case "edit" :
+        this.isCanceled = true;
+        this.$location.path('/obra/editar/' + id);
+        break;
+      default:
+        this.isCanceled = true;
+        this.$location.path('/obra/' + id);
+        break;
+    }    
+
+    cancel(this);
+  }
+
+  // Cancel click of file link
+  function cancel(_this){
+    if(!_this) _this = this;
+    _this.$timeout(function(){
+      _this.isCanceled = false;
+    }, 300);
+  }
 
   // Get info about one work by WorkId and UserId
   function get(work, user, callback){
@@ -556,7 +660,12 @@ Work = (function(){
   }
 
   var obj = Object.create(Angular, {
-    get : { value : get }
+    get : { value : get },
+    view : { value : view },
+    path : { value : path },
+    open : { value : open },
+    cancel : { value : cancel },
+    setCancel : { value : setCancel }
   })
 
   return obj;
@@ -566,6 +675,8 @@ Work = (function(){
   User Controller
 **/
 User = (function(){
+  
+  var loaded = false;
 
   // Get ID from user
   function getId(){
@@ -624,11 +735,14 @@ User = (function(){
 
   // Check if user is login in
   function isLoggin(){
-    if( this.$scope.profile.user ){
-        console.info("Usuario esta logado");
-        this.sharedService.broadcast("perfil carregado");
-        return;
-    } 
+      if( this.$scope.profile.user || this.loaded ){
+          console.info("Usuario esta logado");
+          if(this.$scope.profile.user)
+            this.sharedService.broadcast("perfil carregado");
+          return;
+      } 
+
+      this.loaded = true;
 
       if(DEBUG)
         console.log("Mensagem broadcast recebida em ProfileCtrl");
@@ -658,10 +772,12 @@ User = (function(){
         }catch(e){
           //document.location.href = SITE;
           console.log(e);
+           _this.loaded = false;
         }
 
       }, function errorCallback(response) {
         _this.$rootScope.progressbar.complete();
+        _this.loaded = false;
         // called asynchronously if an error occurs
         // or server returns response with an error status.
       });

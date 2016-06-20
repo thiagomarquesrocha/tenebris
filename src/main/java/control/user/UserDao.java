@@ -152,9 +152,9 @@ public class UserDao extends Dao{
 	}
 
 	@Override
-	public void delete(Object... o) {
+	public JSONObject delete(Object... o) {
 		// TODO Auto-generated method stub
-		
+		return null;
 	}
 
 	@Override

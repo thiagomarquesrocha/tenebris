@@ -6,8 +6,13 @@
                 <h1 class="text-w"><i class="material-icons fa fa-navicon"></i> Meu acervo</h1>
             </div>
         </header>
-        <div class="container">
+        <div class="container" ng-controller="WorkToolsCtrl">
             <div class="row">
+                 <div class="col s12 14" ng-show="!works || works.length <= 0">
+                     <div class="card p10">
+                        <h5 class="text-b"><i class="fa fa-folder-open-o"></i> Nenhuma obra cadastrada</h5>
+                     </div>
+                 </div>
                 <div class="col s12 14" ng-repeat="work in works track by $index">
                     <div class="card">
                         <div class="card-content activator" ng-click="view(work.id)">
@@ -16,12 +21,17 @@
                             <p class="activator"><a href="">{{work.autor}}</a></p>
                             <p class="activator">{{work.time | date:'yyyy'}}</p>
                             <p class="activator"><span class="badge amber darken-4 white-text activator">{{work.area}}</span></p>
-                            <a class="btn-floating btn-large waves-effect waves-light" ng-class="{ red : (work.file), grey : (!work.file) }" title="{{ (!work.file)? 'Não disponível' : 'Baixar' }}" ng-click="open(work.file)"><i class="material-icons fa fa-download"></i></a>
+                            <a class="btn-floating btn-large waves-effect waves-light" ng-class="{ 'light-blue darken-1' : (work.file), grey : (!work.file) }" title="{{ (!work.file)? 'Não disponível' : 'Baixar' }}" ng-click="open(work.file)"><i class="material-icons fa fa-download"></i></a>
                             <a class="btn-floating btn-large waves-effect waves-light green" title="Editar" ng-click="view(work.id, 'edit')"><i class="material-icons fa fa-edit"></i></a>
+                            <a class="btn-floating btn-large waves-effect waves-light red darken-4" title="Deletar" ng-click="remove(work, $index)"><i class="material-icons fa fa-trash"></i></a>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+</div>
+
+<div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
+    <a class="btn-floating btn-large blue darken-1" title="Cadastrar uma nova obra" href="#/obra/cadastrar"><i class="material-icons fa fa-plus"></i></a>
 </div>

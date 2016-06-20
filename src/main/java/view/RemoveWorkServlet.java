@@ -11,16 +11,16 @@ import control.RequestManager;
 
 /**
  * Servlet implementation class NewWorkServlet
- * URL : {PATH}/obra/alterar{PARAMS}
+ * URL : {PATH}/obra/remover{PARAMS}
  */
-@WebServlet(name = "AlterarObra", urlPatterns = { "/obra/alterar" })
-public class UpdateWorkServlet extends HttpServlet {
+@WebServlet(name = "RemoverObra", urlPatterns = { "/obra/remover" })
+public class RemoveWorkServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public UpdateWorkServlet() {
+    public RemoveWorkServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -30,10 +30,10 @@ public class UpdateWorkServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		// Executa o comando para atualizar uma obra
+		// Executa o comando para remover uma obra
 		try {
 			RequestManager.getInstance()
-			.action(RequestManager.ALTERAR_OBRA)
+			.action(RequestManager.REMOVER_OBRA)
 			.setResponse(response)
 			.setRequest(request)
 			.execute();

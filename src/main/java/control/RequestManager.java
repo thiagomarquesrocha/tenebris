@@ -34,6 +34,7 @@ public class RequestManager {
 	public static final int CADASTRAR_NOVA_OBRA = 14;
 	public static final int LISTAR_OBRAS_USUARIO = 15;
 	public static final int ALTERAR_OBRA = 16;
+	public static final int REMOVER_OBRA = 17;
 	
 	private int op;
 	HttpServletResponse response;
@@ -124,6 +125,9 @@ public class RequestManager {
 				break;
 			case ALTERAR_OBRA: // Alterar uma obra
 				execute(CommandFacade.FACTORY_WORK, WorkCommandFactory.UPDATE_WORK, CommandFacade.FACTORY_WORK, DaoFactory.WORK);
+				break;
+			case REMOVER_OBRA: // Remover uma obra
+				execute(CommandFacade.FACTORY_WORK, WorkCommandFactory.REMOVE_WORK, CommandFacade.FACTORY_WORK, DaoFactory.WORK);
 				break;
 		}
 	}

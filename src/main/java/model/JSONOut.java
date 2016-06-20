@@ -26,6 +26,7 @@ public class JSONOut {
 		private static String BASE = "WORK_";
 		public static final String NAO_FOI_POSSIVEL_ENCONTRAR_ESTA_OBRA = BASE  + "001";
 		public static final String NENHUMA_OBRA_ENCONTRADA = BASE  + "002";
+		public static final String NAO_FOI_POSSIVEL_DELETAR_ESTA_OBRA = BASE + "003";
 	}
 	
 	

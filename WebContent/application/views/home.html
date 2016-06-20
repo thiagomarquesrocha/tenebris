@@ -3,13 +3,13 @@
     <div class="panel-body">
         <header class="fixing header white z-depth-1">
             <div class="container">
-                <h1 class="text_b"><i class="material-icons fa fa-book"></i> TCCs, Artigos, Teses e Dissertações</h1>
+                <h1 class="text_b"><i class="material-icons fa fa-book"></i> Obras recomendadas para você</h1>
             </div>
         </header>
         <div class="container">
             <div class="row">
                 <div class="col s12 14" ng-class="getGrid($index)" ng-repeat="work in works track by $index">
-                    <div class="card">
+                    <div class="card" ng-controller="WorkToolsCtrl">
                         <!-- <div class="card-image waves-effect waves-block waves-light">
                             <img class="activator" src="site/img/project1.jpg">
                         </div> -->
@@ -22,7 +22,7 @@
                             <p class="activator">
                                 <button class="fa activator" ng-class="(i <= work.avaliacao)? 'fa-star' : 'fa-star-o'" ng-repeat="i in [1,2,3,4,5]"></button>
                             </p>
-                            <a class="btn-floating btn-large waves-effect waves-light" ng-class="{ red : (work.file), grey : (!work.file) }" title="{{ (!work.file)? 'Não disponível' : 'Baixar' }}" ng-click="open(work.file)"><i class="material-icons fa fa-download"></i></a>
+                            <a class="btn-floating btn-large waves-effect waves-light" ng-class="{ 'light-blue darken-1' : (work.file), grey : (!work.file) }" title="{{ (!work.file)? 'Não disponível' : 'Baixar' }}" ng-click="open(work.file)"><i class="material-icons fa fa-download"></i></a>
                         </div>
                     </div>
                 </div>

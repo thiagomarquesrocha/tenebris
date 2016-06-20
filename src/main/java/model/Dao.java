@@ -27,7 +27,7 @@ public abstract class Dao {
 	}
 
 	public abstract JSONObject add(Object... o);
-	public abstract void delete(Object... o);
+	public abstract JSONObject delete(Object... o);
 	public abstract JSONObject update(Object... o);
 	public abstract JSONObject list(Object... args);
 	public abstract JSONObject find(Object... args);

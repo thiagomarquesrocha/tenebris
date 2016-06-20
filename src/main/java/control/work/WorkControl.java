@@ -26,7 +26,7 @@ public class WorkControl {
 		try {
 			UserWork userWork = (UserWork) o[1];
 			
-			Long work = userWork.getWork().getId();
+			Long work = userWork.getWork().getid();
 			Long user = userWork.getUser().getId();
 			
 			// cria um preparedStatement

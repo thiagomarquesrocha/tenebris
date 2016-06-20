@@ -7,10 +7,10 @@ import org.json.JSONObject;
 import control.factory.UserFactory;
 import control.factory.UserWorkFactory;
 import control.factory.WorkFactory;
+import model.Obra;
 import model.Request;
 import model.User;
 import model.UserWork;
-import model.Work;
 
 public class WorkUserRequest extends Request<UserWork> {
 	
@@ -18,6 +18,7 @@ public class WorkUserRequest extends Request<UserWork> {
 	
 	public static final String ID = "id";
 	public static final String USER = "user";
+	private static final String COMMAND = "command";
 	
 	private WorkUserRequest(){
 		
@@ -31,10 +32,10 @@ public class WorkUserRequest extends Request<UserWork> {
 	public UserWork get(HttpServletRequest request) {
 		try {
 			UserWork userWork = UserWorkFactory.create();
-			Work work = WorkFactory.create();
+			Obra work = WorkFactory.create();
 			User user = UserFactory.create();
 			//System.out.println("ID : " + request.getParameter(ID));
-			work.setId(Long.valueOf(request.getParameter(ID)));
+			work.setid(Long.valueOf(request.getParameter(ID)));
 			user.setId(Long.valueOf(request.getParameter(USER)));
 			userWork.setUser(user).setWork(work);
 			return userWork;
@@ -49,12 +50,21 @@ public class WorkUserRequest extends Request<UserWork> {
 	public UserWork post(StringBuffer sb) {
 		try {
 			UserWork userWork = UserWorkFactory.create();
-			Work work = WorkFactory.create();
+			Obra work = WorkFactory.create();
 			User user = UserFactory.create();
 			JSONObject json = new JSONObject(sb.toString());
 			//System.out.println("ID : " + request.getParameter(ID));
-			work.setId(json.getLong(ID));
+			work.setid(json.getLong(ID));
 			user.setId(json.getLong(USER));
+			
+			if( json.has(COMMAND) ){
+				String command = json.optString(COMMAND, "");
+				if(command.equals("removeWork")){
+					String path = json.getString("path");
+					work.setFile(path);
+				}
+			}
+			
 			userWork.setUser(user).setWork(work);
 			return userWork;
 		} catch (Exception e) {

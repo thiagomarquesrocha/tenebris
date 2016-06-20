@@ -2,7 +2,7 @@ package model;
 
 public class Obra {
 	
-    private int id;
+    private Long id;
     private String instituicao;
     private String area;
     private String autor;
@@ -12,11 +12,11 @@ public class Obra {
 	private int avaliacao;
 	private String file;
  
-	public int getid() {
+	public Long getid() {
         return id;
     }
 	
-    public void setid(int id) {
+    public void setid(Long id) {
         this.id = id;
     }
     public String getinstituicao() {

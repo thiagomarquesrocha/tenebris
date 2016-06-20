@@ -41,3 +41,7 @@
 .select-box label{
 	left: 0 !important;
 }
+
+footer.page-footer {
+    padding-top: 10px
+}

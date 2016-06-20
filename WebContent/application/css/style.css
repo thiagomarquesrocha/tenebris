@@ -1,4 +1,5 @@
 .c-red{ color: #f00; }
+.text-b{ color: #2196f3}
 .text-w{ color: #fff }
 
 #logo-container img{ margin-bottom: -10px !important;}
@@ -6,7 +7,9 @@
 #user{ margin-top: 15px; margin-left: 20px}
 
 .card-content{ cursor: pointer;}
-
+.pleft10{ padding-left: 10px }
+.p10{ padding: 10px }
+.m16{ margin: 16px 0}
 .capitalize{ text-transform: capitalize}
 
 
@@ -43,6 +46,10 @@
 	animation: loading 2s linear infinite alternate;
 }
 .loading{ background: #2196F3 !important}
+
+footer.page-footer {
+    padding-top: 10px
+}
 
 @keyframes loading {
     from {opacity: 1; 

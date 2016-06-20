@@ -5,7 +5,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import control.Conversor;
@@ -175,6 +174,7 @@ public class UserControl {
 		System.out.println("Usuario encontrado {findById}!");
 	}
 
+	@SuppressWarnings("resource")
 	public static void updateArea(UserDao dao, Object[] o) {
 		try{
 			User user = (User) o[1];

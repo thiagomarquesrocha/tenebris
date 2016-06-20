@@ -1,13 +1,13 @@
 package model;
 
 public class UserWork {
-	private Work work;
+	private Obra work;
 	private User user;
 	
-	public Work getWork() {
+	public Obra getWork() {
 		return work;
 	}
-	public UserWork setWork(Work work) {
+	public UserWork setWork(Obra work) {
 		this.work = work;
 		return this;
 	}

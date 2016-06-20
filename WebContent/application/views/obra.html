@@ -9,16 +9,13 @@
         <div class="row">
             <div class="col s12 14" ng-class="getGrid($index)">
                 <div class="card">
-                    <!-- <div class="card-image waves-effect waves-block waves-light">
-                        <img class="activator" src="site/img/project1.jpg">
-                    </div> -->
                     <div class="card-content activator">
                         <p><strong>Resumo</strong></p>
                         <p>{{ work.resumo }}</p>
                         <p class="activator"><a href="">{{work.autor}}</a></p>
                         <p class="activator">{{work.time | date:'yyyy'}}</p>
                         <p class="activator"><span class="badge amber darken-4 white-text activator">{{work.area}}</span></p>
-                        <p class="activator" ng-init="work.avaliacao = (!work.avaliacao)? 0 : work.avaliacao">
+                        <div class="activator" ng-init="work.avaliacao = (!work.avaliacao)? 0 : work.avaliacao">
                             <button class="fa" ng-show="work.avaliacao > 0 || work.submited" ng-class="(i <= work.avaliacao)? 'fa-star' : 'fa-star-o'" ng-repeat="i in [1,2,3,4,5]"></button>
                             <div ng-show="!work.avaliacao || work.avaliacao <= 0">
                                 <p class="obs"><span class="c-red">*</span> Passe o mouse sobre as estrelas e deixe sua avaliação</p>
@@ -27,7 +24,10 @@
                                     <i class="mdi-content-send white-text"></i>
                                 </button>
                             </div>
-                        </p>
+                        </div>
+                        <div class="row m16 p10" ng-controller="WorkToolsCtrl">
+                            <a class="btn-floating btn-large waves-effect waves-light" ng-class="{ 'light-blue darken-1' : (work.path), grey : (!work.path) }" title="{{ (!work.path)? 'Não disponível' : 'Baixar' }}" ng-click="open(work.path)"><i class="material-icons fa fa-download"></i></a>
+                        </div>
                     </div>
                 </div>
             </div>

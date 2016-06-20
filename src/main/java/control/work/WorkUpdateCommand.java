@@ -48,7 +48,7 @@ public class WorkUpdateCommand extends WorkCommand{
 	            String value = item.getString("UTF-8");
 	            // Others inputs from form
 	            if(field.equals("id")){
-	            	work.setid(Integer.valueOf(value));
+	            	work.setid(Long.valueOf(value));
 	            }else if(field.equals("title")){
 	            	work.settitulo(value);
 	            }else if(field.equals("institution")){

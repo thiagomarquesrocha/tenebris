@@ -23,7 +23,7 @@ public class JSON {
 	    	
 	    	if(obraId.equals(aux)){
 	    		Obra obra = new Obra();
-	    		obra.setid(Integer.valueOf(result.getString("id")));
+	    		obra.setid(Long.valueOf(result.getString("id")));
 	    		obra.settitulo(result.getString("titulo"));
 	    		obra.setresumo(result.getString("resumo"));
 	    		obra.setarea(result.getString("Area"));

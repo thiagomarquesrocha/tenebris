@@ -51,7 +51,7 @@ public class SaidaJSON {
 			  Integer avaliacao = rs.getInt("avaliacao");
 			  String file = rs.getString("imagem");
 			  
-			  obra.setid(obraId);
+			  obra.setid(Long.valueOf(obraId));
 			  obra.setinstituicao(instituicao);
 			  obra.setarea(area);
 			  obra.setautor(autor);

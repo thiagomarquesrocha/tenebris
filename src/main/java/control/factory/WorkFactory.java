@@ -1,10 +1,10 @@
 package control.factory;
 
-import model.Work;
+import model.Obra;
 
 public class WorkFactory {
 	
-	public static Work create(){
-		return new Work();
+	public static Obra create(){
+		return new Obra();
 	}
 }

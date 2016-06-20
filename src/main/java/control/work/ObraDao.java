@@ -54,7 +54,7 @@ public class ObraDao {
 		  //conn.close();
 	}
     
-    public static void atualizaObra(int id, String instituicao, String area, String autor, String titulo, String data, String resumo, String imagem) throws SQLException {
+    public static void atualizaObra(long id, String instituicao, String area, String autor, String titulo, String data, String resumo, String imagem) throws SQLException {
     	
     	 try {
     	
@@ -82,23 +82,20 @@ public class ObraDao {
     
   }
     
-public static void excluiObra(int id) throws SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException {
+public static void excluiObra(long id) throws SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException {
     	
+	     try {
+	    	 Connection conn = ConnectionSingleton.getInstance().getConnection();
+	   		 Statement st = conn.createStatement();
 
-		     try {
+	 		String sql = "DELETE FROM obra WHERE id = "+id+";";
+	 		st.executeUpdate(sql);
 
-		    	 Connection conn = ConnectionSingleton.getInstance().getConnection();
-		   		 Statement st = conn.createStatement();
+	     } catch (SQLException e) {
 
-		 		String sql = "DELETE FROM obra WHERE id = "+id+";";
-		 		st.executeUpdate(sql);
-		 		conn.close();
+	         throw new RuntimeException(e);
 
-		     } catch (SQLException e) {
-
-		         throw new RuntimeException(e);
-
-		     }		
+	     }		
 		  
 	}
 
@@ -125,7 +122,7 @@ public static List<Obra> listaObra(long usuario) throws SQLException, Instantiat
 		  while (rs.next()) {
 			  
 			  Obra obra = new Obra();
-			  int obraId = rs.getInt("id");
+			  long obraId = rs.getLong("id");
 			  String instituicao = rs.getString("instituicao");
 			  String area = rs.getString("area");
 			  String autor = rs.getString("autor");

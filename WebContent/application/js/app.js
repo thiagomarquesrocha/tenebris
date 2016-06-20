@@ -50,6 +50,11 @@ app = angular.module('App', ['ngRoute', 'ngProgress'])
 		controller  : 'WorksCtrl'
 	})
 
+  .when('/time', {
+		templateUrl : 'views/time.html',
+    controller  : 'TimeCtrl'
+	})
+
 	.when('/perfil', {
 		templateUrl : 'views/perfil.html',
 		controller  : 'ProfileCtrl'
