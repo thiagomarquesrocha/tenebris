@@ -52,7 +52,7 @@ app = angular.module('App', ['ngRoute', 'ngProgress'])
 
   .when('/time', {
 		templateUrl : 'views/time.html',
-    controller  : 'TimeCtrl'
+    controller  : 'TeamCtrl'
 	})
 
 	.when('/perfil', {

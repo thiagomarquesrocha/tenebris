@@ -286,7 +286,7 @@ app
   sharedService.broadcast("usuario esta logado");
 })
 
-.controller('TimeCtrl', function($rootScope, $scope, $location, $routeParams, sharedService){
+.controller('TeamCtrl', function($rootScope, $scope, $location, $routeParams, sharedService){
 
   $rootScope.activetab = $location.path();
 

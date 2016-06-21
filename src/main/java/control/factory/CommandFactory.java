@@ -14,6 +14,7 @@ public abstract class CommandFactory<T> {
 	
 	public HashMap<String, T> commands = new HashMap<String, T>();
 	
+	@SuppressWarnings("unchecked")
 	public final T create(String command){
 		if(commands.containsKey(command)){
 			System.out.println("=> Objeto reaproveitado : " + command);

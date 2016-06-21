@@ -31,7 +31,7 @@ public class SaidaJSON {
 	  
 	  try {
 		  
-		  String sql = String.format("SELECT a.*, b.avaliacao FROM (SELECT a.id as obraId, a.autor, a.resumo, a.data, LCASE(a.titulo) as titulo, b.nome as nome1, c.nome as nome2, a.imagem FROM obra a, area b, instituicao c WHERE a.area=b.id AND c.id = a.instituicao AND a.id = %s) a LEFT OUTER JOIN (SELECT * FROM avaliacao WHERE obra = %s AND usuario = %s) b ON a.obraId = b.obra", obraId, obraId, usuarioId);
+		  String sql = String.format("SELECT a.*, b.avaliacao, c.nome as autorNome FROM (SELECT a.id as obraId, a.autor, a.resumo, a.data, LCASE(a.titulo) as titulo, b.nome as nome1, c.nome as nome2, a.imagem FROM obra a, area b, instituicao c WHERE a.area=b.id AND c.id = a.instituicao AND a.id = %s) a LEFT OUTER JOIN (SELECT * FROM avaliacao WHERE obra = %s AND usuario = %s) b ON a.obraId = b.obra, autor c WHERE c.id = a.autor", obraId, obraId, usuarioId);
 		  
 		  //System.out.println(sql);
 		  
@@ -44,7 +44,7 @@ public class SaidaJSON {
 			  
 			  String instituicao = rs.getString("nome2");
 			  String area = rs.getString("nome1");
-			  String autor = rs.getString("autor");
+			  String autor = rs.getString("autorNome");
 			  String titulo = rs.getString("titulo");
 			  String resumo = rs.getString("resumo");
 			  String data = rs.getString("data");

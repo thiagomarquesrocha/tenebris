@@ -28,7 +28,7 @@ public class ObraDao {
     	
     	  Connection conn = ConnectionSingleton.getInstance().getConnection();
 		  
-		  String sql = "INSERT INTO obra (instituicao, area, autor, titulo, data, resumo, imagem, usuario) VALUES("+instituicao+","+area+",'"+autor+"','"+titulo+"','"+data+"','"+resumo+"',?,"+usuario+");";
+		  String sql = "INSERT INTO obra (instituicao, area, autor, titulo, data, resumo, imagem, usuario) VALUES("+instituicao+","+area+","+autor+",'"+titulo+"','"+data+"','"+resumo+"',?,"+usuario+");";
 		  
 		  System.out.println("SQL :" + sql);
 		  
@@ -37,21 +37,6 @@ public class ObraDao {
 		  st.setString(1, imagem);
 		  
 		  st.execute();
-			  
-		 /**
-		  * @TODO Quando cadastra uma nova obra, 
-		  * se algum erro acontecer significa que ocorreu algum problema 
-		  * na inserção dos dados na tabela. N existe nenhuma restricao na
-		  * tabela obra. O ID que vc estava recebendo por parametro ele eh
-		  * gerado automaticamente quando voce inserir uma nova obra 
-		  * 
-		  * Obs: Verificar o que voce quis fazer
-		  * 
-		  */
-		  
-		  //String sql = "UPDATE obra SET intituicao="+instituicao+",area = "+area+",autor = "+autor+",titulo = "+titulo+",data = "+data+",resumo="+resumo+",imagem="+imagem+",usuario="+usuario+" WHERE id = "+id+";";
-		  //st.executeUpdate(sql);
-		  //conn.close();
 	}
     
     public static void atualizaObra(long id, String instituicao, String area, String autor, String titulo, String data, String resumo, String imagem) throws SQLException {
@@ -60,18 +45,17 @@ public class ObraDao {
     	
     	  Connection conn = ConnectionSingleton.getInstance().getConnection();
    		    
-   		  String sql = "UPDATE obra SET instituicao="+instituicao+",area="+area+",autor=?,titulo=?,data=?,resumo=?,imagem=? WHERE id = "+id;
+   		  String sql = "UPDATE obra SET instituicao="+instituicao+",area="+area+",titulo=?,data=?,resumo=?,imagem=? WHERE id = "+id;
 		
    		  System.out.println(sql);
    		  
    		  PreparedStatement st = conn.prepareStatement(sql);
    		  
    		  // Set parameters
-   		  st.setString(1, autor);
-   		  st.setString(2, titulo);
-   		  st.setString(3, data);
-   		  st.setString(4, resumo);
-   		  st.setString(5, imagem);
+   		  st.setString(1, titulo);
+   		  st.setString(2, data);
+   		  st.setString(3, resumo);
+   		  st.setString(4, imagem);
    		  
 		  st.executeUpdate();
 		  
@@ -108,7 +92,7 @@ public static List<Obra> listaObra(long usuario) throws SQLException, Instantiat
 
     	  list = new ArrayList<>();
   		  
-		  String sql = String.format("SELECT a.*, b.nome area FROM (SELECT a.id, a.instituicao, a.area as areaId, a.autor, a.titulo, a.data, a.resumo, a.usuario, a.imagem as path, b.avaliacao from obra a LEFT OUTER JOIN avaliacao b ON a.id = b.obra AND a.usuario = b.usuario WHERE a.usuario=?) a, area b WHERE a.areaId = b.id");
+		  String sql = String.format("SELECT a.*, b.nome area, c.nome as autorNome FROM (SELECT a.id, a.instituicao, a.area as areaId, a.autor, a.titulo, a.data, a.resumo, a.usuario, a.imagem as path, b.avaliacao from obra a LEFT OUTER JOIN avaliacao b ON a.id = b.obra AND a.usuario = b.usuario WHERE a.usuario=?) a, area b, autor c WHERE a.areaId = b.id AND a.autor = c.id ORDER BY a.data DESC");
 		  
 		  //System.out.println(sql);
 		  
@@ -125,7 +109,7 @@ public static List<Obra> listaObra(long usuario) throws SQLException, Instantiat
 			  long obraId = rs.getLong("id");
 			  String instituicao = rs.getString("instituicao");
 			  String area = rs.getString("area");
-			  String autor = rs.getString("autor");
+			  String autor = rs.getString("autorNome");
 			  String titulo = rs.getString("titulo");
 			  String resumo = rs.getString("resumo");
 			  String data = rs.getString("data");

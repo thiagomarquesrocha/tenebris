@@ -16,6 +16,7 @@ import control.ConnectionSingleton;
 import control.JSONData;
 import control.Print;
 import control.area.AreaControl;
+import control.auth.AuthControl;
 import model.JSONOut;
 import model.Obra;
 
@@ -92,7 +93,52 @@ public class WorkSaveCommand extends WorkCommand{
     	String path = WorkControl.saveFile(getRequest(), item);
 		
 		// Insere a area no banco, verificando se ela já existe
-		Connection conn = ConnectionSingleton.getInstance().getConnection();
+		Long areaId = saveArea(work);
+		System.out.println("ID area : " + areaId.toString());
+		
+		// Insert auth into table and generate ID 
+		Long authId = saveAuth(work);
+		System.out.println("ID auth : " + authId.toString());
+
+		//Guarda no banco de dados o endereço para recuperação da imagem
+		ObraDao.insereObra
+		(
+				work.getinstituicao(), 
+				areaId.toString(), 
+				authId.toString(), 
+				work.gettitulo(), 
+				work.getdata(), 
+				work.getresumo(), 
+				path, 
+				usuario
+		);
+	}
+    
+    
+    private Long saveAuth(Obra work) {
+    	Connection conn = ConnectionSingleton.getInstance().getConnection();
+    	String auth = work.getautor();
+    	Long authId = null;
+    	
+    	System.out.println("Auth : " + auth);
+		
+		try {
+			authId = AuthControl.add(conn, auth);
+		} catch (Exception e) {
+			// Auth already exists
+			try {
+				authId = AuthControl.findByName(conn, auth);
+			} catch (Exception e1) {
+				// Could not possible get ID from auth
+				e1.printStackTrace();
+			}
+		}
+    	
+		return authId;
+	}
+
+	private Long saveArea(Obra work){
+    	Connection conn = ConnectionSingleton.getInstance().getConnection();
 		String area = work.getarea();
 		Long areaId = null;
 		
@@ -110,21 +156,8 @@ public class WorkSaveCommand extends WorkCommand{
 			}
 		}
 		
-		System.out.println("ID area : " + areaId.toString());
-
-		//Guarda no banco de dados o endereço para recuperação da imagem
-		ObraDao.insereObra
-		(
-				work.getinstituicao(), 
-				areaId.toString(), 
-				work.getautor(), 
-				work.gettitulo(), 
-				work.getdata(), 
-				work.getresumo(), 
-				path, 
-				usuario
-		);
-	}
+		return areaId;
+    }
 
 }
 
