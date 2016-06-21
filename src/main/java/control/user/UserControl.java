@@ -174,7 +174,6 @@ public class UserControl {
 		System.out.println("Usuario encontrado {findById}!");
 	}
 
-	@SuppressWarnings("resource")
 	public static void updateArea(UserDao dao, Object[] o) {
 		try{
 			User user = (User) o[1];
@@ -184,58 +183,27 @@ public class UserControl {
 			Long areaId;
 			ResultSet resultSet;
 			
-			sql = "SELECT COUNT(*) FROM usuario WHERE area = "+area.getId()+"";
-			System.out.println("SQL : " + sql);
-			stmt = dao.getCon().prepareStatement(sql);
-			// Query com os dados do usuario
-			resultSet = stmt.executeQuery();
-			
-			int total = 1;
-			
-			if(resultSet.first())
-				total = resultSet.getInt(1);
-			
-			stmt.close();
-			
-			// Ja existe uma area com ID
-			if( total <= 1 && area.getId() != null && area.getId() > 0 ){
-				try {
-					sql = "UPDATE area SET nome = ? WHERE id = ?";
-					stmt = dao.getCon().prepareStatement(sql, UserDao.COLUMMN_ID);
-					stmt.setString(1, area.getNome());
-					stmt.setLong(2, area.getId());
-					stmt.execute();
-					areaId = area.getId();
-					stmt.close();
-				} catch (SQLException e) {
-					e.printStackTrace();
-					areaId = findAreaByName(dao, area.getNome());
-					// Atualiza o usuario com o ID retornado
-					areaId = updateAreaId(dao, areaId, user.getId());
-				}
-			}else{ // Nao existe uma area com esse nome, tenta inserir ou recuperar o ID da existente
-				sql = String.format("INSERT INTO area (nome) VALUES ('%s')", area.getNome());
-				try {
-					// Tenta cadastrar a nova area no sistema
-					stmt = dao.getCon().prepareStatement(sql, UserDao.COLUMMN_ID);
-					// executa
-					stmt.execute();
-					
-					// Recupera o ID o metadado da query executada
-					resultSet = stmt.getGeneratedKeys();
-					JSONArray resultQuery = Conversor.convertToJSON(resultSet);
-					JSONObject result = UserJSON.generateObjectId(resultQuery);
-					areaId = result.getLong("id");
-					stmt.close();
-				} catch (SQLException e) {
-					// A area informada ja existe, vamos recuperar o ID dela
-					e.printStackTrace();
-					areaId = findAreaByName(dao, area.getNome());
-				}
+			sql = String.format("INSERT INTO area (nome) VALUES ('%s')", area.getNome());
+			try {
+				// Tenta cadastrar a nova area no sistema
+				stmt = dao.getCon().prepareStatement(sql, UserDao.COLUMMN_ID);
+				// executa
+				stmt.execute();
 				
-				// Atualiza o usuario com o ID retornado
-				areaId = updateAreaId(dao, areaId, user.getId());
+				// Recupera o ID o metadado da query executada
+				resultSet = stmt.getGeneratedKeys();
+				JSONArray resultQuery = Conversor.convertToJSON(resultSet);
+				JSONObject result = UserJSON.generateObjectId(resultQuery);
+				areaId = result.getLong("id");
+				stmt.close();
+			} catch (SQLException e) {
+				// A area informada ja existe, vamos recuperar o ID dela
+				e.printStackTrace();
+				areaId = findAreaByName(dao, area.getNome());
 			}
+			
+			// Atualiza o usuario com o ID retornado
+			areaId = updateAreaId(dao, areaId, user.getId());
 			
 			dao.getData()
 			.put(JSONOut.CODE, JSONOut.Sucess.COMPLETADA)
