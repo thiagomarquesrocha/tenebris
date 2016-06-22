@@ -41,6 +41,21 @@ var app = angular.module('App', ['ngProgress'])
 	});
 })
 
+.controller('WorksCtrl', function ($rootScope, $scope, $http, $location, $timeout, sharedService, ngProgressFactory) {
+	$http({
+        method: 'GET',
+        url: Actions.work.recents,
+    }).then(function successCallback(response) {
+        var data = response.data;
+        if(!data.data) return;
+		var works = data.data;
+		works = works.splice(1, 10);
+        $scope.works = works;
+    }, function errorCallback(response) {
+        console.error("Erro ao carregar as obras recomendadas ");
+    });
+})
+
 .controller('LoginCtrl', function ($rootScope, $scope, $http, $location, $timeout, sharedService, ngProgressFactory) {
 
 	$rootScope.progressbar = ngProgressFactory.createInstance();

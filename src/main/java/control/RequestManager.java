@@ -35,6 +35,7 @@ public class RequestManager {
 	public static final int LISTAR_OBRAS_USUARIO = 15;
 	public static final int ALTERAR_OBRA = 16;
 	public static final int REMOVER_OBRA = 17;
+	public static final int LISTAR_OBRAS_RECENTES = 18;
 	
 	private int op;
 	HttpServletResponse response;
@@ -77,6 +78,9 @@ public class RequestManager {
 
 	public void execute() throws Exception{
 		switch (op){
+			case RECUPERAR_PERFIL_USUARIO : // Executa o comando de recuperar o perfil do usuario se ele ja estiver logado
+				execute(CommandFacade.FACTORY_USER, UserCommandFactory.PROFILE, CommandFacade.INVOKE_USER, DaoFactory.USER);
+				break;
 			case RECOMENDAR_HIBRIDAMENTE:	
 				new RecommendHybrid(this).execute();
 				break;
@@ -86,6 +90,9 @@ public class RequestManager {
 			case RECOMENDAR_POR_PERFIL:	
 				System.out.println("Recomendando para o usuário : " + recommend.getUserID());
 				new Principal(response).getRecommender(recommend.getUserID());
+				break;
+			case LISTAR_OBRAS_RECENTES: // Listar obras recentes
+				execute(CommandFacade.FACTORY_WORK, WorkCommandFactory.LIST_RECENTS, CommandFacade.FACTORY_WORK, DaoFactory.WORK);
 				break;
 			case AVALIAR:
 				BackEndRating.BackEndRat(recommend.getUserID(), recommend.getItemID(), recommend.getVarRating());
@@ -104,9 +111,6 @@ public class RequestManager {
 				break;
 			case CADASTRAR_USUARIO : // Executa o comando de adicionar o usuario
 				execute(CommandFacade.FACTORY_USER, UserCommandFactory.ADD, CommandFacade.INVOKE_USER, DaoFactory.USER);
-				break;
-			case RECUPERAR_PERFIL_USUARIO : // Executa o comando de recuperar o perfil do usuario se ele ja estiver logado
-				execute(CommandFacade.FACTORY_USER, UserCommandFactory.PROFILE, CommandFacade.INVOKE_USER, DaoFactory.USER);
 				break;
 			case CADASTRAR_INTERESSE : // Cadastra um interesse { interesse, instituicao ou autores }
 				execute(CommandFacade.FACTORY_USER, UserCommandFactory.ADD_INTEREST, CommandFacade.FACTORY_USER, DaoFactory.USER);

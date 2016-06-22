@@ -3,6 +3,7 @@ package control.factory;
 import control.MainCommand;
 import control.work.WorkInfoCommand;
 import control.work.WorkListByUserCommand;
+import control.work.WorkListRecentsCommand;
 import control.work.WorkRemoveCommand;
 import control.work.WorkSaveCommand;
 import control.work.WorkUpdateCommand;
@@ -18,6 +19,7 @@ public class WorkCommandFactory extends CommandFactory<MainCommand> {
 	public static final String LIST_BY_USER = "list by user";
 	public static final String UPDATE_WORK = "update work";
 	public static final String REMOVE_WORK = "remove work";
+	public static final String LIST_RECENTS = "list recents";
 	
 	private WorkCommandFactory(){
 		
@@ -46,6 +48,9 @@ public class WorkCommandFactory extends CommandFactory<MainCommand> {
 				break;
 			case REMOVE_WORK:
 				c = new WorkRemoveCommand();
+				break;
+			case LIST_RECENTS:
+				c = new WorkListRecentsCommand();
 				break;
 			default:
 				c = new NoCommand();

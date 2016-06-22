@@ -11,16 +11,16 @@ import control.RequestManager;
 
 /**
  * Servlet implementation class ListWorksUserServlet
- * URL : {PATH}/obra/listar{PARAMS}
+ * URL : {PATH}/obra/recentes{PARAMS}
  */
-@WebServlet(name = "ListarObrasUsuario", urlPatterns = { "/obra/listar" })
-public class ListWorksUserServlet extends HttpServlet {
+@WebServlet(name = "ListarObrasRecentes", urlPatterns = { "/obra/recentes" })
+public class ListWorksRecentsServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ListWorksUserServlet() {
+    public ListWorksRecentsServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -30,10 +30,10 @@ public class ListWorksUserServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		// Executa o comando para listar as obras de um usuário
+		// Executa o comando para listar as obras recentes
 		try {
 			RequestManager.getInstance()
-			.action(RequestManager.LISTAR_OBRAS_USUARIO)
+			.action(RequestManager.LISTAR_OBRAS_RECENTES)
 			.setResponse(response)
 			.setRequest(request)
 			.execute();

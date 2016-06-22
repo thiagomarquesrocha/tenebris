@@ -48,7 +48,8 @@ var Actions = {
 		"new" : SITE + "obra/cadastrar",
 		"list" : SITE + "obra/listar",
 		"update" : SITE + "obra/alterar",
-		"remove" : SITE + "obra/remover"
+		"remove" : SITE + "obra/remover",
+		"recents" : SITE + "obra/recentes"
 	},
 	"preferences" :{
 		"add_interest" : 2,

@@ -8,6 +8,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Calendar;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -15,7 +16,11 @@ import org.apache.commons.fileupload.FileItem;
 import org.json.JSONArray;
 
 import control.Conversor;
+import control.JSONData;
+import control.JSONUtil;
+import model.Dao;
 import model.JSONOut;
+import model.Obra;
 import model.UserWork;
 
 public class WorkControl {
@@ -110,5 +115,45 @@ public class WorkControl {
 		output.close();
 		
 		return file.getAbsolutePath();
+	}
+
+	public static void listByUser(JSONData data, Long user) {
+		// Lista as obras e retorna para a interface o JSON
+		List<Obra> list = null;
+		try {
+			list = ObraDao.listaObra(user);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		// Convert to JSON the list object
+		JSONArray works = null;
+		try {
+			System.out.println(JSONUtil.get(list));
+			works = new JSONArray(JSONUtil.get(list));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		data.put("works", works);
+	}
+
+	public static void listRecents(Dao dao, JSONData data){
+		try {
+			String sql = "SELECT a.*, b.avaliacao, c.nome as autor FROM (SELECT a.id as id, a.autor as autorId, a.resumo, a.data, LCASE(a.titulo) as titulo, b.nome as area, c.nome as instituicao, a.imagem as file, a.cadastradoEm FROM obra a, area b, instituicao c WHERE a.area=b.id AND c.id = a.instituicao) a LEFT OUTER JOIN avaliacao b ON a.id = b.obra, autor c WHERE c.id = a.autorId ORDER BY a.cadastradoEm DESC LIMIT 20";
+			//System.out.println("SQL : " + sql);
+			PreparedStatement stmt = dao.getCon().prepareStatement(sql);
+			// Query com os dados do usuario
+			ResultSet resultSet = stmt.executeQuery();
+
+			JSONArray resultQuery = Conversor.convertToJSON(resultSet);
+			
+			dao.getData()
+			.put(JSONOut.DATA, resultQuery);
+		} catch (Exception e) {
+			e.printStackTrace();
+			dao.getData()
+			.put(JSONOut.CODE, JSONOut.Work.NENHUMA_OBRA_ENCONTRADA)
+			.put(JSONOut.DATA, null);
+		}
 	}
 }

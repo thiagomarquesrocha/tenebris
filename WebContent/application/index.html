@@ -13,7 +13,7 @@
     <link href="css/font-awesome.min.css" type="text/css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet" />
 </head>
-<body id="top" class="scrollspy loading" ng-controller="ProfileCtrl as profile">
+<body id="top" class="scrollspy loading" ng-class="loadingStyle" ng-controller="ProfileCtrl as profile">
 
 <a href="#/home" id="loading" class="brand-logo"><img src="../site/img/icon-white.png" /> Tenebris</a>
 
@@ -42,7 +42,8 @@
                     </div>
                 </div>
                 <ul class="right hide-on-med-and-down">
-                    <li ng-class="{active: activetab == '/'}"><a href="#/">Recomendado</a></li>
+                    <li ng-class="{active: activetab == '/'}"><a href="#/">Recente</a></li>
+                    <li ng-class="{active: activetab == '/obra/recomendada'}"><a href="#/obra/recomendada">Recomendado</a></li>
                     <li ng-class="{active: activetab == '/perfil'}"><a href="#/perfil">Perfil</a></li>
                     <li ng-class="{active: activetab == '/contact'}"><a href="#/time">Time</a></li>
                     <li><a href="#logout" ng-click="profile.logout()">Sair</a></li>

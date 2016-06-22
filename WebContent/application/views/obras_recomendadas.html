@@ -1,20 +1,17 @@
 <!--Work-->
 <div class="section scrollspy" id="work">
     <div class="panel-body">
-        <header class="fixing header white z-depth-1">
+        <header class="fixing header amber darken-1 z-depth-1">
             <div class="container">
-                <h1 class="text_b"><i class="material-icons fa fa-book"></i> Recentemente adicionada</h1>
+                <h1 class="text-w"><i class="material-icons fa fa-book"></i> Recomendadas para você</h1>
             </div>
         </header>
         <div class="container">
             <div class="row" ng-controller="WorkToolsCtrl">
                 <div class="col s12 14" ng-class="getGrid($index)" ng-repeat="work in works track by $index">
                     <div class="card">
-                        <!-- <div class="card-image waves-effect waves-block waves-light">
-                            <img class="activator" src="site/img/project1.jpg">
-                        </div> -->
                         <div class="card-content activator" ng-click="view(work.id)">
-                            <span class="card-title activator grey-text text-darken-4">{{work.titulo}} <!-- <i class="mdi-navigation-more-vert right"></i> --></span>
+                            <span class="card-title activator grey-text text-darken-4">{{work.titulo}} </span>
                             <p class="capitalize">{{ work.resumo | limitTo: 150 }} {{ work.resumo.length > 150 ? '...' : ''}}</p>
                             <p class="activator capitalize"><a href="">{{work.autor}}</a></p>
                             <p class="activator">{{work.time | date:'yyyy'}}</p>

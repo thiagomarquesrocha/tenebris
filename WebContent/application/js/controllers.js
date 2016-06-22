@@ -15,6 +15,18 @@ app
   sharedService.broadcast("mudar view");
   sharedService.broadcast("usuario esta logado");
 
+  $rootScope.loadingStyle = {
+    loading : false
+  };
+
+  $rootScope.inProgress = function(){
+    $rootScope.loadingStyle.loading = true;
+  }
+
+  $rootScope.loaded = function(){
+    $rootScope.loadingStyle.loading = false;
+  }
+
   $scope.$on('handleBroadcast', function() {
     if(sharedService.message == 'perfil carregado'){
       $scope.area = $scope.profile.user.area;
@@ -45,8 +57,6 @@ app
             break;
         }
         Materialize.toast(msg, 4000);
-    }, function errorCallback(response) {
-        
     });
   }
 
@@ -65,14 +75,6 @@ app
 
   $scope.items = ['menu1', 'menu2', 'menu3', 'menu4'];
   $scope.selection = $scope.items[0];
-
-  $scope.openPhotoWindow = function(){
-    console.log("Abrir a foto");
-    $scope.selection = $scope.items[0];
-    $timeout(function(){
-    angular.element('#fotoPerfil').trigger('click');
-    }, 10);
-  };
 
   $scope.addTag = function(tag){
     createList('tags');
@@ -184,14 +186,23 @@ app
 
 .controller('WorksCtrl', function ($rootScope, $scope, $location, $timeout, $http, $filter, sharedService) {
 
+  var loading = 1;
+
   $rootScope.activetab = $location.path();
   $scope.grid = [12];
   // Configura os parametros 
+  Work.setScope($scope).setRootScope($rootScope).setFilter($filter).setHttp($http).setService(sharedService);
   User.setScope($scope).setRootScope($rootScope).setFilter($filter).setHttp($http).setService(sharedService);
 
   $scope.$on('handleBroadcast', function() {
     if(sharedService.message != "perfil carregado") return;
-    User.getWorks();
+    if(loading > 1) return;
+    loading++; 
+    $rootScope.inProgress();
+    if($rootScope.activetab == '/')
+      Work.list(User.getId()); // Recents works
+    else
+      User.getWorks(); // Recommendate works
   }); // ON
 
 	$scope.add = function(){
@@ -216,6 +227,8 @@ app
 })
 
 .controller('ViewWorkCtrl', function($rootScope, $scope, $http, $timeout, $routeParams, sharedService){
+
+  var loading = 1;
 
   User.setScope($scope).setRootScope($rootScope);
 
@@ -252,15 +265,22 @@ app
     });
   }
 
+  $scope.hasWork = function(work){
+    return work && work.titulo;
+  }
+
   $scope.$on('handleBroadcast', function() {
     if(sharedService.message != "perfil carregado") return;
       // Request info about work
-      getInfo(1);
+      getInfo();
   }); // ON
 
   // Get info about a work
   function getInfo(tried){
+    if(loading > 1) return;
+    loading++;
     if($scope.work && $scope.work.titulo) return;
+    $rootScope.inProgress();
     $http({
           method: 'POST',
           url: Actions.work.view,
@@ -268,18 +288,21 @@ app
       }).then(function successCallback(response) {
           var data = response.data.data;
           console.log("Obra :", data);
+          $rootScope.loaded();
           if(!data || !data[0]){
             console.error("Nao existe essa obra");
-            if(tried <= 1)
-              getInfo(tried+1);
-            else
+            // if(tried <= 1)
+            //   getInfo(tried+1);
+            // else
               Materialize.toast("Não foi possível carregar esta obra", 4000);
             return;
           } 
           // Mostra a lista de trabalhos recomendados
           $scope.work = data[0];
           // Redireciona o scroll da tela para o topo
-          $(window).scrollTop(0);
+          $("body").animate({ scrollTop : 0 }, 800);
+      }, function errorCallback(){
+        $rootScope.loaded();
       });
   }
 
@@ -654,9 +677,36 @@ Work = (function(){
           if(callback != null){
             callback((data && data[0])? data[0] : null);
           }
+          _this.$rootScope.loaded();
       }, function errorCallback(response) {
           console.error("Nao foi possivel recuperar os dados da obra ", work);
+          _this.$rootScope.loaded();
       });
+  }
+
+  // Get list of works
+  function getList(userId){
+    if(this.$scope.works && this.$scope.works.length){
+      console.info("As obras já foram carregadas");
+      return;
+    }
+    if(userId == 0) return;
+
+    var _this = this;
+    // Carrega a lista de recomendacoes para o usuario
+    this.$http({
+        method: 'POST',
+        url: Actions.work.recents,
+    }).then(function successCallback(response) {
+        var data = response.data;
+        if(!data.data) return;
+        _this.$scope.works = _this.$filter('unique')(data.data, 'titulo');
+        console.log("Lista de obras :", _this.$scope.works);
+        _this.$rootScope.loaded();
+    }, function errorCallback(response) {
+        console.error("Erro ao carregar as obras recomendadas ");
+        _this.$rootScope.loaded();
+    });
   }
 
   var obj = Object.create(Angular, {
@@ -665,7 +715,8 @@ Work = (function(){
     path : { value : path },
     open : { value : open },
     cancel : { value : cancel },
-    setCancel : { value : setCancel }
+    setCancel : { value : setCancel },
+    list : { value : getList }
   })
 
   return obj;
@@ -704,9 +755,10 @@ User = (function(){
         if(!data || !data.recommend) return;
         _this.$scope.works = _this.$filter('unique')(data.recommend, 'titulo');
         console.log("Recomendação :", _this.$scope.works);
-
+        _this.$rootScope.loaded();
     }, function errorCallback(response) {
         console.error("Erro ao carregar as obras recomendadas ");
+        _this.$rootScope.loaded();
     });
   }
 

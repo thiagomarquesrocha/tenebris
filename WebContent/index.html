@@ -98,97 +98,18 @@
 </div>
 
 <!--Work-->
-<div class="section scrollspy" id="work">
+<div class="section scrollspy" id="work" ng-controller="WorksCtrl">
     <div class="container">
         <h2 class="header text_b">TCCs, Artigos, Teses e Dissertações </h2>
         <div class="row">
-            <div class="col s12 m4 l4">
-                <div class="card">
-                    <!-- <div class="card-image waves-effect waves-block waves-light">
-                        <img class="activator" src="site/img/project1.jpg">
-                    </div> -->
-                    <div class="card-content">
-                        <span class="card-title activator grey-text text-darken-4">PersonalTVware: Uma Infraestrutura de Suporte a Sistemas de Recomendação Sensíveis ao Contexto para TV Digital Personalizada <i class="mdi-navigation-more-vert right"></i></span>
-                        <p><a href="#">Abrir</a></p>
-                    </div>
-                    <div class="card-reveal">
-                        <span class="card-title grey-text text-darken-4">PersonalTVware: Uma Infraestrutura de Suporte a Sistemas de Recomendação Sensíveis ao Contexto para TV Digital Personalizada <i class="mdi-navigation-close right"></i></span>
-                        <p>Here is some more information about this project that is only revealed once clicked on.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col s12 m4 l4">
-                <div class="card">
-                    <!-- <div class="card-image waves-effect waves-block waves-light">
-                        <img class="activator" src="site/img/icon.png">
-                    </div> -->
-                    <div class="card-content">
-                        <span class="card-title activator grey-text text-darken-4">Verificação Formal de Aplicações para Reconhecimento de Ondas Eletrocardiográficas <i class="mdi-navigation-more-vert right"></i></span>
-                        <p><a href="#">Abrir</a></p>
-                    </div>
-                    <div class="card-reveal">
-                        <span class="card-title grey-text text-darken-4">Verificação Formal de Aplicações para Reconhecimento de Ondas Eletrocardiográficas <i class="mdi-navigation-close right"></i></span>
-                        <p>Here is some more information about this project that is only revealed once clicked on.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col s12 m4 l4">
-                <div class="card">
-                    <!-- <div class="card-image waves-effect waves-block waves-light">
-                        <img class="activator" src="site/img/project3.png">
-                    </div> -->
-                    <div class="card-content">
-                        <span class="card-title activator grey-text text-darken-4">NOTA 10 - Um Objeto de Aprendizagem em Dispositivos Móveis Voltado Para Matemática Básica <i class="mdi-navigation-more-vert right"></i></span>
-                        <p><a href="#">Abrir</a></p>
-                    </div>
-                    <div class="card-reveal">
-                        <span class="card-title grey-text text-darken-4">NOTA 10 - Um Objeto de Aprendizagem em Dispositivos Móveis Voltado Para Matemática Básica <i class="mdi-navigation-close right"></i></span>
-                        <p>Here is some more information about this project that is only revealed once clicked on.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col s12 m4 l4">
-                <div class="card">
-                    <!-- <div class="card-image waves-effect waves-block waves-light">
-                        <img class="activator" src="site/img/project4.jpg">
-                    </div> -->
-                    <div class="card-content">
-                        <span class="card-title activator grey-text text-darken-4">Desenvolvimento de um Sistema de Recomendação de Documentos Acadêmicos Utilizando Técnicas de Filtragem de Informação e Aprendizagem de Máquina <i class="mdi-navigation-more-vert right"></i></span>
-                        <p><a href="#">Project link</a></p>
-                    </div>
-                    <div class="card-reveal">
-                        <span class="card-title grey-text text-darken-4">Desenvolvimento de um Sistema de Recomendação de Documentos Acadêmicos Utilizando Técnicas de Filtragem de Informação e Aprendizagem de Máquina <i class="mdi-navigation-close right"></i></span>
-                        <p>Here is some more information about this project that is only revealed once clicked on.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col s12 m4 l4">
-                <div class="card">
-                    <!-- <div class="card-image waves-effect waves-block waves-light">
-                        <img class="activator" src="site/img/project5.png">
-                    </div> -->
-                    <div class="card-content">
-                        <span class="card-title activator grey-text text-darken-4">Um aplicativo sensível ao contexto baseado em plataforma móvel para apoiar o seriço de transporte moto taxis <i class="mdi-navigation-more-vert right"></i></span>
-                        <p><a href="#">Abrir</a></p>
-                    </div>
-                    <div class="card-reveal">
-                        <span class="card-title grey-text text-darken-4">Um aplicativo sensível ao contexto baseao em plataforma móvel para apoiar o seriço de transporte moto taxis <i class="mdi-navigation-close right"></i></span>
-                        <p>Here is some more information about this project that is only revealed once clicked on.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col s12 m4 l4">
-                <div class="card">
-                    <!-- <div class="card-image waves-effect waves-block waves-light">
-                        <img class="activator" src="site/img/project6.jpeg">
-                    </div> -->
-                    <div class="card-content">
-                        <span class="card-title activator grey-text text-darken-4">Desenvolvimento de um aplicativo móvel para coleta e compartilhamento de dados sobre o serviço de transporte púbico para apoio à tomada de decisão <i class="mdi-navigation-more-vert right"></i></span>
-                        <p><a href="#">Abrir</a></p>
-                    </div>
-                    <div class="card-reveal">
-                        <span class="card-title grey-text text-darken-4">Desenvolvimento de um aplicativo móvel para coleta e compartilhamento de dados sobre o serviço de transporte púbico para apoio à tomada de decisão <i class="mdi-navigation-close right"></i></span>
-                        <p>Here is some more information about this project that is only revealed once clicked on.</p>
+            <div class="col col s11 offset-s1">
+                <div class="col s10 m10 10" ng-repeat="work in works">
+                    <div class="card">
+                        <div class="card-content">
+                            <span class="card-title grey-text text-darken-4">{{ work.titulo }}</span>
+                            <p class="activator capitalize"><a href="">{{work.autor}}</a></p>
+                            <p>{{ work.resumo }}</p>
+                        </div>
                     </div>
                 </div>
             </div>

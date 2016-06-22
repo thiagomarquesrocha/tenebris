@@ -19,6 +19,7 @@
 #perfil header h1{ color: #fff; font-size: 15px;}
 #perfil #content{ padding: 2em }
 #perfil .form-control, #perfil .collection-item{ text-transform: capitalize }
+#perfil .responsive-img .fa{ font-size: 72px}
 .select-box{ min-height: 60px }
 .select-box li:not(:first-child), .select-box select option:not(:first-child){ text-transform: uppercase; }
 
@@ -33,6 +34,8 @@
 #work .card button.fa{ background: none; border: none; }
 #work .card-reveal .submit-rating{  }
 #work .header{ text-transform: capitalize;}
+
+#work .panel-body{ min-height: 500px }
 
 #obra-cadastrar .header{ color: #fff }
 #obra-cadastrar .select-box, #obra-cadastrar .select-box label{ margin-left: 3rem}
