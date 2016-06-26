@@ -3,7 +3,6 @@ package control.recomendation.rate;
 import java.sql.*;
 
 import control.ConnectionSingleton;
-import control.factory.ConnectionFactory;
 
 public class BackEndRating {
 	
@@ -16,9 +15,9 @@ public class BackEndRating {
 		  
 			  String sql = "INSERT INTO avaliacao (obra, usuario, avaliacao) VALUES("+ItemID+","+UserID+","+VarRating+");";
 			  st.executeUpdate(sql);
+			  st.close();
 			  
 			  System.out.print("Recomendação inserida com sucesso.");
-			  conn.close();
 		  
 		  } catch (Exception e) {
 			  
@@ -26,9 +25,9 @@ public class BackEndRating {
 			  
 			  String sql = "UPDATE avaliacao SET avaliacao="+VarRating+" WHERE obra="+ItemID+" AND usuario = "+UserID+";";
 			  st.executeUpdate(sql);
+			  st.close();
 			  
 			  System.out.print("Recomendação inserida com sucesso.");
-			  conn.close();
 		  
 		  }
 	}

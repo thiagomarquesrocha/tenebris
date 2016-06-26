@@ -133,6 +133,11 @@ var app = angular.module('App', ['ngProgress'])
 			// this callback will be called asynchronously
 			// when the response is available
 			var data = response.data;
+
+			if( !data.code ){
+				Materialize.toast("Estamos com problemas no servidor", 4000);
+				return;
+			}
 			
 			switch(action){
 				case "entrar":
