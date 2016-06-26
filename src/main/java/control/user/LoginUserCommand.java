@@ -32,13 +32,13 @@ public class LoginUserCommand extends UserCommand {
 		// Verifica se algum usuario foi encontrado
 		if(UserJSON.hasUser(data)){
 			// Recupera a sessao
-			HttpSession session = getRequest().getSession();
+			HttpSession session = getRequest().getSession(true);
 			try {
 				Object o = UserJSON.get(data, UserDao.LABEL_ID);
 				System.out.println(o);
 				System.out.println(data.toString());
 				Long id = Long.valueOf(UserJSON.get(data, UserDao.LABEL_ID).toString());
-				System.out.println("USER : " + id);
+				System.out.println("Session for USER : " + id);
 				// Cria uma sessao para o usuario
 				session.setAttribute(ProfileUserCommand.USER, id);
 			} catch (Exception e) {

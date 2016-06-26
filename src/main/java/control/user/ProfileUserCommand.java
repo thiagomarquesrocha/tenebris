@@ -19,7 +19,7 @@ public class ProfileUserCommand extends UserCommand{
 		getResponse().setContentType("text/javascript");
 		
 		// Recupera a sessao
-		HttpSession session = getRequest().getSession(false);
+		HttpSession session = getRequest().getSession();
 		
 		// Cria o objeto de saida em JSON
 		JSONData data = DataFactory.create();
@@ -31,6 +31,7 @@ public class ProfileUserCommand extends UserCommand{
 				id = (Long) session.getAttribute(USER);
 			} catch (Exception e) {	}
 			if(id == null || id <= 0){ // Nao existe nenhum usuario autenticado
+				System.out.println("Nao existe nenhuma sessao, pois nao encontrou nenhum ID");
 				data.put(JSONOut.CODE, JSONOut.User.NAO_AUTENTICADO);
 			}else{
 				// Cria o usuario
@@ -43,6 +44,7 @@ public class ProfileUserCommand extends UserCommand{
 				return;
 			}
 		}else{ // Nao existe uma sessao
+			System.out.println("Nao existe nenhuma sessao");
 			data.put(JSONOut.CODE, JSONOut.User.NAO_AUTENTICADO);
 		}
 		

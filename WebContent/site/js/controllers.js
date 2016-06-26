@@ -27,11 +27,15 @@ var app = angular.module('App', ['ngProgress'])
 		// Verifica se o usuario esta logado
 		$http({
 				method: 'GET',
-				url: Actions.user.profile,
+				url: Actions.user.profile + "?d=" + (new Date()).getTime(),
+				cache: false,
 		}).then(function successCallback(response) {
 			$rootScope.progressbar.complete();
 			var data = response.data;
+			console.log(data);
+
 			if(data.code == Code.OPERACAO_COMPLETADA )
+			//console.log("Autenticado");
 				document.location.href=MAIN;
 		}, function errorCallback(response) {
 			$rootScope.progressbar.complete();
@@ -144,9 +148,16 @@ var app = angular.module('App', ['ngProgress'])
 						var msg = "";
 						if(data){
 							if( data.code == Code.OPERACAO_COMPLETADA ){ // Autenticacao completada
-								Materialize.toast("Bem vindo ao Tenebris!", 4000);
-								msg = "Autenticado!";
-								document.location.href = MAIN;
+
+								if(!data.data[0]){
+									console.log(data);
+									Materialize.toast("Nenhum usuário econtrado com esse login", 4000);
+								}else{
+									console.log(data);
+									Materialize.toast("Bem vindo ao Tenebris!", 4000);
+									msg = "Autenticado!";
+									document.location.href = MAIN;
+								}
 							}else{ // Autenticacao nao foi completada
 								switch(data.code){
 									case Code.User.NENHUM_USUARIO_ENCONTRADO:
@@ -159,7 +170,7 @@ var app = angular.module('App', ['ngProgress'])
 								Materialize.toast(msg, 4000);
 							}
 
-							if(DEBUG)
+							if(DEBUG && !data.data[0])
 								console.log("Autenticado!", data);
 							//alert(msg);
 						}

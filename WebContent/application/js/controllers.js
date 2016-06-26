@@ -63,7 +63,7 @@ app
   this.logout = function(){
       $http({
         method: 'GET',
-        url: Actions.user.logout,
+        url: Actions.user.logout + "?d=" + (new Date()).getTime(),
       }).then(function successCallback(response) {
            document.location.href = SITE;
       });
@@ -804,7 +804,8 @@ User = (function(){
       // Verifica se o usuario esta logado
       this.$http({
           method: 'GET',
-          url: Actions.user.profile,
+          url: Actions.user.profile + "?d=" + (new Date()).getTime(),
+          cache: false,
       }).then(function successCallback(response) {
         try{
           _this.$rootScope.progressbar.complete();
