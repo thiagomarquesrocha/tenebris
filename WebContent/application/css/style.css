@@ -3,6 +3,8 @@
 .text-w{ color: #fff }
 
 #logo-container img{ margin-bottom: -10px !important;}
+#logo-container{ position: relative }
+.uea{ max-width: 32px; bottom: 15px; position: absolute }
 
 #user{ margin-top: 15px; margin-left: 20px}
 
@@ -25,13 +27,13 @@
 
 #work{ padding-top: 0}
 #work .header h1{ font-size: 3.2rem }
-#work .fa-star{ color: #f00;}
-#work .fa-star-o{ color: #BBB6B6 }
 #work .badge{ position: static; margin-right: 10px; padding: 3px 10px}
 #work .card-title{ text-transform: capitalize; }
 #work .card-reveal .card-title{ font-size: 20px;}
 #work .card .obs{ font-size: 13px; }
 #work .card button.fa{ background: none; border: none; }
+#work .fa-star{ color: #f00;}
+#work .fa-star-o{ color: #BBB6B6 }
 #work .card-reveal .submit-rating{  }
 #work .header{ text-transform: capitalize;}
 

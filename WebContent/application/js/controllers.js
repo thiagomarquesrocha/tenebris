@@ -693,10 +693,11 @@ Work = (function(){
     if(userId == 0) return;
 
     var _this = this;
-    // Carrega a lista de recomendacoes para o usuario
+    // Carrega a lista de obras recentes
     this.$http({
         method: 'POST',
         url: Actions.work.recents,
+        data : { id : userId, command : "listRecents" },
     }).then(function successCallback(response) {
         var data = response.data;
         if(!data.data) return;

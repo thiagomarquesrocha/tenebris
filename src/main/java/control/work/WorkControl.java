@@ -21,6 +21,7 @@ import control.JSONUtil;
 import model.Dao;
 import model.JSONOut;
 import model.Obra;
+import model.User;
 import model.UserWork;
 
 public class WorkControl {
@@ -137,9 +138,14 @@ public class WorkControl {
 		data.put("works", works);
 	}
 
-	public static void listRecents(Dao dao, JSONData data){
+	public static void listRecents(Dao dao, User userActive, JSONData data){
 		try {
-			String sql = "SELECT a.*, b.avaliacao, c.nome as autor FROM (SELECT a.id as id, a.autor as autorId, a.resumo, a.data, LCASE(a.titulo) as titulo, b.nome as area, c.nome as instituicao, a.imagem as file, a.cadastradoEm FROM obra a, area b, instituicao c WHERE a.area=b.id AND c.id = a.instituicao) a LEFT OUTER JOIN avaliacao b ON a.id = b.obra, autor c WHERE c.id = a.autorId ORDER BY a.cadastradoEm DESC LIMIT 20";
+			// Recupera o ID do usuario se existir
+			Long user = (userActive != null)? userActive.getId() : null;
+			// Monta a condicao para buscar a avaliacao de um usuario se existir
+			String hasUser = (user != null)? "AND b.usuario = " + user : "";
+			
+			String sql = String.format("SELECT a.*, b.* FROM (SELECT a.*, b.avaliacao, c.nome as autor FROM (SELECT a.id as id, a.autor as autorId, a.resumo, a.data, LCASE(a.titulo) as titulo, b.nome as area, c.nome as instituicao, a.imagem as file, a.cadastradoEm FROM obra a, area b, instituicao c WHERE a.area=b.id AND c.id = a.instituicao) a LEFT OUTER JOIN avaliacao b ON a.id = b.obra %s, autor c WHERE c.id = a.autorId ORDER BY a.file ASC LIMIT 20) a LEFT OUTER JOIN (SELECT obra, avg(avaliacao) as media FROM avaliacao GROUP BY obra) b ON a.id = b.obra GROUP BY a.id", hasUser);
 			//System.out.println("SQL : " + sql);
 			PreparedStatement stmt = dao.getCon().prepareStatement(sql);
 			// Query com os dados do usuario

@@ -74,12 +74,14 @@ public class WorkDao extends Dao{
 		
 		switch(op){
 			case LIST_BY_USER :
-				// Get the work object
+				// Get the user object
 				User user = (User) o[1];
 				WorkControl.listByUser(getData(), user.getId());
 				break;
 			case LIST_RECENTS :
-				WorkControl.listRecents(this, getData());
+				// Get the user object
+				User userActive = (User) o[1];
+				WorkControl.listRecents(this, userActive, getData());
 				break;
 		}
 		

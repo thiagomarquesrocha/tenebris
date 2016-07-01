@@ -92,7 +92,7 @@ public static List<Obra> listaObra(long usuario) throws SQLException, Instantiat
 
     	  list = new ArrayList<>();
   		  
-		  String sql = String.format("SELECT a.*, b.nome area, c.nome as autorNome FROM (SELECT a.id, a.instituicao, a.area as areaId, a.autor, a.titulo, a.data, a.resumo, a.usuario, a.imagem as path, b.avaliacao from obra a LEFT OUTER JOIN avaliacao b ON a.id = b.obra AND a.usuario = b.usuario WHERE a.usuario=?) a, area b, autor c WHERE a.areaId = b.id AND a.autor = c.id ORDER BY a.data DESC");
+		  String sql = String.format("SELECT * FROM (SELECT a.*, b.nome area, c.nome as autorNome FROM (SELECT a.id, a.instituicao, a.area as areaId, a.autor, a.titulo, a.data, a.resumo, a.usuario, a.imagem as path, b.avaliacao from obra a LEFT OUTER JOIN avaliacao b ON a.id = b.obra AND a.usuario = b.usuario WHERE a.usuario=?) a, area b, autor c WHERE a.areaId = b.id AND a.autor = c.id ORDER BY a.data DESC) a LEFT OUTER JOIN (SELECT obra, avg(avaliacao) as media FROM avaliacao GROUP BY obra) b ON a.id = b.obra GROUP BY a.id");
 		  
 		  //System.out.println(sql);
 		  
@@ -115,6 +115,7 @@ public static List<Obra> listaObra(long usuario) throws SQLException, Instantiat
 			  String data = rs.getString("data");
 			  Integer avaliacao = rs.getInt("avaliacao");
 			  String file = rs.getString("path");
+			  Float media = rs.getFloat("media");
 			  
 			  obra.setid(obraId);
 			  obra.setinstituicao(instituicao);
@@ -125,6 +126,7 @@ public static List<Obra> listaObra(long usuario) throws SQLException, Instantiat
 			  obra.setdata(data);
 			  obra.setAvaliacao(avaliacao);
 			  obra.setFile(file);
+			  obra.setMedia(media);
 			  list.add(obra);
 		  }
 		  

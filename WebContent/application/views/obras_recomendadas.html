@@ -17,7 +17,11 @@
                             <p class="activator">{{work.time | date:'yyyy'}}</p>
                             <p class="activator"><span class="badge amber darken-4 white-text activator">{{work.area}}</span></p>
                             <p class="activator">
-                                <button class="fa activator" ng-class="(i <= work.avaliacao)? 'fa-star' : 'fa-star-o'" ng-repeat="i in [1,2,3,4,5]"></button>
+                                <strong>Avaliado como:</strong>
+                                <button class="fa activator" ng-class="(i <= work.media)? 'fa-star' : 'fa-star-o'" ng-repeat="i in [1,2,3,4,5]"></button>
+                            </p>
+                            <p class="activator" ng-show="work.avaliacao && work.avaliacao > 0">
+                                Você avaliou esta obra em {{ work.avaliacao }} estrela{{ (work.avaliacao <= 1)? '' : 's' }}
                             </p>
                             <a class="btn-floating btn-large waves-effect waves-light" ng-class="{ 'light-blue darken-1' : (work.file), grey : (!work.file) }" title="{{ (!work.file)? 'Não disponível' : 'Baixar' }}" ng-click="open(work.file)"><i class="material-icons fa fa-download"></i></a>
                         </div>

@@ -87,7 +87,6 @@ public class UserRequest extends Request<User> {
 	@Override
 	public User get(HttpServletRequest request) {
 		try {
-			user = UserFactory.create();
 			getParameters();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -99,7 +98,6 @@ public class UserRequest extends Request<User> {
 	@Override
 	public User post(StringBuffer sb) {
 		try {
-			user = UserFactory.create();
 			getParameters();	
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -108,7 +106,9 @@ public class UserRequest extends Request<User> {
 	}
 	
 
-	private void getParameters() {
+	private void getParameters() throws Exception {
+		
+		user = UserFactory.create();
 		
 		// GET
 		String id = request.getParameter(ID);
@@ -120,21 +120,25 @@ public class UserRequest extends Request<User> {
 		
 		// POST
 		if(method.equals("POST")){
-			try {
+			try{
 				JSONObject json = new JSONObject(sb.toString());
 				id = json.optString(ID);
+				command = json.optString(COMMAND);
 				areaName = json.optString(AREA);
 				areaId = json.optString(AREA_ID);
-				command = json.optString(COMMAND);
-			} catch (JSONException e) {
+			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		} 
 		
 		setId(id, user);
 		
-		if(command != null && command.equals("listByUser")) // ONLY USER
-			return;
+		if(command != null){ 
+			 if( command.equals("listByUser") ) // ONLY USER
+				 return;
+			 if( command.equals("listRecents") ) // ONLY RECENTS
+				 return;
+		}
 		
 		Area area = new Area();
 		if(areaId != null && areaId.length() > 0)

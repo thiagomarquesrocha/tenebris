@@ -31,7 +31,7 @@
     <nav id="nav_f" class="default_color" role="navigation">
         <div class="container">
             <div class="nav-wrapper">
-            <a href="#main" id="logo-container" class="brand-logo"><img src="site/img/icon-white.png" /> Tenebris</a>
+            <a href="#main" id="logo-container" class="brand-logo"><img src="site/img/icon-white.png" /> Tenebris <img class="uea" src="site/img/uea_white.png" /></a>
                 <ul class="right hide-on-med-and-down">
                     <li><a href="#intro">Sobre</a></li>
                     <li><a href="#work">Acervo</a></li>
@@ -109,6 +109,10 @@
                             <span class="card-title grey-text text-darken-4">{{ work.titulo }}</span>
                             <p class="activator capitalize"><a href="">{{work.autor}}</a></p>
                             <p>{{ work.resumo }}</p>
+                            <p class="activator">
+                                <strong>Avaliado como:</strong>
+                                <button class="fa activator" ng-class="(i <= work.media)? 'fa-star' : 'fa-star-o'" ng-repeat="i in [1,2,3,4,5]"></button>
+                            </p>
                         </div>
                     </div>
                 </div>

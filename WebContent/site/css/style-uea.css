@@ -1,5 +1,11 @@
 /** Modificacoes 04/11/2015 - Thiago **/
 #logo-container img{ margin-bottom: -10px !important;}
+#logo-container{ position: relative }
+.uea{ max-width: 32px; bottom: 15px; position: absolute }
+
+#work .card button.fa{ background: none; border: none; }
+#work .fa-star{ color: #f00;}
+#work .fa-star-o{ color: #BBB6B6 }
 
 .login .btn{ color: #fff;}
 .login input{ border-bottom: 1px solid #83BEEC;}
