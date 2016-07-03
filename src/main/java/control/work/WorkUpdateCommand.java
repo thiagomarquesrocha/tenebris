@@ -47,7 +47,9 @@ public class WorkUpdateCommand extends WorkCommand{
 	            String field = item.getFieldName();
 	            String value = item.getString("UTF-8");
 	            // Others inputs from form
-	            if(field.equals("id")){
+	            if(field.equals("type")){
+	            	work.setType(Integer.valueOf(value));
+	            }else if(field.equals("id")){
 	            	work.setid(Long.valueOf(value));
 	            }else if(field.equals("title")){
 	            	work.settitulo(value);
@@ -125,6 +127,7 @@ public class WorkUpdateCommand extends WorkCommand{
 		ObraDao.atualizaObra
 		(
 				work.getid(),
+				work.getType(),
 				work.getinstituicao(), 
 				areaId.toString(), 
 				work.getautor(), 

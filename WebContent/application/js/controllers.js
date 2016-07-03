@@ -270,21 +270,6 @@ app
     return work && work.titulo;
   }
 
-  // Return the kind of work
-  $scope.getType = function(type){
-    console.log(type);
-    switch(type){
-      case 1 : // TCC
-        return "Trabalho de conclusão de curso (TCC)";
-      case 2 : // Artigo
-        return "Artigo";
-      case 3 : // Dissertacao
-        return "Dissertação";
-      case 4 : // Tese
-        return "Tese";
-    }
-  }
-
   $scope.$on('handleBroadcast', function() {
     if(sharedService.message != "perfil carregado") return;
       // Request info about work
@@ -413,10 +398,11 @@ app
     $scope.auth = data.autor;
     $scope.date = data.data;
     $scope.id = data.id;
-    $scope.institution = data.instituicao;
+    $scope.institution = data.instituicaoid;
     $scope.resume = data.resumo;
     $scope.area = data.area;
     $scope.file = data.path;
+    $scope.type = data.tipo;
     setDate();
   }
 
@@ -472,7 +458,7 @@ app
     Work.cancel();
   }
 
-  // Get list of work's type
+  // Get list of work's type available
   $scope.listTypes = function(){
     Work.getTypes();
   }
@@ -482,10 +468,14 @@ app
     $timeout(function(){
        User.getInstitutions(function(data){
         //console.log(data);
-        $scope.institution = 1; // EST
+        if(!$scope.institution)
+          $scope.institution = 1; // EST
         $scope.institutions = data;
         $timeout(function(){
-          $('select').material_select();
+          $(function(){
+            $('select').material_select('destroy');
+            $('select').material_select();
+          });
         }, 200);
       });
     }, 200);
@@ -688,6 +678,7 @@ Work = (function(){
 
   // Get info about one work by WorkId and UserId
   function get(work, user, callback){
+    var _this = this;
     this.$http({
           method: 'POST',
           url: Actions.work.view,
@@ -749,8 +740,12 @@ Work = (function(){
             if(DEBUG)
               console.log("Type ", type);
             if(type.id >= 0){
-              _this.$scope.type = type.id;
-              console.log("Type ID ", type.id);
+              if(!_this.$scope.type){
+                _this.$scope.type = type.id;
+                console.log("Type ID ", type.id);
+              }else{
+                 console.log("Type ID selecionado ", _this.$scope.type);
+              }
             }
           }
           if(callback)

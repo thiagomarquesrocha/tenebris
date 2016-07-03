@@ -8,7 +8,7 @@
         </header>
         <div class="container">
             <div class="row" ng-controller="WorkToolsCtrl">
-                <div class="col s12 14" ng-class="getGrid($index)" ng-repeat="work in works track by $index">
+                <div class="col s12 14" ng-class="getGrid($index)" ng-repeat="work in works | orderBy:'-data' track by $index">
                     <div class="card">
                         <div class="card-content activator" ng-click="view(work.id)">
                             <span class="card-title activator grey-text text-darken-4">{{work.titulo}} </span>

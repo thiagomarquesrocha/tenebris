@@ -10,7 +10,7 @@ public class JSON {
 
 	
 	public Obra Print(String obraId, int userId) throws SQLException{
-		String query = String.format("SELECT a.*, b.avaliacao, c.nome as autorNome, d.* FROM (SELECT obra.id, instituicao.nome instituicao, area.nome area, obra.autor, obra.titulo, obra.data, obra.resumo, obra.imagem FROM tenebris2016.obra INNER JOIN tenebris2016.instituicao ON obra.instituicao = instituicao.id INNER JOIN tenebris2016.area ON obra.area = area.id AND obra.id = %s) a LEFT OUTER JOIN (SELECT * FROM avaliacao WHERE obra = %s AND usuario = %s) b ON a.Id = b.obra, autor c, (SELECT avg(avaliacao) as media FROM avaliacao WHERE obra = %s) d WHERE c.id = a.autor", obraId, obraId, userId, obraId);		
+		String query = String.format("SELECT a.*, b.avaliacao, c.nome as autorNome, d.* FROM (SELECT obra.id, instituicao.nome instituicao, area.nome area, obra.autor, obra.titulo, obra.data, obra.resumo, obra.imagem FROM tenebris2016.obra INNER JOIN tenebris2016.instituicao ON obra.instituicao = instituicao.id INNER JOIN tenebris2016.area ON obra.area = area.id AND obra.id = %s) a LEFT OUTER JOIN (SELECT * FROM avaliacao WHERE obra = %s AND usuario = %s) b ON a.Id = b.obra, autor c, (SELECT avg(avaliacao) as media FROM avaliacao WHERE obra = %s) d WHERE c.id = a.autor ORDER BY a.data DESC", obraId, obraId, userId, obraId);		
 		
 		//System.out.println(query);
 		

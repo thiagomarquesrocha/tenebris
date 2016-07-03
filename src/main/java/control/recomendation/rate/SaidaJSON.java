@@ -31,7 +31,7 @@ public class SaidaJSON {
 	  
 	  try {
 		  
-		  String sql = String.format("SELECT a.*, b.avaliacao, c.nome as autorNome, d.* FROM (SELECT a.id as obraId, a.autor, a.resumo, a.data, LCASE(a.titulo) as titulo, b.nome as nome1, c.nome as nome2, a.imagem FROM obra a, area b, instituicao c WHERE a.area=b.id AND c.id = a.instituicao AND a.id = %s) a LEFT OUTER JOIN (SELECT * FROM avaliacao WHERE obra = %s AND usuario = %s) b ON a.obraId = b.obra, autor c, (SELECT avg(avaliacao) as media FROM avaliacao WHERE obra = %s) d WHERE c.id = a.autor", obraId, obraId, usuarioId, obraId);
+		  String sql = String.format("SELECT a.*, b.avaliacao, c.nome as autorNome, d.* FROM (SELECT a.id as obraId, a.autor, a.resumo, a.data, LCASE(a.titulo) as titulo, b.nome as nome1, c.nome as nome2, a.imagem FROM obra a, area b, instituicao c WHERE a.area=b.id AND c.id = a.instituicao AND a.id = %s) a LEFT OUTER JOIN (SELECT * FROM avaliacao WHERE obra = %s AND usuario = %s) b ON a.obraId = b.obra, autor c, (SELECT avg(avaliacao) as media FROM avaliacao WHERE obra = %s) d WHERE c.id = a.autor ORDER BY a.data DESC", obraId, obraId, usuarioId, obraId);
 		  
 		  //System.out.println(sql);
 		  

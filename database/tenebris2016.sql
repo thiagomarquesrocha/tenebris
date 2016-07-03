@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: 22-Jun-2016 às 05:18
+-- Generation Time: 03-Jul-2016 às 22:55
 -- Versão do servidor: 5.6.15-log
 -- PHP Version: 5.5.8
 
@@ -32,7 +32,7 @@ CREATE TABLE IF NOT EXISTS `area` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `nome_2` (`nome`),
   KEY `nome` (`nome`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=28 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=46 ;
 
 --
 -- Extraindo dados da tabela `area`
@@ -60,7 +60,7 @@ CREATE TABLE IF NOT EXISTS `autor` (
   `nome` varchar(255) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `nome` (`nome`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=13 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=18 ;
 
 --
 -- Extraindo dados da tabela `autor`
@@ -77,6 +77,8 @@ INSERT INTO `autor` (`id`, `nome`) VALUES
 (10, 'George F. Lucas'),
 (4, 'H.l Capron e J.A Johson'),
 (6, 'Iam Sommerville'),
+(13, 'thiago'),
+(17, 'thiago m.'),
 (9, 'Thiago Marques');
 
 -- --------------------------------------------------------
@@ -99,9 +101,14 @@ CREATE TABLE IF NOT EXISTS `avaliacao` (
 
 INSERT INTO `avaliacao` (`obra`, `usuario`, `avaliacao`) VALUES
 (21, 2, 3),
+(21, 5, 4),
+(21, 34, 5),
 (24, 34, 5),
 (26, 2, 3),
-(27, 2, 3);
+(27, 2, 3),
+(30, 34, 2),
+(34, 2, 5),
+(35, 2, 1);
 
 -- --------------------------------------------------------
 
@@ -114,7 +121,7 @@ CREATE TABLE IF NOT EXISTS `instituicao` (
   `nome` varchar(255) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `nome` (`nome`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
 
 --
 -- Extraindo dados da tabela `instituicao`
@@ -133,6 +140,7 @@ INSERT INTO `instituicao` (`id`, `nome`) VALUES
 
 CREATE TABLE IF NOT EXISTS `obra` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
+  `tipo` int(11) DEFAULT NULL,
   `instituicao` int(11) NOT NULL,
   `area` int(11) NOT NULL,
   `autor` int(11) DEFAULT NULL,
@@ -149,27 +157,30 @@ CREATE TABLE IF NOT EXISTS `obra` (
   KEY `area_2` (`area`),
   KEY `usuario` (`usuario`),
   KEY `autor` (`autor`),
-  KEY `autor_2` (`autor`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=33 ;
+  KEY `autor_2` (`autor`),
+  KEY `tipo` (`tipo`),
+  KEY `tipo_2` (`tipo`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=36 ;
 
 --
 -- Extraindo dados da tabela `obra`
 --
 
-INSERT INTO `obra` (`id`, `instituicao`, `area`, `autor`, `cadastradoEm`, `titulo`, `data`, `resumo`, `imagem`, `usuario`) VALUES
-(18, 1, 17, 10, '2016-06-21 22:14:44', 'Inteligência Artificial', '2014-12-02', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integera mollis nulla. Nam pellentesqu e eu lacus a mattis. Maecenas ornare nibh in lacus feugiat con dimentum. Duis viverra nisl mi, vitae tincidunt augue\r\nfringilla.', NULL, NULL),
-(19, 1, 17, 2, '2016-06-21 22:14:44', 'PersonalTVware: Uma\r\nInfraestrutura de Suporte a\r\nSistemas de Recomendação\r\nSensíveis ao Contexto para TV\r\nDigital Personalizada', '2013-10-12', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integera mollis nulla. Nam pellentesqu e eu lacus a mattis. Maecenas ornare nibh in lacus feugiat con dimentum. Duis viverra nisl mi, vitae tincidunt augue\r\nfringilla.', NULL, NULL),
-(20, 1, 19, 9, '2016-06-21 22:14:44', 'NOTA 10 - Um Objeto de\r\nAprendizagem em Dispositivos\r\nMóveis Voltado Para\r\nMatemática Básica', '2015-12-12', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integera mollis nulla. Nam pellentesqu e eu lacus a mattis. Maecenas ornare nibh in lacus feugiat con dimentum. Duis viverra nisl mi, vitae tincidunt augue\r\nfringilla.', NULL, NULL),
-(21, 1, 1, 8, '2016-06-21 22:14:44', 'Informática Aplicada', '2014-06-06', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integera mollis nulla. Nam pellentesqu e eu lacus a mattis. Maecenas ornare nibh in lacus feugiat con dimentum. Duis viverra nisl mi, vitae tincidunt augue\r\nfringilla.', NULL, NULL),
-(22, 1, 17, 2, '2016-06-21 22:14:44', 'Desenvolvimento de um\r\nSistema de Recomendação de\r\nDocumentos Acadêmicos\r\nUtilizando Técnicas de\r\nFiltragem de Informação e\r\nAprendizagem de Máquina', '2015-06-06', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integera mollis nulla. Nam pellentesqu e eu lacus a mattis. Maecenas ornare nibh in lacus feugiat con dimentum. Duis viverra nisl mi, vitae tincidunt augue\r\nfringilla.', NULL, NULL),
-(24, 1, 2, 7, '2016-06-21 22:14:44', 'Organização e Estrutura de Computadores', '2007-01-01', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integera mollis nulla. Nam pellentesqu e eu lacus a mattis. Maecenas ornare nibh in lacus feugiat con dimentum. Duis viverra nisl mi, vitae tincidunt augue\r\nfringilla.', NULL, NULL),
-(26, 1, 2, 6, '2016-06-21 22:14:44', 'Engenharia de Software', '2006-06-06', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integera mollis nulla. Nam pellentesqu e eu lacus a mattis. Maecenas ornare nibh in lacus feugiat con dimentum. Duis viverra nisl mi, vitae tincidunt augue\r\nfringilla.', NULL, NULL),
-(27, 1, 2, 5, '2016-06-21 22:14:44', 'Sistemas Operacionais', '2007-01-01', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integera mollis nulla. Nam pellentesqu e eu lacus a mattis. Maecenas ornare nibh in lacus feugiat con dimentum. Duis viverra nisl mi, vitae tincidunt augue\r\nfringilla.', NULL, NULL),
-(28, 1, 1, 5, '2016-06-21 22:14:44', 'Java como programar', '2007-01-01', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integera mollis nulla. Nam pellentesqu e eu lacus a mattis. Maecenas ornare nibh in lacus feugiat con dimentum. Duis viverra nisl mi, vitae tincidunt augue\r\nfringilla.', NULL, NULL),
-(29, 1, 20, 4, '2016-06-21 22:14:44', 'Introdução a informática', '2008-12-31', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integera mollis nulla. Nam pellentesqu e eu lacus a mattis. Maecenas ornare nibh in lacus feugiat con dimentum. Duis viverra nisl mi, vitae tincidunt augue\r\nfringilla.', NULL, NULL),
-(30, 1, 2, 9, '2016-06-21 22:14:44', 'nova obra 31', '2016-06-19', 'olá', 'C:\\Users\\Thiago\\workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp2\\wtpwebapps\\tenebris_github\\obras\\21_5_2016_17_1_1466542903225.pdf', 2),
-(31, 3, 23, 12, '2016-06-21 22:14:44', 'nova', '2016-06-20', 'teste', 'C:\\Users\\Thiago\\workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp2\\wtpwebapps\\tenebris_github\\obras\\21_5_2016_17_14_1466543696518.pdf', 2),
-(32, 1, 2, 9, '2016-06-21 22:17:20', 'teste', '2016-06-06', 'olá', 'C:\\Users\\Thiago\\workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp2\\wtpwebapps\\tenebris_github\\obras\\21_5_2016_18_17_1466547440766.pdf', 2);
+INSERT INTO `obra` (`id`, `tipo`, `instituicao`, `area`, `autor`, `cadastradoEm`, `titulo`, `data`, `resumo`, `imagem`, `usuario`) VALUES
+(18, 1, 1, 17, 10, '2016-06-21 22:14:44', 'Inteligência Artificial', '2014-12-02', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integera mollis nulla. Nam pellentesqu e eu lacus a mattis. Maecenas ornare nibh in lacus feugiat con dimentum. Duis viverra nisl mi, vitae tincidunt augue\r\nfringilla.', NULL, NULL),
+(19, 1, 1, 17, 2, '2016-06-21 22:14:44', 'PersonalTVware: Uma\r\nInfraestrutura de Suporte a\r\nSistemas de Recomendação\r\nSensíveis ao Contexto para TV\r\nDigital Personalizada', '2013-10-12', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integera mollis nulla. Nam pellentesqu e eu lacus a mattis. Maecenas ornare nibh in lacus feugiat con dimentum. Duis viverra nisl mi, vitae tincidunt augue\r\nfringilla.', NULL, NULL),
+(20, 1, 1, 19, 9, '2016-06-21 22:14:44', 'NOTA 10 - Um Objeto de\r\nAprendizagem em Dispositivos\r\nMóveis Voltado Para\r\nMatemática Básica', '2015-12-12', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integera mollis nulla. Nam pellentesqu e eu lacus a mattis. Maecenas ornare nibh in lacus feugiat con dimentum. Duis viverra nisl mi, vitae tincidunt augue\r\nfringilla.', NULL, NULL),
+(21, 1, 1, 1, 8, '2016-06-21 22:14:44', 'Informática Aplicada', '2014-06-06', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integera mollis nulla. Nam pellentesqu e eu lacus a mattis. Maecenas ornare nibh in lacus feugiat con dimentum. Duis viverra nisl mi, vitae tincidunt augue\r\nfringilla.', NULL, NULL),
+(22, 1, 1, 17, 2, '2016-06-21 22:14:44', 'Desenvolvimento de um\r\nSistema de Recomendação de\r\nDocumentos Acadêmicos\r\nUtilizando Técnicas de\r\nFiltragem de Informação e\r\nAprendizagem de Máquina', '2015-06-06', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integera mollis nulla. Nam pellentesqu e eu lacus a mattis. Maecenas ornare nibh in lacus feugiat con dimentum. Duis viverra nisl mi, vitae tincidunt augue\r\nfringilla.', NULL, NULL),
+(24, 1, 1, 2, 7, '2016-06-21 22:14:44', 'Organização e Estrutura de Computadores', '2007-01-01', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integera mollis nulla. Nam pellentesqu e eu lacus a mattis. Maecenas ornare nibh in lacus feugiat con dimentum. Duis viverra nisl mi, vitae tincidunt augue\r\nfringilla.', NULL, NULL),
+(26, 1, 1, 2, 6, '2016-06-21 22:14:44', 'Engenharia de Software', '2006-06-06', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integera mollis nulla. Nam pellentesqu e eu lacus a mattis. Maecenas ornare nibh in lacus feugiat con dimentum. Duis viverra nisl mi, vitae tincidunt augue\r\nfringilla.', NULL, NULL),
+(27, 1, 1, 2, 5, '2016-06-21 22:14:44', 'Sistemas Operacionais', '2007-01-01', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integera mollis nulla. Nam pellentesqu e eu lacus a mattis. Maecenas ornare nibh in lacus feugiat con dimentum. Duis viverra nisl mi, vitae tincidunt augue\r\nfringilla.', NULL, NULL),
+(28, 1, 1, 1, 5, '2016-06-21 22:14:44', 'Java como programar', '2007-01-01', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integera mollis nulla. Nam pellentesqu e eu lacus a mattis. Maecenas ornare nibh in lacus feugiat con dimentum. Duis viverra nisl mi, vitae tincidunt augue\r\nfringilla.', NULL, NULL),
+(29, 1, 1, 20, 4, '2016-06-21 22:14:44', 'Introdução a informática', '2008-12-31', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integera mollis nulla. Nam pellentesqu e eu lacus a mattis. Maecenas ornare nibh in lacus feugiat con dimentum. Duis viverra nisl mi, vitae tincidunt augue\r\nfringilla.', NULL, NULL),
+(30, 1, 1, 2, 9, '2016-06-21 22:14:44', 'nova obra 31', '2014-06-23', 'olá', 'C:\\Users\\Thiago\\workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp2\\wtpwebapps\\tenebris_github\\obras\\21_5_2016_17_1_1466542903225.pdf', 2),
+(33, 3, 1, 2, 13, '2016-07-03 19:17:18', 'teste', '2016-07-03', 'asdsadas', 'C:\\Users\\Thiago\\workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp2\\wtpwebapps\\tenebris_github\\obras\\3_6_2016_15_17_1467573438582.pdf', 2),
+(34, 4, 1, 2, 13, '2016-07-03 20:52:21', 'um estudo de caso', '2016-07-25', 'dasdasdasasd', 'C:\\Users\\Thiago\\workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp2\\wtpwebapps\\tenebris_github\\obras\\3_6_2016_16_52_1467579141262.pdf', 2),
+(35, 2, 3, 2, 17, '2016-07-03 20:53:42', 'teste', '2010-07-06', 'dasdas', 'C:\\Users\\Thiago\\workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp2\\wtpwebapps\\tenebris_github\\obras\\3_6_2016_16_53_1467579222386.pdf', 2);
 
 -- --------------------------------------------------------
 
@@ -182,7 +193,7 @@ CREATE TABLE IF NOT EXISTS `tag` (
   `nome` varchar(255) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `nome` (`nome`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=51 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=52 ;
 
 --
 -- Extraindo dados da tabela `tag`
@@ -190,6 +201,7 @@ CREATE TABLE IF NOT EXISTS `tag` (
 
 INSERT INTO `tag` (`id`, `nome`) VALUES
 (44, 'a.i'),
+(51, 'computação'),
 (48, 'filtragem'),
 (50, 'informática'),
 (49, 'inteligência artificial'),
@@ -199,6 +211,29 @@ INSERT INTO `tag` (`id`, `nome`) VALUES
 (1, 'program'),
 (46, 'reconhecimento'),
 (47, 'tv');
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `tipo_obra`
+--
+
+CREATE TABLE IF NOT EXISTS `tipo_obra` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nome` varchar(60) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `nome` (`nome`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
+
+--
+-- Extraindo dados da tabela `tipo_obra`
+--
+
+INSERT INTO `tipo_obra` (`id`, `nome`) VALUES
+(2, 'Artigo'),
+(3, 'Dissertação'),
+(4, 'Tese'),
+(1, 'Trabalho de conclusão de curso (TCC)');
 
 -- --------------------------------------------------------
 
@@ -264,7 +299,8 @@ CREATE TABLE IF NOT EXISTS `usuario_autores` (
 --
 
 INSERT INTO `usuario_autores` (`usuario`, `autor`) VALUES
-(2, 2);
+(2, 2),
+(2, 9);
 
 -- --------------------------------------------------------
 
@@ -307,7 +343,8 @@ CREATE TABLE IF NOT EXISTS `usuario_tags` (
 --
 
 INSERT INTO `usuario_tags` (`usuario`, `tag`) VALUES
-(2, 50);
+(2, 50),
+(2, 51);
 
 --
 -- Constraints for dumped tables
@@ -327,7 +364,8 @@ ALTER TABLE `obra`
   ADD CONSTRAINT `obra_ibfk_1` FOREIGN KEY (`instituicao`) REFERENCES `instituicao` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `obra_ibfk_2` FOREIGN KEY (`area`) REFERENCES `area` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `obra_ibfk_3` FOREIGN KEY (`usuario`) REFERENCES `usuario` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `obra_ibfk_4` FOREIGN KEY (`autor`) REFERENCES `autor` (`id`) ON DELETE SET NULL;
+  ADD CONSTRAINT `obra_ibfk_4` FOREIGN KEY (`autor`) REFERENCES `autor` (`id`) ON DELETE SET NULL,
+  ADD CONSTRAINT `obra_ibfk_5` FOREIGN KEY (`tipo`) REFERENCES `tipo_obra` (`id`) ON DELETE SET NULL ON UPDATE CASCADE;
 
 --
 -- Limitadores para a tabela `usuario`

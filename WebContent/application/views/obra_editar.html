@@ -11,6 +11,17 @@
                 <form class="col s12" name="cadastrar" ng-submit="save('update')" enctype="multipart/form-data">
                     <div class="row">
                         <div class="input-field col s12">
+                            <i class="material-icons prefix fa fa-file-text"></i>
+                            <div class="select-box" ng-init="listTypes()">
+                                <select id="type" ng-model="type" ng-options="type.id as type.nome for type in types" required>
+                                    <option value="-1" disabled selected>Selecione o tipo</option>
+                                </select>
+                                <label for="type">Tipo</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s12">
                             <i class="material-icons prefix fa fa-font"></i>
                             <input id="title" type="text" class="validate" placeholder="Nome da obra" ng-model="title" required>
                             <label for="title">Título</label>
@@ -20,8 +31,8 @@
                         <div class="input-field col s12">
                             <i class="material-icons prefix fa fa-institution"></i>
                             <div class="select-box" ng-init="listInstitutions()">
-                                <select class="validate" id="institution" ng-model="institution" required>
-                                    <option value="{{institution.id}}" ng-repeat="institution in institutions" ng-selected="isDefaultOption(institution)">{{institution.nome | uppercase}}</option>
+                                <select id="institution" ng-model="institution" ng-options="institution.id as institution.nome | uppercase for institution in institutions" required>
+                                   <option value="-1" disabled selected>Selecione a instituição</option>
                                 </select>
                                 <label for="institution">Instituição</label>
                             </div>
