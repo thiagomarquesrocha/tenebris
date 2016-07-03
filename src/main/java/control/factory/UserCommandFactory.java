@@ -1,11 +1,11 @@
 package control.factory;
 
-import control.user.PreferenceCRUDCommand;
 import control.MainCommand;
 import control.user.AddUserCommand;
 import control.user.ListInstitutionsCommand;
 import control.user.LoginUserCommand;
 import control.user.LogoutUserCommand;
+import control.user.PreferenceCRUDCommand;
 import control.user.ProfileUserCommand;
 import control.user.SessionUserCommand;
 import control.user.UpdateAreaCommand;
@@ -21,10 +21,8 @@ public class UserCommandFactory extends CommandFactory<MainCommand> {
 	public static final String LOGOUT = "logout";
 	public static final String LOGIN = "login";
 	public static final String SESSION = "session";
-
 	public static final String ADD_INTEREST = "add_interest";
 	public static final String UPDATE_AREA = "update_area";
-
 	public static final String LIST_INSTITUTIONS = "list_institutions";
 	
 	private UserCommandFactory(){}

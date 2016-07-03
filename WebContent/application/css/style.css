@@ -14,6 +14,11 @@
 .m16{ margin: 16px 0}
 .capitalize{ text-transform: capitalize}
 
+.select-dropdown li.disabled, .select-dropdown li.disabled>span, .select-dropdown li.optgroup{
+	color: rgba(0,0,0,0.3);
+	background-color: transparent
+}
+
 
 #perfil header{ text-align: center; padding: 2em }
 #perfil header nav ul.hide-on-med-and-down li{ float: none; display: inline-flex}

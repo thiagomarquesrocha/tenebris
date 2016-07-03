@@ -48,7 +48,9 @@ public class WorkSaveCommand extends WorkCommand{
 	            String field = item.getFieldName();
 	            String value = item.getString("UTF-8");
 	            // Others inputs from form
-	            if(field.equals("title")){
+	            if(field.equals("type")){
+	            	work.setType(Integer.valueOf(value));
+	            }else if(field.equals("title")){
 	            	work.settitulo(value);
 	            }else if(field.equals("institution")){
 	            	work.setinstituicao(value);
@@ -103,7 +105,8 @@ public class WorkSaveCommand extends WorkCommand{
 		//Guarda no banco de dados o endereço para recuperação da imagem
 		ObraDao.insereObra
 		(
-				work.getinstituicao(), 
+				work.getType(),
+				work.getinstituicao(),
 				areaId.toString(), 
 				authId.toString(), 
 				work.gettitulo(), 

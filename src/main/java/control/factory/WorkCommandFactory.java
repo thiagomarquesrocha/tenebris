@@ -1,6 +1,7 @@
 package control.factory;
 
 import control.MainCommand;
+import control.work.ListWorkTypesCommand;
 import control.work.WorkInfoCommand;
 import control.work.WorkListByUserCommand;
 import control.work.WorkListRecentsCommand;
@@ -20,6 +21,7 @@ public class WorkCommandFactory extends CommandFactory<MainCommand> {
 	public static final String UPDATE_WORK = "update work";
 	public static final String REMOVE_WORK = "remove work";
 	public static final String LIST_RECENTS = "list recents";
+	public static final String LIST_WORK_TYPES = "list work types";
 	
 	private WorkCommandFactory(){
 		
@@ -51,6 +53,9 @@ public class WorkCommandFactory extends CommandFactory<MainCommand> {
 				break;
 			case LIST_RECENTS:
 				c = new WorkListRecentsCommand();
+				break;
+			case LIST_WORK_TYPES:
+				c = new ListWorkTypesCommand();
 				break;
 			default:
 				c = new NoCommand();

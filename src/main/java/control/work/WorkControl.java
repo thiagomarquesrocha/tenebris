@@ -162,4 +162,26 @@ public class WorkControl {
 			.put(JSONOut.DATA, null);
 		}
 	}
+
+	public static void listTypes(WorkDao dao, JSONData data) {
+		try {
+			String sql = "SELECT * FROM tipo_obra";
+			System.out.println("SQL : " + sql);
+			PreparedStatement stmt = dao.getCon().prepareStatement(sql);
+			// Query com os dados do usuario
+			ResultSet resultSet = stmt.executeQuery();
+
+			JSONArray resultQuery = Conversor.convertToJSON(resultSet);
+			
+			dao.getData()
+			.put(JSONOut.DATA, resultQuery);
+			
+			stmt.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+			dao.getData()
+			.put(JSONOut.CODE, JSONOut.User.NAO_FOI_POSSIVEL_COMPLETAR_ACAO)
+			.put(JSONOut.DATA, null);
+		}
+	}
 }

@@ -17,6 +17,7 @@ public class WorkDao extends Dao{
 	public static final int LIST_BY_USER = 2;
 	public static final int REMOVE_BY_ID = 3;
 	public static final int LIST_RECENTS = 4;
+	public static final int LIST_WORK_TYPES = 5;
 	
 	public static final String[] COLUMMN_ID = new String[]{"id"};
 	public static final String LABEL_ALL = "*";
@@ -82,6 +83,9 @@ public class WorkDao extends Dao{
 				// Get the user object
 				User userActive = (User) o[1];
 				WorkControl.listRecents(this, userActive, getData());
+				break;
+			case LIST_WORK_TYPES :
+				WorkControl.listTypes(this, getData());
 				break;
 		}
 		

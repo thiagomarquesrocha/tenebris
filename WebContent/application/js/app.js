@@ -6,6 +6,18 @@ app = angular.module('App', ['ngRoute', 'ngProgress'])
 	angular.element("#top").removeClass("loading");
 }])
 
+.filter('by', function() {
+    return function(propertyName, propertyValue, collection) {
+        var i=0, len=collection.length;
+        for (; i<len; i++) {
+            if (collection[i][propertyName] == +propertyValue) {
+                return collection[i];
+            }
+        }
+        return null;
+    }
+})
+
 .filter('unique', function() {
 
   return function (arr, field) {

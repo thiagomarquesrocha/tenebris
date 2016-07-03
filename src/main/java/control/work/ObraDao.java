@@ -11,6 +11,7 @@ public class ObraDao {
     
     /**
      * Insert a work into "obra" table
+     * @param type int
      * @param instituicao int
      * @param area int
      * @param autor String
@@ -24,11 +25,11 @@ public class ObraDao {
      * @throws IllegalAccessException
      * @throws ClassNotFoundException
      */
-    public static void insereObra(String instituicao, String area, String autor, String titulo, String data, String resumo, String imagem, String usuario) throws SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException {
+    public static void insereObra(int type, String instituicao, String area, String autor, String titulo, String data, String resumo, String imagem, String usuario) throws SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException {
     	
     	  Connection conn = ConnectionSingleton.getInstance().getConnection();
 		  
-		  String sql = "INSERT INTO obra (instituicao, area, autor, titulo, data, resumo, imagem, usuario) VALUES("+instituicao+","+area+","+autor+",'"+titulo+"','"+data+"','"+resumo+"',?,"+usuario+");";
+		  String sql = "INSERT INTO obra (tipo, instituicao, area, autor, titulo, data, resumo, imagem, usuario) VALUES("+type+","+instituicao+","+area+","+autor+",'"+titulo+"','"+data+"','"+resumo+"',?,"+usuario+");";
 		  
 		  System.out.println("SQL :" + sql);
 		  

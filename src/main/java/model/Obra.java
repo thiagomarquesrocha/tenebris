@@ -12,6 +12,7 @@ public class Obra {
 	private int avaliacao;
 	private String file;
 	private float media;
+	private Integer type;
  
 	public Long getid() {
         return id;
@@ -84,6 +85,14 @@ public class Obra {
 
 	public float getMedia() {
 		return media;
+	}
+
+	public void setType(int type) {
+		this.type = type;
+	}
+
+	public int getType() {
+		return type;
 	}
     
 }

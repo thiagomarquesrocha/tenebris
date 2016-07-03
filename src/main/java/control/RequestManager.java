@@ -36,6 +36,7 @@ public class RequestManager {
 	public static final int ALTERAR_OBRA = 16;
 	public static final int REMOVER_OBRA = 17;
 	public static final int LISTAR_OBRAS_RECENTES = 18;
+	public static final int LISTAR_TIPOS_OBRAS = 19;
 	
 	private int op;
 	HttpServletResponse response;
@@ -120,6 +121,9 @@ public class RequestManager {
 				break;
 			case LISTAR_INSTITUICOES : // Lista as instituicoes do banco
 				execute(CommandFacade.FACTORY_USER, UserCommandFactory.LIST_INSTITUTIONS, CommandFacade.FACTORY_USER, DaoFactory.USER);
+				break;
+			case LISTAR_TIPOS_OBRAS : // Lista os tipos de obras
+				execute(CommandFacade.FACTORY_WORK, WorkCommandFactory.LIST_WORK_TYPES, CommandFacade.FACTORY_WORK, DaoFactory.WORK);
 				break;
 			case CADASTRAR_NOVA_OBRA :  // Cadastrar nova obra
 				execute(CommandFacade.FACTORY_WORK, WorkCommandFactory.NEW, CommandFacade.FACTORY_WORK, DaoFactory.WORK);

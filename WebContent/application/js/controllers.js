@@ -337,7 +337,7 @@ app
 
 })
 
-.controller('WorkCtrl', function($scope, $rootScope, $routeParams, $timeout, $location, $http, sharedService){
+.controller('WorkCtrl', function($scope, $rootScope, $routeParams, $timeout, $location, $filter, $http, sharedService){
   
   var picker;
   var gettingMyWorks;
@@ -353,6 +353,7 @@ app
     .setHttp($http)
     .setTimeout($timeout)
     .setLocation($location)
+    .setFilter($filter)
     .setService(sharedService);
 
   // Work id passed by parameter
@@ -471,21 +472,19 @@ app
     Work.cancel();
   }
 
-  // Check if was selected EST option
-  $scope.isDefaultOption = function(institution){
-      //console.log(institution);
-      var isSelected = institution.id == 1;
-      return isSelected; // EST
+  // Get list of work's type
+  $scope.listTypes = function(){
+    Work.getTypes();
   }
 
-  // Get list of institutions available
+   // Get list of institutions available
   $scope.listInstitutions = function(){
     $timeout(function(){
        User.getInstitutions(function(data){
         //console.log(data);
+        $scope.institution = 1; // EST
         $scope.institutions = data;
         $timeout(function(){
-          $scope.institution = 1; // EST
           $('select').material_select();
         }, 200);
       });
@@ -497,13 +496,18 @@ app
         var user = User.getId();
         var d = $scope.date;
         var institution = $scope.institution;
-        console.log(institution);
+        var type = $scope.type;
+        console.log(institution, type);
         if(!user){
           Materialize.toast("Você precisa está logado para realizar essa operação", 4000);
           return;
         }
-        if(!institution || institution == ''){
+        if(!institution || institution < 0){
           Materialize.toast("Você precisa selecionar a instituição", 4000);
+          return;
+        }
+        if(!type || type < 0){
+          Materialize.toast("Você precisa selecionar o tipo de obra", 4000);
           return;
         }
         if(!d){
@@ -512,7 +516,8 @@ app
         }
         var file = $scope.file;
         var uploadUrl = (update)? Actions.work.update : Actions.work.new;
-        var fd = new FormData();        
+        var fd = new FormData();
+        fd.append('type', type)        
         fd.append('title', $scope.title.toLowerCase());
         // 1 - EST
         if(update)
@@ -726,6 +731,37 @@ Work = (function(){
     });
   }
 
+  // Get list of work's types
+  function getTypes(callback){
+    var _this = this;
+    this.$timeout(function(){
+     
+      _this.$http({
+          method: 'GET',
+          url: Actions.work.types,
+      }).then(function successCallback(response) {
+          var data = response.data;
+          if(DEBUG)
+            console.log("Data :", data);
+          _this.$scope.types = data.data;
+          if(data.data){
+            var type = _this.$filter('by')('id', 1, data.data);
+            if(DEBUG)
+              console.log("Type ", type);
+            if(type.id >= 0){
+              _this.$scope.type = type.id;
+              console.log("Type ID ", type.id);
+            }
+          }
+          if(callback)
+            callback(_this.$scope.types);
+      }, function errorCallback(response) {
+          
+      });
+
+    }, 200);
+  }
+
   var obj = Object.create(Angular, {
     get : { value : get },
     view : { value : view },
@@ -733,7 +769,8 @@ Work = (function(){
     open : { value : open },
     cancel : { value : cancel },
     setCancel : { value : setCancel },
-    list : { value : getList }
+    list : { value : getList },
+    getTypes : { value : getTypes }
   })
 
   return obj;

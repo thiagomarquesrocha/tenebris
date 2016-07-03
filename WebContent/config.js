@@ -49,7 +49,8 @@ var Actions = {
 		"list" : SITE + "obra/listar",
 		"update" : SITE + "obra/alterar",
 		"remove" : SITE + "obra/remover",
-		"recents" : SITE + "obra/recentes"
+		"recents" : SITE + "obra/recentes",
+		"types" : SITE + "obra/tipos"
 	},
 	"preferences" :{
 		"add_interest" : 2,
