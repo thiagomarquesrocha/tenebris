@@ -265,8 +265,24 @@ app
     });
   }
 
+  // Check if work exists
   $scope.hasWork = function(work){
     return work && work.titulo;
+  }
+
+  // Return the kind of work
+  $scope.getType = function(type){
+    console.log(type);
+    switch(type){
+      case 1 : // TCC
+        return "Trabalho de conclusão de curso (TCC)";
+      case 2 : // Artigo
+        return "Artigo";
+      case 3 : // Dissertacao
+        return "Dissertação";
+      case 4 : // Tese
+        return "Tese";
+    }
   }
 
   $scope.$on('handleBroadcast', function() {

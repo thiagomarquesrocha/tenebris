@@ -10,14 +10,20 @@
         <div class="row">
             <div class="col s12 14" ng-class="getGrid($index)">
                 <div class="card" ng-show="hasWork(work)">
-                    <div class="card-content activator">
+                    <div class="card-content activator" ng-init="work.avaliacao = (!work.avaliacao)? 0 : work.avaliacao">
                         <p><strong>Resumo</strong></p>
                         <p>{{ work.resumo }}</p>
-                        <p class="activator"><a href="">{{work.autor}}</a></p>
-                        <p class="activator">{{work.time | date:'yyyy'}}</p>
+                        <p class="activator"><a href="">{{work.autor}}, {{work.data | date:'yyyy'}}</a></p>
                         <p class="activator"><span class="badge amber darken-4 white-text activator">{{work.area}}</span></p>
-                        <div class="activator" ng-init="work.avaliacao = (!work.avaliacao)? 0 : work.avaliacao">
-                            <button class="fa" ng-show="work.avaliacao > 0 || work.submited" ng-class="(i <= work.avaliacao)? 'fa-star' : 'fa-star-o'" ng-repeat="i in [1,2,3,4,5]"></button>
+                        <div class="activator"><strong>Tipo:</strong> <span class="capitalize">{{ getType(work.tipo) }}</span></div>
+                        <div class="activator"><strong>Instituição:</strong> <span class="capitalize">{{ work.instituicao }}</span></div>
+                        <p class="activator">
+                                <strong>Avaliado como:</strong>
+                                <button class="fa activator" ng-class="(i <= work.media)? 'fa-star' : 'fa-star-o'" ng-repeat="i in [1,2,3,4,5]"></button>
+                        </p>
+                        <p ng-show="work.avaliacao > 0 || work.submited">Você avaliou esta obra em {{ work.avaliacao }} estrela{{ (work.avaliacao <= 1)? '' : 's' }}</p>
+                        <hr ng-show="!work.avaliacao || work.avaliacao <= 0"/>
+                        <div class="activator">
                             <div ng-show="!work.avaliacao || work.avaliacao <= 0">
                                 <p class="obs"><span class="c-red">*</span> Passe o mouse sobre as estrelas e deixe sua avaliação</p>
                                 <button class="fa" ng-class="(i <= work.preavaliacao)? 'fa-star' : 'fa-star-o'" ng-repeat="i in [1,2,3,4,5]" ng-mouseenter="rating(work, $index)"></button>

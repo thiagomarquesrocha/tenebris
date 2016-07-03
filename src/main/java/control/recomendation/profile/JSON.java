@@ -32,6 +32,7 @@ public class JSON {
 	    		obra.setinstituicao(result.getString("instituicao"));
 	    		obra.setFile(result.getString("imagem"));
 	    		obra.setMedia(result.getFloat("media"));
+	    		obra.setdata(result.getString("data"));
 			    return obra;
 	    	}
 	    }

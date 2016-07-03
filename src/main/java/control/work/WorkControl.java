@@ -36,7 +36,7 @@ public class WorkControl {
 			Long user = userWork.getUser().getId();
 			
 			// cria um preparedStatement
-			String sql = String.format("SELECT a.*, b.avaliacao, c.nome as autor FROM (SELECT a.id, a.autor as autorId, a.resumo, a.data, LCASE(a.titulo) as titulo, a.imagem as path, b.nome as area, c.nome as instituicao FROM obra a, area b, instituicao c WHERE a.area=b.id AND c.id = a.instituicao AND a.id = %s) a LEFT OUTER JOIN (SELECT * FROM avaliacao WHERE obra = %s AND usuario = %s) b ON a.id = b.obra, autor c WHERE c.id = a.autorId", work, work, user);
+			String sql = String.format("SELECT * FROM (SELECT a.*, b.avaliacao, c.nome as autor FROM (SELECT a.id, a.autor as autorId, a.resumo, a.data, LCASE(a.titulo) as titulo, a.imagem as path, a.tipo, b.nome as area, c.nome as instituicao FROM obra a, area b, instituicao c WHERE a.area=b.id AND c.id = a.instituicao AND a.id = %s) a LEFT OUTER JOIN (SELECT * FROM avaliacao WHERE obra = %s AND usuario = %s) b ON a.id = b.obra, autor c WHERE c.id = a.autorId) a LEFT OUTER JOIN (SELECT obra, avg(avaliacao) as media FROM avaliacao GROUP BY obra) b ON a.id = b.obra GROUP BY a.id", work, work, user);
 			PreparedStatement stmt = dao.getCon().prepareStatement(sql);
 			
 			// Query com os dados do usuario

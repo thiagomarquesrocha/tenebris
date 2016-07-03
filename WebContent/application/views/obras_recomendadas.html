@@ -13,8 +13,7 @@
                         <div class="card-content activator" ng-click="view(work.id)">
                             <span class="card-title activator grey-text text-darken-4">{{work.titulo}} </span>
                             <p class="capitalize">{{ work.resumo | limitTo: 150 }} {{ work.resumo.length > 150 ? '...' : ''}}</p>
-                            <p class="activator capitalize"><a href="">{{work.autor}}</a></p>
-                            <p class="activator">{{work.time | date:'yyyy'}}</p>
+                            <p class="activator capitalize"><a href="">{{work.autor}}, {{work.data | date:'yyyy'}}</a></p>
                             <p class="activator"><span class="badge amber darken-4 white-text activator">{{work.area}}</span></p>
                             <p class="activator">
                                 <strong>Avaliado como:</strong>
