@@ -47,6 +47,9 @@
 #obra-cadastrar .header{ color: #fff }
 #obra-cadastrar .select-box, #obra-cadastrar .select-box label{ margin-left: 3rem}
 
+.collection-item{ cursor: pointer }
+.collection-item .fa-minus-circle{ font-size: 23px }
+
 .fixing{ overflow: hidden }
 
 .loading .hide-while-loading{ display: none !important}

@@ -36,7 +36,7 @@ app
     User.isLoggin();
   }); // ON
 
-  function send(action, type, field, value, callback){
+  function send(action, type, field, value, callback, cancelToast){
     $http({
         method: 'POST',
         url: Actions.user.add.interest,
@@ -54,11 +54,15 @@ app
               callback();
             msg = "Cadastrada com sucesso";
             break;
+          case Code.User.NAO_FOI_POSSIVEL_COMPLETAR_ACAO :
+            msg = "Não foi possível completar esta ação";
+            break;
           default :
             msg = "Não foi possível cadastrar o interesse";
             break;
         }
-        Materialize.toast(msg, 4000);
+        if(!cancelToast)
+          Materialize.toast(msg, 4000);
     });
   }
 
@@ -89,10 +93,25 @@ app
   $scope.control = {
     remove : {
       tag : function(index, tagId){
-        console.log('Deletando');
+        if(DEBUG)
+          console.log('Deletando interesse');
         send(Actions.preferences.interest, 'remove', 'tag', tagId + "", function(){
           Preference.remove('tags', index);
-        });
+        }, true);
+      },
+      institution : function(index, institutionId){
+        if(DEBUG)
+          console.log('Deletando instituicao');
+        send(Actions.preferences.institution, 'remove', 'instituicao', institutionId + "", function(){
+          Preference.remove('instituicoes', index);
+        }, true);
+      },
+      auth : function(index, authId){
+        if(DEBUG)
+          console.log('Deletando autor');
+        send(Actions.preferences.auth, 'remove', 'autor', authId + "", function(){
+          Preference.remove('autores', index);
+        }, true);
       }
     }
   };
@@ -154,9 +173,9 @@ app
   }
 
   var Preference = {
-    remove : function(index, name){
+    remove : function(name, index){
       if(!$scope.profile.user[name] || index < 0) return;
-      $scope.profile.user[name].slice(index, 1);
+      $scope.profile.user[name].splice(index, 1);
     }
   };
 
@@ -822,7 +841,7 @@ User = (function(){
     this.$http({
         method: 'POST',
         url: Actions.work.recommend.hibryd,
-        data : { "userId" : userId, qtd : 20 },
+        data : { "userId" : userId, qtd : 200 },
     }).then(function successCallback(response) {
         var data = response.data;
         if(!data || !data.recommend) return;

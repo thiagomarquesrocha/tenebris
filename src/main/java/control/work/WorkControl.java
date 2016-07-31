@@ -145,7 +145,7 @@ public class WorkControl {
 			// Monta a condicao para buscar a avaliacao de um usuario se existir
 			String hasUser = (user != null)? "AND b.usuario = " + user : "";
 			
-			String sql = String.format("SELECT a.*, b.* FROM (SELECT a.*, b.avaliacao, c.nome as autor FROM (SELECT a.id as id, a.autor as autorId, a.resumo, a.data, LCASE(a.titulo) as titulo, b.nome as area, c.nome as instituicao, a.imagem as file, a.cadastradoEm FROM obra a, area b, instituicao c WHERE a.area=b.id AND c.id = a.instituicao) a LEFT OUTER JOIN avaliacao b ON a.id = b.obra %s, autor c WHERE c.id = a.autorId LIMIT 20) a LEFT OUTER JOIN (SELECT obra, avg(avaliacao) as media FROM avaliacao GROUP BY obra) b ON a.id = b.obra GROUP BY a.id ORDER BY a.data DESC", hasUser);
+			String sql = String.format("SELECT a.*, b.* FROM (SELECT a.*, b.avaliacao, c.nome as autor FROM (SELECT a.id as id, a.autor as autorId, a.resumo, a.data, LCASE(a.titulo) as titulo, b.nome as area, c.nome as instituicao, a.imagem as file, a.cadastradoEm FROM obra a, area b, instituicao c WHERE a.area=b.id AND c.id = a.instituicao) a LEFT OUTER JOIN avaliacao b ON a.id = b.obra %s, autor c WHERE c.id = a.autorId LIMIT 200) a LEFT OUTER JOIN (SELECT obra, avg(avaliacao) as media FROM avaliacao GROUP BY obra) b ON a.id = b.obra GROUP BY a.id ORDER BY b.media DESC", hasUser);
 			//System.out.println("SQL : " + sql);
 			PreparedStatement stmt = dao.getCon().prepareStatement(sql);
 			// Query com os dados do usuario

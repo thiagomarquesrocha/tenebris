@@ -48,9 +48,12 @@
 							</form>
 						</div>
 						<div class="container-fluid">
-							<ul class="collection with-header">
-								<li class="collection-header"><h4><span class="fa fa-tags"></span>  Lista</h4></li>
-						        <a href="" class="collection-item" ng-repeat="tag in profile.user.tags track by $index">{{tag.nome }} <i class="fa fa-remove" ng-click="control.remove.tag($index, tag.id)"></i></a>
+							<ul class="collection with-header" id="interests">
+								<li class="collection-header"><h4><span class="fa fa-tags"></span>  Interesses</h4></li>
+						        <a class="collection-item" ng-repeat="tag in profile.user.tags track by $index">
+											{{tag.nome }} 
+											<i class="fa fa-minus-circle pull-right" ng-click="control.remove.tag($index, tag.id)"></i>
+										</a>
 				  			</ul>
 					  	</div>
 			  		</div>
@@ -74,8 +77,11 @@
 						</div>
 						<div class="container-fluid">
 							<ul class="collection with-header">
-								<li class="collection-header"><h4><span class="fa fa-tags"></span>  Lista</h4></li>
-						        <a href="" class="collection-item"ng-repeat="instituicao in profile.user.instituicoes track by $index">{{instituicao.nome}}</a>
+								<li class="collection-header"><h4><span class="fa fa-tags"></span>  Instituições</h4></li>
+						        <a class="collection-item" ng-repeat="instituicao in profile.user.instituicoes track by $index">
+											{{instituicao.nome}}
+											<i class="fa fa-minus-circle pull-right" ng-click="control.remove.institution($index, instituicao.id)"></i>
+										</a>
 				  			</ul>
 					  	</div>
 				  	</div>
@@ -109,8 +115,11 @@
 						</div>
 						<div class="container-fluid">
 							<ul class="collection with-header">
-								<li class="collection-header"><h4><span class="fa fa-tags"></span>  Lista</h4></li>
-						        <a href="" class="collection-item"ng-repeat="auth in profile.user.autores track by $index">{{auth.nome}}</a>
+								<li class="collection-header"><h4><span class="fa fa-tags"></span>  Autores</h4></li>
+						        <a href="" class="collection-item" ng-repeat="auth in profile.user.autores track by $index">
+											{{auth.nome}}
+											<i class="fa fa-minus-circle pull-right" ng-click="control.remove.auth($index, auth.id)"></i>
+										</a>
 				  			</ul>
 					  	</div>
 				  	</div>
