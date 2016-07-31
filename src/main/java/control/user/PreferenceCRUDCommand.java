@@ -21,6 +21,8 @@ public class PreferenceCRUDCommand extends PreferencesCRUD {
 		// Cadastrar um novo interesse
 		if(preference.getType().equals("add"))
 			create();
+		if(preference.getType().equals("remove"))
+			delete();
 		
 		// Mostra a saida em JSON
 		Print.json(getResponse(), data);
@@ -34,17 +36,26 @@ public class PreferenceCRUDCommand extends PreferencesCRUD {
 
 	@Override
 	public void delete() {
-		// TODO Auto-generated method stub
+		String table = getTable(preference.getAction());
 		
+		data = getDao().delete(preference.getAction(), table, preference);
 	}
-	
-	
 
 	@Override
 	public void create() {
-		String table = "";
+		String table = getTable(preference.getAction());
 		
-		switch(preference.getAction()){
+		data = getDao().add(preference.getAction(), table, preference);
+	}
+
+	@Override
+	public void recovery() {
+		
+	}
+
+	private String getTable(int action) {
+		String table = "";
+		switch(action){
 			case UserDao.ADD_USER : // Executa o comando para adicioanr um usuario
 				break;
 			case UserDao.ADD_INTEREST :
@@ -57,13 +68,6 @@ public class PreferenceCRUDCommand extends PreferencesCRUD {
 				table = "usuario_autores";
 				break;
 		}
-		
-		data = getDao().add(preference.getAction(), table, preference);
+		return table;
 	}
-
-	@Override
-	public void recovery() {
-		
-	}
-
 }

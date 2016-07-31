@@ -36,7 +36,7 @@ app
     User.isLoggin();
   }); // ON
 
-  function send(action, type, field, value){
+  function send(action, type, field, value, callback){
     $http({
         method: 'POST',
         url: Actions.user.add.interest,
@@ -50,6 +50,8 @@ app
             msg = "A prefência já existe";
             break;
           case Code.OPERACAO_COMPLETADA :
+            if(callback)
+              callback();
             msg = "Cadastrada com sucesso";
             break;
           default :
@@ -78,18 +80,31 @@ app
 
   $scope.addTag = function(tag){
     createList('tags');
-    addItem('tags', tag);
-    $("#icon_prefix_interesse").val('');
-    send(Actions.preferences.add_interest, 'add', 'tag', tag);
+    send(Actions.preferences.interest, 'add', 'tag', tag, function(){
+      addItem('tags', tag);
+      $("#icon_prefix_interesse").val('');
+    });
+  };
+
+  $scope.control = {
+    remove : {
+      tag : function(index, tagId){
+        console.log('Deletando');
+        send(Actions.preferences.interest, 'remove', 'tag', tagId + "", function(){
+          Preference.remove('tags', index);
+        });
+      }
+    }
   };
 
   $scope.addInstituition = function(instituition){
     console.log(instituition);
     if(!instituition) return;
     createList('instituicoes');
-    addItem('instituicoes', instituition);
-    $("#icon_prefix_instituicao").val('');
-    send(Actions.preferences.add_institution, 'add', 'instituicao', instituition);
+    send(Actions.preferences.add_institution, 'add', 'instituicao', instituition, function(){
+      addItem('instituicoes', instituition);
+      $("#icon_prefix_instituicao").val('');
+    });
   };
 
   $scope.listInstitutions = function(){
@@ -123,8 +138,10 @@ app
 
   $scope.addAuth = function(auth){
     createList('autores');
-    addItem('autores', auth);
-    send(Actions.preferences.add_auth, 'add', 'autor', auth);
+    send(Actions.preferences.add_auth, 'add', 'autor', auth, function(){
+      addItem('autores', auth);
+      $("#icon_prefix_auth").val('');
+    });
   };
 
   $scope.isActivatedMenu = function(value){
@@ -135,6 +152,13 @@ app
     if(!$scope.profile.user[field])
       $scope.profile.user[field] = [];
   }
+
+  var Preference = {
+    remove : function(index, name){
+      if(!$scope.profile.user[name] || index < 0) return;
+      $scope.profile.user[name].slice(index, 1);
+    }
+  };
 
   function addItem(name, item){
     var list = $scope.profile.user[name];

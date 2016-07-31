@@ -55,7 +55,10 @@ var Actions = {
 	"preferences" :{
 		"add_interest" : 2,
 		"add_institution" : 3,
-		"add_auth" : 4
+		"add_auth" : 4,
+		"interest" : 2,
+		"institution" : 3,
+		"auth" : 4
 	}
 };
 

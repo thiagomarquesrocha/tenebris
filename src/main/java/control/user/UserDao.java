@@ -62,11 +62,11 @@ public class UserDao extends Dao{
 		int op = (Integer) o[0];
 		
 		switch(op){
-			case ADD_USER : // Executa o comando para adicioanr um usuario
+			case ADD_USER : // Executa o comando para adicionar um usuario
 				addUser(o);
 				break;
 			case ADD_INTEREST : case ADD_INSTITUTION : case ADD_AUTH :
-				PreferencesSQL.save(this, o, null);
+				PreferencesSQL.saveNewPreference(this, o);
 				// O interesse ja existe
 				if(PreferenceRequest.isUsed(data)){
 					System.out.println("Ö interesse ja estah em uso");
@@ -75,7 +75,7 @@ public class UserDao extends Dao{
 				
 				Long id = PreferenceRequest.getId(data);
 				
-				PreferencesSQL.save(this, o, id);
+				PreferencesSQL.saveUserAndPreference(this, o, id);
 				
 				//System.out.println("Id : " + id);
 				//System.out.println("JSON : " + data.getJSONObject().toString());
@@ -86,75 +86,21 @@ public class UserDao extends Dao{
 		return getData().getJSONObject();
 	}
 
-	private void addUser(Object[] o) {
-		// Transforma em JSON a saida
-		JSONArray resultQuery;
-		try {
-			User user = (User) o[1];
-			
-			// Se agum parametro faltou na requisicao { login ou senha }
-			if(!UserRequest.isValidUser(user)){
-				getData()
-				.put(JSONOut.CODE, JSONOut.User.FALTA_PARAMETROS_PARA_CADASTRAR);
-				return;
-			}
-			
-			// cria um preparedStatement
-			String sql = "INSERT INTO usuario" +
-			        " (nome,login,senha,cadastradoEm)" +
-			        " values (?,?,md5(?),now())";
-			PreparedStatement stmt = getCon().prepareStatement(sql, COLUMMN_ID);
-
-			// preenche os valores
-			stmt.setString(1, user.getName());
-			stmt.setString(2, user.getLogin());
-			stmt.setString(3, user.getPassword());
-			
-			// executa
-			stmt.execute();
-			
-			// Recupera o ID o metadado da query executada
-			ResultSet resultSet = stmt.getGeneratedKeys();
-			resultQuery = Conversor.convertToJSON(resultSet);
-			
-			// Gera um objeto do tipo [ { id : int } ]
-			JSONObject obj = UserJSON.generateObjectId(resultQuery);
-			Long id = obj.getLong("id");
-			getData().put(JSONOut.DATA, new JSONArray().put(obj));
-			
-			// Adiciona a preferencia do usuario por instituicao
-			sql = "INSERT INTO usuario_instituicoes" +
-			        " (usuario,instituicao)" +
-			        " VALUES (?,?)";
-			stmt = getCon().prepareStatement(sql);
-			stmt.setLong(1, id);
-			stmt.setLong(2, user.getInstitution());
-			
-			stmt.execute();
-			
-			//System.out.println("JSON : " + json.toString());
-			
-			stmt.close();
-		} catch (SQLException e) {
-			getData()
-			.put(JSONOut.CODE, JSONOut.User.LOGIN_EM_USO)
-			.put(JSONOut.DATA, null)
-			.put("sql", e.getMessage());
-			e.printStackTrace();
-		} catch (Exception e) {
-			getData()
-			.put(JSONOut.CODE, JSONOut.User.NAO_FOI_POSSIVEL_CADASTRAR_USUARIO)
-			.put(JSONOut.DATA, null);
-			e.printStackTrace();
-		}
-		
-		//System.out.println("Novo usuario cadastrado!");
-	}
-
 	@Override
 	public JSONObject delete(Object... o) {
-		// TODO Auto-generated method stub
-		return null;
+		boolean isInvalid = DataUtil.create(getData(), o, JSONOut.User.NAO_FOI_POSSIVEL_COMPLETAR_ACAO);
+		if(isInvalid) return getData().getJSONObject();
+		
+		// Recupera a operacao desejada
+		int op = (Integer) o[0];
+		
+		switch(op){
+			case ADD_INTEREST : case ADD_INSTITUTION : case ADD_AUTH :
+				PreferencesSQL.remove(this, o);
+				break;
+		}
+		
+		return getData().getJSONObject();
 	}
 
 	@Override
@@ -241,4 +187,68 @@ public class UserDao extends Dao{
 		return getData().getJSONObject();
 	}
 	
+	private void addUser(Object[] o) {
+		// Transforma em JSON a saida
+		JSONArray resultQuery;
+		try {
+			User user = (User) o[1];
+			
+			// Se agum parametro faltou na requisicao { login ou senha }
+			if(!UserRequest.isValidUser(user)){
+				getData()
+				.put(JSONOut.CODE, JSONOut.User.FALTA_PARAMETROS_PARA_CADASTRAR);
+				return;
+			}
+			
+			// cria um preparedStatement
+			String sql = "INSERT INTO usuario" +
+			        " (nome,login,senha,cadastradoEm)" +
+			        " values (?,?,md5(?),now())";
+			PreparedStatement stmt = getCon().prepareStatement(sql, COLUMMN_ID);
+
+			// preenche os valores
+			stmt.setString(1, user.getName());
+			stmt.setString(2, user.getLogin());
+			stmt.setString(3, user.getPassword());
+			
+			// executa
+			stmt.execute();
+			
+			// Recupera o ID o metadado da query executada
+			ResultSet resultSet = stmt.getGeneratedKeys();
+			resultQuery = Conversor.convertToJSON(resultSet);
+			
+			// Gera um objeto do tipo [ { id : int } ]
+			JSONObject obj = UserJSON.generateObjectId(resultQuery);
+			Long id = obj.getLong("id");
+			getData().put(JSONOut.DATA, new JSONArray().put(obj));
+			
+			// Adiciona a preferencia do usuario por instituicao
+			sql = "INSERT INTO usuario_instituicoes" +
+			        " (usuario,instituicao)" +
+			        " VALUES (?,?)";
+			stmt = getCon().prepareStatement(sql);
+			stmt.setLong(1, id);
+			stmt.setLong(2, user.getInstitution());
+			
+			stmt.execute();
+			
+			//System.out.println("JSON : " + json.toString());
+			
+			stmt.close();
+		} catch (SQLException e) {
+			getData()
+			.put(JSONOut.CODE, JSONOut.User.LOGIN_EM_USO)
+			.put(JSONOut.DATA, null)
+			.put("sql", e.getMessage());
+			e.printStackTrace();
+		} catch (Exception e) {
+			getData()
+			.put(JSONOut.CODE, JSONOut.User.NAO_FOI_POSSIVEL_CADASTRAR_USUARIO)
+			.put(JSONOut.DATA, null);
+			e.printStackTrace();
+		}
+		
+		//System.out.println("Novo usuario cadastrado!");
+	}
 }

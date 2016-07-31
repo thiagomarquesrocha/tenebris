@@ -97,7 +97,15 @@ public class PreferencesSQL {
 		}
 	}
 	
-	public static void save(UserDao dao, Object[] o, Long id){
+	public static void saveNewPreference(UserDao dao, Object[] o){
+		save(dao, o, null);
+	}
+	
+	public static void saveUserAndPreference(UserDao dao, Object[] o, Long id){
+		save(dao, o, id);
+	}
+	
+	private static void save(UserDao dao, Object[] o, Long id){
 		// Transforma em JSON a saida
 		JSONArray resultQuery;
 		
@@ -195,5 +203,26 @@ public class PreferencesSQL {
 				}
 				
 				//System.out.println("Novo usuario cadastrado!");
+	}
+
+	public static void remove(UserDao dao, Object[] o) {
+		try {
+			Preference preference = (Preference) o[2];
+			String field = preference.getField();
+			String tableRelationship = (String) o[1];		
+			String id = preference.getValue().toString();
+			Long userId = preference.getUser();
+			String sql = String.format("DELETE FROM %s WHERE usuario = %s AND %s = %s", tableRelationship, userId, field, id);
+			System.out.println("SQL : " + sql);
+			PreparedStatement statement = dao.getCon().prepareStatement(sql);
+			statement.execute();
+			dao.getData().put(JSONOut.CODE, JSONOut.Sucess.COMPLETADA).put(JSONOut.DATA, null);
+			statement.close();
+		} catch (Exception e) {
+			dao.getData()
+			.put(JSONOut.CODE, JSONOut.User.NAO_FOI_POSSIVEL_COMPLETAR_ACAO)
+			.put(JSONOut.DATA, null);
+			e.printStackTrace();
+		}
 	}
 }
