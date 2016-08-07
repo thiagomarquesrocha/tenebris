@@ -25,7 +25,7 @@ public class ProfileUserCommand extends UserCommand{
 		// Cria o objeto de saida em JSON
 		JSONData data = DataFactory.create();
 		
-		new Rotina().ExecutarRotina();
+		Rotina.Executar();
 		
 		// Existe uma sessao
 		if(session!=null){

@@ -14,8 +14,22 @@ public class Rotina extends TimerTask {
 	Indexer indexer;
 	private final static long fONCE_PER_DAY = 1000 * 60 * 60 * 24;
 	private final static int fONE_DAY = 0;
-	private final static int fFOUR_AM = 3;
-	private final static int fZERO_MINUTES = 00;
+	private final static int fFOUR_AM = 15;
+	private final static int fZERO_MINUTES = 43;
+	private static Rotina instancia = new Rotina();
+	private static boolean cod = true;
+	
+	private Rotina(){
+		
+	}
+	
+	public static void Executar(){
+		if(cod){
+			instancia.ExecutarRotina();
+			cod = false;
+		}
+	}
+	
 
 	public void ExecutarRotina() {
 		TimerTask fetchMail = new Rotina();
