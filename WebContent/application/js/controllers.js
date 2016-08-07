@@ -1,5 +1,11 @@
 app
 
+.controller('Version', function($scope){
+  $scope.date = new Date();
+	$scope.version = Version.current;
+	$scope.build = Version.build;
+})
+
 .controller('ProfileCtrl', function ($rootScope, $scope, $http, $location, $timeout, $filter, sharedService) {
 
   $rootScope.activetab = $location.path();

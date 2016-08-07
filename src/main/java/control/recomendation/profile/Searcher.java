@@ -17,7 +17,7 @@ import org.apache.lucene.store.FSDirectory;
 import org.apache.lucene.util.Version;
 
 public class Searcher {
-	   IndexSearcher indexSearcher;
+	IndexSearcher indexSearcher;
 	   QueryParser queryParser;
 	   Query query;
 	   
@@ -30,7 +30,7 @@ public class Searcher {
 	   
 	   public TopDocs search(String searchQuery) throws IOException, ParseException{
 		      query = queryParser.parse(searchQuery);
-		      return indexSearcher.search(query, 20);
+		      return indexSearcher.search(query, 200);
 	   }
 
 	   public Document getDocument(ScoreDoc scoreDoc) throws CorruptIndexException, IOException{

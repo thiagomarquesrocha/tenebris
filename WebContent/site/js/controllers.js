@@ -17,6 +17,11 @@ var app = angular.module('App', ['ngProgress'])
   return sharedService;
 })
 
+.controller('Version', function($scope){
+	$scope.date = new Date();
+	$scope.version = Version.current;
+	$scope.build = Version.build;
+})
 
 .controller('ProfileCtrl', function ($rootScope, $scope, $http, sharedService) {
 	$scope.$on('handleBroadcast', function() {

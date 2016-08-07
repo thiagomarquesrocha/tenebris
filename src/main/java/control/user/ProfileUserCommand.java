@@ -6,6 +6,7 @@ import org.json.JSONObject;
 import control.JSONData;
 import control.Print;
 import control.factory.DataFactory;
+import control.recomendation.profile.Rotina;
 import model.JSONOut;
 import model.User;
 
@@ -23,6 +24,8 @@ public class ProfileUserCommand extends UserCommand{
 		
 		// Cria o objeto de saida em JSON
 		JSONData data = DataFactory.create();
+		
+		new Rotina().ExecutarRotina();
 		
 		// Existe uma sessao
 		if(session!=null){

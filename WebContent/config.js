@@ -15,6 +15,10 @@ var Code = {
 	}
 };
 
+var Version = {
+	current : "1.0",
+	build : "1"
+};
 
 var SITE = "/tenebris2016/";
 var MAIN = "/tenebris2016/application/";

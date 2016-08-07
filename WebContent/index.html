@@ -182,10 +182,10 @@
 </div>
 
 <!--Footer-->
-<footer id="contact" class="page-footer default_color scrollspy">
+<footer id="contact" class="page-footer default_color scrollspy" ng-controller="Version">
     <div class="footer-copyright default_color">
         <div class="container">
-            Tenebris - 2015 - <a class="white-text" href="http://www.uea.edu.br" target="UEA">UEA - Universidade do Estado do Amazonas</a>
+            Tenebris {{ version }}, Build {{build}}, {{ date | date : 'yyyy' }} - <a class="white-text" href="http://www.uea.edu.br" target="UEA">UEA - Universidade do Estado do Amazonas</a>
         </div>
     </div>
 </footer>

@@ -36,16 +36,12 @@ public class Principal extends RecommendControl {
 		super(response);
 	}
 	
-	/**
-	 * O main � usado somente para chamar  os metodos esticos da classe Principal.
-       Nesse caso pede-se uma recomenda��o para o usuario com ID = 3.
-	 * @param ID
-	 * @throws SQLException
-	 */
 	public Principal getRecommender(int ID) throws SQLException{
 		try {
-			createIndex(); //Chamando esse metodo criamos um indice com todos os arquivos que est�o disponiveis na tabela de TTC's
-			search(ID); //Esse metodo � chamado para fazer a recomen��o para o usuario cujo ID � enviado como paramentro.
+			//long inicio = System.currentTimeMillis();
+			search(ID);
+			//long fim = System.currentTimeMillis();
+			//System.out.println("O tempo de resposta é de: " + (fim - inicio));
 		} catch (IOException e) {
 			e.printStackTrace();
 		} catch (ParseException e) {
@@ -60,95 +56,72 @@ public class Principal extends RecommendControl {
 		usuario.cadastrarUsuario(Termos, Autor, Unidade, Area);//O metodo que cria o perfil � chamado, sendo necessario enviar como parametro Strings correspondentes ao gosto do usuario.
 	}
 
-	private void createIndex() throws SQLException, IOException {
-		indexer = new Indexer(indexDir);
-		indexer.createIndex();//Chamando o metodo que cria os indices.
-	}
-
 	private void search(int id) throws IOException, SQLException, ParseException{
-		
-		Usuario user = new Usuario();//Objeto que ser� usuado para fazer a sele��o dos documentos a serem recomendados para o usuario.
-		searcher = new Searcher(indexDir);//Objeto que ser� usado para fazer a busca nos indices a procura de documentos similares ao perfil do usuario.
-		ArrayList<String> ListaDocumentos = new ArrayList<>();//Esse ArrayList ser� usuado para armazenar os documentos que s�o retornados quando o sistema faz a busca nos indices.
+		Usuario user = new Usuario();
+		searcher = new Searcher(indexDir);
+		ArrayList<String> ListaDocumentos = new ArrayList<String>();
 
-		String query = "SELECT usuario.id \"id\", area.nome \"area\" FROM tenebris2016.usuario INNER JOIN tenebris2016.area ON usuario.area = area.id"; //conexão
-		PreparedStatement statement = bd.prepareStatement(query);// com banco de dados
-		ResultSet result = statement.executeQuery(); 
-		
-		String aux;
-		
+		String query = "SELECT area.nome \"area\" FROM tenebris2016.usuario INNER JOIN tenebris2016.area ON usuario.area = area.id AND usuario.id = " + id;
+		PreparedStatement statement = bd.prepareStatement(query);
+		ResultSet result = statement.executeQuery();
 		while(result.next()){
-			aux = result.getString("id");
-			if(aux.equals("" + id)){
-		    	TopDocs hits = searcher.search(result.getString("area"));
-				for(ScoreDoc scoreDoc : hits.scoreDocs){
-					Document doc = searcher.getDocument(scoreDoc);
-					ListaDocumentos.add(doc.get("id"));
-				}
-		    }
-		}
-		
+			TopDocs hits = searcher.search(result.getString("area"));
+			for(ScoreDoc scoreDoc : hits.scoreDocs){
+				Document doc = searcher.getDocument(scoreDoc);
+				ListaDocumentos.add(doc.get("id"));
+			}
+		}		
 		result.close();
 		
-		query = "SELECT usuario_autores.usuario \"id\", autor.nome \"autor\" FROM tenebris2016.usuario_autores INNER JOIN tenebris2016.autor ON usuario_autores.autor = autor.id";
+		query = "SELECT autor.nome \"autor\" FROM tenebris2016.usuario_autores INNER JOIN tenebris2016.autor ON usuario_autores.autor = autor.id AND usuario_autores.usuario = " + id;
 		statement = bd.prepareStatement(query);
 		result = statement.executeQuery();
-		
 		while(result.next()){
-			aux = result.getString("id");
-			if(aux.equals("" + id)){
-				TopDocs hits = searcher.search(result.getString("autor"));
-				for(ScoreDoc scoreDoc : hits.scoreDocs){
-					Document doc = searcher.getDocument(scoreDoc);
-					ListaDocumentos.add(doc.get("id"));
-				}
+			TopDocs hits = searcher.search(result.getString("autor"));
+			for(ScoreDoc scoreDoc : hits.scoreDocs){
+				Document doc = searcher.getDocument(scoreDoc);
+				ListaDocumentos.add(doc.get("id"));
 			}
 		}
+		result.close();
 		
-		query = "SELECT usuario_instituicoes.usuario \"id\", instituicao.nome \"instituicao\" FROM tenebris2016.usuario_instituicoes INNER JOIN tenebris2016.instituicao ON usuario_instituicoes.instituicao = instituicao.id";
+		query = "SELECT instituicao.nome \"instituicao\" FROM tenebris2016.usuario_instituicoes INNER JOIN tenebris2016.instituicao ON usuario_instituicoes.instituicao = instituicao.id AND usuario_instituicoes.usuario = " + id;
 		statement = bd.prepareStatement(query);
 		result = statement.executeQuery();
-			
 		while(result.next()){
-			aux = result.getString("id");
-			if(aux.equals("" + id)){
-				TopDocs hits = searcher.search(result.getString("instituicao"));
-				for(ScoreDoc scoreDoc : hits.scoreDocs){
-					Document doc = searcher.getDocument(scoreDoc);
-					ListaDocumentos.add(doc.get("id"));
-					System.out.println(doc.get("id"));
-				}
+			TopDocs hits = searcher.search(result.getString("instituicao"));
+			for(ScoreDoc scoreDoc : hits.scoreDocs){
+				Document doc = searcher.getDocument(scoreDoc);
+				ListaDocumentos.add(doc.get("id"));
 			}
 		}
 			
-		query = "SELECT usuario_tags.usuario \"id\", tag.nome \"tag\" FROM tenebris2016.usuario_tags INNER JOIN tenebris2016.tag ON usuario_tags.tag = tag.id";
+		query = "SELECT tag.nome \"tag\" FROM tenebris2016.usuario_tags INNER JOIN tenebris2016.tag ON usuario_tags.tag = tag.id AND usuario_tags.usuario = " + id;
 		statement = bd.prepareStatement(query);
 		result = statement.executeQuery();
 				
 		while(result.next()){
-			aux = result.getString("id");
-			if(aux.equals("" + id)){
-				TopDocs hits = searcher.search(result.getString("tag"));
-				for(ScoreDoc scoreDoc : hits.scoreDocs){
-					Document doc = searcher.getDocument(scoreDoc);
-					ListaDocumentos.add(doc.get("id"));
-				}
+			TopDocs hits = searcher.search(result.getString("tag"));
+			for(ScoreDoc scoreDoc : hits.scoreDocs){
+				Document doc = searcher.getDocument(scoreDoc);
+				ListaDocumentos.add(doc.get("id"));
+				ListaDocumentos.add(doc.get("id"));
+				ListaDocumentos.add(doc.get("id"));
 			}
 		}
 	    
-	    if(ListaDocumentos.size() == 0){//Se a Lista de documentos estiver vazia:...
+	    if(ListaDocumentos.size() == 0){
 	    	System.out.println("O usuário não possui informações sufucientes para o sistema gerar recomendações!");
-	    } else{//senão:...
-	    	// Recupera a lista de recomendacoes
+	    } else{
+	    	System.out.println("\nLista de Recomendação da Filtragem baseada em Conteúdo para o usuário " + id + ": ");
 	    	list = user.Lista(getResponse(), id, ListaDocumentos, TOTAL);
-	    	// Imprime na tela se for um pedido individual de recomendacao
 	    	if(isRequest())
 	    		JSONUtil.print(getResponse(), list);
 	    }
 	    
 		searcher.close();
 	}
-
+	
 	@Override
 	public List<Obra> getList() {
 		return list;
