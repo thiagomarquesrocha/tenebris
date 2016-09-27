@@ -36,7 +36,7 @@ public class BackEndRecommendation extends RecommendControl{
  private static final String DATABASE = "csv_db";*/
 
 
- private static final int NEIGHBOR_HOOD_SIZE = 50;
+ private static final int NEIGHBOR_HOOD_SIZE = 5;
  
  SaidaJSON json;
  
@@ -76,7 +76,7 @@ public class BackEndRecommendation extends RecommendControl{
 
  public void displayRecommendations(int custId, List<RecommendedItem> recommendations) throws SQLException {
 	  json = new SaidaJSON();
-	  System.out.println("Recommendções para usuario " + custId + " são:");
+	  System.out.println("As recomendações para usuario " + custId + " são:");
 	
 	  for (RecommendedItem recommendation : recommendations) {
 	   int obraId = (int) recommendation.getItemID();

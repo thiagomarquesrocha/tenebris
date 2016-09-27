@@ -70,6 +70,7 @@ public class Usuario {
 		for(int i = 0; i < aux3.size(); i++){
 			for(int j = 0; j < aux2.size(); j++){
 				if(aux3.get(i).equals(aux2.get(j))){
+					System.out.println((String)aux1.get(j));
 					Obra obra = resultado.Print((String)aux1.get(j), userId);
 					list.add(obra);
 					cont++;

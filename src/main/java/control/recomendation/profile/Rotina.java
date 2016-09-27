@@ -14,8 +14,8 @@ public class Rotina extends TimerTask {
 	Indexer indexer;
 	private final static long fONCE_PER_DAY = 1000 * 60 * 60 * 24;
 	private final static int fONE_DAY = 0;
-	private final static int fFOUR_AM = 15;
-	private final static int fZERO_MINUTES = 43;
+	private final static int fFOUR_AM = 14;
+	private final static int fZERO_MINUTES = 45;
 	private static Rotina instancia = new Rotina();
 	private static boolean cod = true;
 	
