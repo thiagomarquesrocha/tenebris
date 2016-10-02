@@ -24,7 +24,7 @@ public class ConnectionFactory {
 	public static final String HOST = String.format("jdbc:mysql://%s:3306/", HOST_NAME);
 	public static final String BD = "tenebris2016";
 	public static final String USER = "root";
-	public static final String PASSWORD = "123";
+	public static final String PASSWORD = "";
 	
 	public Connection getConnection(){
 		try {
