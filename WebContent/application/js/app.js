@@ -25,6 +25,7 @@ app = angular.module('App', ['ngRoute', 'ngProgress'])
     }
 })
 
+
 .filter('unique', function() {
 
   return function (arr, field) {
