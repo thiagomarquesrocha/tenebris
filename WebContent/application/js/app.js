@@ -18,12 +18,6 @@ app = angular.module('App', ['ngRoute', 'ngProgress'])
     }
 })
 
-.filter('capitalize', function() {
-    return function(input) {
-      return (!!input) ? input.charAt(0).toUpperCase() + input.substr(1).toLowerCase() : '';
-    }
-})
-
 .filter('unique', function() {
 
   return function (arr, field) {

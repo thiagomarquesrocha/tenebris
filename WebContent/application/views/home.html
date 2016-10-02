@@ -12,24 +12,19 @@
                     <div class="card">
                         <!-- <div class="card-image waves-effect waves-block waves-light">
                             <img class="activator" src="site/img/project1.jpg">
-                        </div> ng-click="view(work.id)" -->
-                        
-                        <div class="card-content activator" >
-                            <a href="#/obra/{{work.id}}"><span class="card-title activator grey-text text-darken-4">{{work.titulo}} <!-- <i class="mdi-navigation-more-vert right"></i> --></span></a>
-                            <a href="#/obra/{{work.id}}"><p class="resume">{{ (work.resumo | limitTo: 150) | capitalize }} {{ work.resumo.length > 150 ? '...' : ''}}</p></a>
-                            <a href="#/obra/{{work.id}}"><p class="activator capitalize">{{work.autor}}, {{work.data | date:'yyyy'}}</p></a>
-                            <a href="#/obra/{{work.id}}"><p class="activator"><span class="badge amber darken-4 white-text activator">{{work.area}}</span></p></a>
-                            <a href="#/obra/{{work.id}}">
-                                <p class="activator">
-                                    <strong>Avaliado como:</strong>
-                                    <button class="fa activator" ng-class="(i <= work.media)? 'fa-star' : 'fa-star-o'" ng-repeat="i in [1,2,3,4,5]"></button>
-                                </p>
-                            </a>
-                            <a href="#/obra/{{work.id}}">
-                                <p class="activator rate" ng-show="work.avaliacao && work.avaliacao > 0">
-                                    Você avaliou esta obra em {{ work.avaliacao }} estrela{{ (work.avaliacao <= 1)? '' : 's' }}
-                                </p>
-                            </a>
+                        </div> -->
+                        <div class="card-content activator" ng-click="view(work.id)">
+                            <span class="card-title activator grey-text text-darken-4">{{work.titulo}} <!-- <i class="mdi-navigation-more-vert right"></i> --></span>
+                            <p class="capitalize">{{ work.resumo | limitTo: 150 }} {{ work.resumo.length > 150 ? '...' : ''}}</p>
+                            <p class="activator capitalize"><a href="">{{work.autor}}, {{work.data | date:'yyyy'}}</a></p>
+                            <p class="activator"><span class="badge amber darken-4 white-text activator">{{work.area}}</span></p>
+                            <p class="activator">
+                                <strong>Avaliado como:</strong>
+                                <button class="fa activator" ng-class="(i <= work.media)? 'fa-star' : 'fa-star-o'" ng-repeat="i in [1,2,3,4,5]"></button>
+                            </p>
+                            <p class="activator" ng-show="work.avaliacao && work.avaliacao > 0">
+                                Você avaliou esta obra em {{ work.avaliacao }} estrela{{ (work.avaliacao <= 1)? '' : 's' }}
+                            </p>
                             <a class="btn-floating btn-large waves-effect waves-light" ng-class="{ 'light-blue darken-1' : (work.file), grey : (!work.file) }" title="{{ (!work.file)? 'Não disponível' : 'Baixar' }}" ng-click="open(work.file)"><i class="material-icons fa fa-download"></i></a>
                         </div>
                     </div>
