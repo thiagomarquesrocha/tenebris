@@ -8,7 +8,7 @@
 
 #user{ margin-top: 15px; margin-left: 20px}
 
-.card-content{ cursor: pointer;}
+/*.card-content{ cursor: pointer;}*/
 .pleft10{ padding-left: 10px }
 .p10{ padding: 10px }
 .m16{ margin: 16px 0}
@@ -41,6 +41,10 @@
 #work .fa-star-o{ color: #BBB6B6 }
 #work .card-reveal .submit-rating{  }
 #work .header{ text-transform: capitalize;}
+a .resume{ color: #000 !important}
+.card-content .rate{ color: #000 !important  }
+.average button{ cursor: inherit !important}
+
 
 #work .panel-body{ min-height: 500px }
 
