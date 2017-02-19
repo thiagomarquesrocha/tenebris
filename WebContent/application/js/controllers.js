@@ -783,6 +783,14 @@ Work = (function(){
           var data = response.data;
           if(DEBUG)
             console.log("Data :", data);
+          
+          if(!data || data == ''){
+            _this.$timeout(function(){
+              getTypes(callback);
+            }, 100);
+            return;
+          }
+
           _this.$scope.types = data.data;
           if(data.data){
             var type = _this.$filter('by')('id', 1, data.data);

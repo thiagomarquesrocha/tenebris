@@ -1,3 +1,5 @@
+package control.learning;
+
 import java.sql.SQLException;
 
 public class FrontEnd {

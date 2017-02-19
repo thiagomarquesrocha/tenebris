@@ -175,7 +175,7 @@ var app = angular.module('App', ['ngProgress'])
 								Materialize.toast(msg, 4000);
 							}
 
-							if(DEBUG && !data.data[0])
+							if(DEBUG && data.data && !data.data[0])
 								console.log("Autenticado!", data);
 							//alert(msg);
 						}

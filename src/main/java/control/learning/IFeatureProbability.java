@@ -1,3 +1,5 @@
+package control.learning;
+
 /**
  * Simple interface defining the method to calculate the feature probability.
  *
