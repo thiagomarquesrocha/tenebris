@@ -66,42 +66,42 @@ app = angular.module('App', ['ngRoute', 'ngProgress'])
 
 	//Para a rota '/', carregamos o template home.html e o controller 'HomeCtrl'
 	.when('/', {
-		templateUrl : 'views/home.html',
+		templateUrl : 'views/home.html?version='+Version.version,
 		controller  : 'WorksCtrl'
 	})
 
   .when('/obra/recomendada', {
-		templateUrl : 'views/obras_recomendadas.html',
+		templateUrl : 'views/obras_recomendadas.html?version='+Version.version,
 		controller  : 'WorksCtrl'
 	})
 
   .when('/time', {
-		templateUrl : 'views/time.html',
+		templateUrl : 'views/time.html?version='+Version.version,
     controller  : 'TeamCtrl'
 	})
 
 	.when('/perfil', {
-		templateUrl : 'views/perfil.html',
+		templateUrl : 'views/perfil.html?version='+Version.version,
 		controller  : 'ProfileCtrl'
 	})
 
 	.when('/obra/cadastrar', {
-		templateUrl : 'views/obra_cadastrar.html',
+		templateUrl : 'views/obra_cadastrar.html?version='+Version.version,
 		controller  : 'WorkCtrl'
 	})
 
   .when('/obra/editar/:obraId', {
-		templateUrl : 'views/obra_editar.html',
+		templateUrl : 'views/obra_editar.html?version='+Version.version,
 		controller  : 'WorkCtrl'
 	})
   
   .when('/obra/listar', {
-		templateUrl : 'views/obra_listar.html',
+		templateUrl : 'views/obra_listar.html?version='+Version.version,
 		controller  : 'WorkCtrl'
 	})
   
   .when('/obra/:obraId', {
-		templateUrl : 'views/obra.html',
+		templateUrl : 'views/obra.html?version='+Version.version,
 		controller  : 'ViewWorkCtrl'
 	})
 
