@@ -6,6 +6,8 @@ import model.Dao;
 
 public class KeywordsDao extends Dao{
 	
+	public static final String[] COLUMMN_ID = new String[]{"idpchave"};
+	
 	private static KeywordsDao instance = new KeywordsDao();
 	
 	private KeywordsDao(){}

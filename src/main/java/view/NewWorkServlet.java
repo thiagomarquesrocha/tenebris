@@ -22,7 +22,6 @@ public class NewWorkServlet extends HttpServlet {
      */
     public NewWorkServlet() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 	/**
@@ -30,7 +29,7 @@ public class NewWorkServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		// Executa o comando para cadastrar um usuário
+		// Executa o comando para cadastrar uma nova obra
 		try {
 			RequestManager.getInstance()
 			.action(RequestManager.CADASTRAR_NOVA_OBRA)
@@ -46,7 +45,6 @@ public class NewWorkServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 

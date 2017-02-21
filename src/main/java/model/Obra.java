@@ -13,6 +13,10 @@ public class Obra {
 	private String file;
 	private float media;
 	private Integer type;
+	
+	public static Obra newInstance(){
+		return new Obra();
+	}
  
 	public Long getid() {
         return id;

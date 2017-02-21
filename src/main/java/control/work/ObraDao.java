@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import control.ConnectionSingleton;
+import control.GenericJSON;
 import model.Obra;
 
 public class ObraDao {
@@ -25,7 +26,7 @@ public class ObraDao {
      * @throws IllegalAccessException
      * @throws ClassNotFoundException
      */
-    public static void insereObra(int type, String instituicao, String area, String autor, String titulo, String data, String resumo, String imagem, String usuario) throws SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException {
+    public static long insereObra(int type, String instituicao, String area, String autor, String titulo, String data, String resumo, String imagem, String usuario) throws SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException {
     	
     	  Connection conn = ConnectionSingleton.getInstance().getConnection();
 		  
@@ -33,11 +34,20 @@ public class ObraDao {
 		  
 		  System.out.println("SQL :" + sql);
 		  
-		  PreparedStatement st = conn.prepareStatement(sql);
+		  PreparedStatement st = conn.prepareStatement(sql, WorkDao.COLUMMN_ID);
 		  
 		  st.setString(1, imagem);
 		  
 		  st.execute();
+		  
+		  long id = 0;
+		  try {
+				id = GenericJSON.getField("id", st);
+		  } catch (Exception e) {
+				e.printStackTrace();
+		  }
+		  
+		  return id;
 	}
     
     public static void atualizaObra(long id, int type, String instituicao, String area, String autor, String titulo, String data, String resumo, String imagem) throws SQLException {

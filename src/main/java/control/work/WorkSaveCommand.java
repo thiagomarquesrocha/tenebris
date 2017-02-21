@@ -17,7 +17,9 @@ import control.JSONData;
 import control.Print;
 import control.area.AreaControl;
 import control.auth.AuthControl;
+import control.keywords.KeywordsControl;
 import model.JSONOut;
+import model.Keyword;
 import model.Obra;
 
 public class WorkSaveCommand extends WorkCommand{
@@ -41,7 +43,8 @@ public class WorkSaveCommand extends WorkCommand{
 	        @SuppressWarnings("rawtypes")
 			Iterator iter = items.iterator();
 	        
-	        Obra work = new Obra();
+	        Obra work = Obra.newInstance();
+	        Keyword keyword = Keyword.newInstance();
 	
 	        while (iter.hasNext()) {
 	            FileItem item = (FileItem) iter.next();
@@ -64,6 +67,8 @@ public class WorkSaveCommand extends WorkCommand{
 	            	work.setresumo(value);
 	            }else if(field.equals("user")){
 	            	user = value;
+	            }else if(field.equals("keywords")){
+	            	keyword.setWords(value.toLowerCase());
 	            }else if (item.getFieldName().equals("file")) { // Input file 
 	                formulario = item.getString();
 	                
@@ -71,7 +76,7 @@ public class WorkSaveCommand extends WorkCommand{
 	                	if (item.getName().length() > 0) {
 	                		// Save work into directory e save into table
 		                    try{
-		                    	save(item, work, user);
+		                    	save(item, work, keyword, user);
 		                    	data.put(JSONOut.CODE, JSONOut.Sucess.COMPLETADA);
 		                    }catch(Exception e){
 		                    	e.printStackTrace();
@@ -88,7 +93,7 @@ public class WorkSaveCommand extends WorkCommand{
      	Print.json(getResponse(), data);
 	}
             
-    private void save(FileItem item, Obra work, String usuario) 
+    private void save(FileItem item, Obra work, Keyword keyword, String usuario) 
     		throws IOException, InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException {
 
     	// Save work into directory and generate full path
@@ -103,7 +108,7 @@ public class WorkSaveCommand extends WorkCommand{
 		System.out.println("ID auth : " + authId.toString());
 
 		//Guarda no banco de dados o endereço para recuperação da imagem
-		ObraDao.insereObra
+		Long idObra = ObraDao.insereObra
 		(
 				work.getType(),
 				work.getinstituicao(),
@@ -115,10 +120,48 @@ public class WorkSaveCommand extends WorkCommand{
 				path, 
 				usuario
 		);
+		
+    	// Salva as palvras chaves da obra
+    	saveKeywords(keyword, idObra);
 	}
     
     
-    private Long saveAuth(Obra work) {
+    private void saveKeywords(Keyword keyword, Long idObra) {
+    	Connection conn = ConnectionSingleton.getInstance().getConnection();
+    	
+    	for(int i=0, total = keyword.getWords().length; i<total; i++){    		
+    		String word = keyword.getWords()[i];
+    		Long Idpalavrachave = null;
+    		try {
+    			// Tenta adicionar a palavra chave no banco
+    			Idpalavrachave = KeywordsControl.add(conn, word);
+			} catch (Exception e) {
+				// A palavra chave ja existe
+				//e.printStackTrace();
+				System.out.println("A palavra chave ja existe para a obra " + idObra);
+				try {
+					Idpalavrachave = KeywordsControl.findByName(conn, word);
+				} catch (Exception e1) {
+					// Nao foi possivel encontrar a palavra chave
+					//e1.printStackTrace();
+					System.out.println(String.format("Não foi possivel encontrar a chave '%s' ja existe para obra %s", idObra, word));
+				}
+			}
+    		
+    		if(Idpalavrachave != null){
+    			try {
+    				// Adiciona palavra chave para a obra se nao existir
+					KeywordsControl.addKeywordAndWork(conn, Idpalavrachave, idObra);
+				} catch (SQLException e) {
+					// A palavra chave ja existe para esta obra
+					//e.printStackTrace();
+					System.out.println("Não foi possivel encontrar a chave ja existe para obra " + idObra);
+				}
+    		}
+    	} // Fim for
+	}
+
+	private Long saveAuth(Obra work) {
     	Connection conn = ConnectionSingleton.getInstance().getConnection();
     	String auth = work.getautor();
     	Long authId = null;

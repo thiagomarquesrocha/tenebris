@@ -18,7 +18,7 @@ var Code = {
 var Version = {
 	current : "1.0",
 	build : "3",
-	version : "2"
+	version : "6"
 };
 
 var SITE = "/tenebris2016/";

@@ -566,6 +566,7 @@ app
         fd.append('area', $scope.area.toLowerCase());
         fd.append('date', $scope.date);
         fd.append('user', user);
+        fd.append('keywords', $scope.keywords);
         fd.append('resume', $scope.resume.toLowerCase());
         fd.append('file', file);
         $http.post(uploadUrl, fd, {
@@ -786,7 +787,7 @@ Work = (function(){
           
           if(!data || data == ''){
             _this.$timeout(function(){
-              getTypes(callback);
+              _this.getTypes(callback);
             }, 100);
             return;
           }
