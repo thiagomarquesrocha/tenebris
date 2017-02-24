@@ -10,10 +10,11 @@
             <div class="row">
                  <div class="col s12 14" ng-show="!works || works.length <= 0">
                      <div class="card p10">
-                        <h5 class="text-b"><i class="fa fa-folder-open-o"></i> Nenhuma obra cadastrada</h5>
+                        <h5 class="text-b" ng-show="works.length != 0"><i class="fa fa-folder-open-o"></i> Carregando...</h5>
+                        <h5 class="text-b" ng-show="works.length <= 0"><i class="fa fa-folder-open-o"></i> Nenhuma obra cadastrada</h5>
                      </div>
                  </div>
-                <div class="col s12 14" ng-repeat="work in works | orderBy : '-media' track by $index">
+                <div class="col s12 14" ng-repeat="work in works">
                     <div class="card">
                         <div class="card-content activator">
                             <a href="#/obra/{{work.id}}"><span class="card-title activator grey-text text-darken-4">{{work.titulo}} <!-- <i class="mdi-navigation-more-vert right"></i> --></span></a>

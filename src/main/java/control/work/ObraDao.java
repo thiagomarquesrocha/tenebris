@@ -103,7 +103,55 @@ public static List<Obra> listaObra(long usuario) throws SQLException, Instantiat
 
     	  list = new ArrayList<>();
   		  
-		  String sql = String.format("SELECT * FROM (SELECT a.*, b.nome area, c.nome as autorNome FROM (SELECT a.id, a.instituicao, a.area as areaId, a.autor, a.titulo, a.data, a.resumo, a.usuario, a.imagem as path, b.avaliacao from obra a LEFT OUTER JOIN avaliacao b ON a.id = b.obra AND a.usuario = b.usuario WHERE a.usuario=?) a, area b, autor c WHERE a.areaId = b.id AND a.autor = c.id ORDER BY a.data DESC) a LEFT OUTER JOIN (SELECT obra, avg(avaliacao) as media FROM avaliacao GROUP BY obra) b ON a.id = b.obra GROUP BY a.id ORDER BY a.data DESC");
+    	  /** Outra maneira de consultar as obras do usuario
+			* SELECT * FROM (SELECT
+			        	a.id,
+			            a.instituicao,
+			            a.area AS areaId,
+			            a.autor,
+			            a.titulo,
+			            a.data,
+			            a.resumo,
+			            a.usuario,
+			            a.imagem AS path,
+			            '' as avaliacao,
+			            '' as obra,
+			            '' as media
+			    FROM
+			        obra a, area b, autor c
+			    WHERE a.usuario = 2 AND a.area = b.id AND a.autor = c.id ORDER BY a.data DESC) q1
+			    
+			UNION
+			
+			SELECT 
+			    *
+			FROM
+				(SELECT 
+			        	a.id,
+			            a.instituicao,
+			            a.area AS areaId,
+			            a.autor,
+			            a.titulo,
+			            a.data,
+			            a.resumo,
+			            a.usuario,
+			            a.imagem AS path,
+			            b.avaliacao
+			    FROM
+			        obra a,  avaliacao b,  area c, autor d
+			    WHERE a.id = b.obra AND a.usuario = b.usuario AND a.usuario = 2 AND a.area = c.id AND a.autor = d.id ORDER BY a.data DESC) a
+			        LEFT OUTER JOIN
+			    (SELECT 
+			        obra, AVG(avaliacao) AS media
+			    FROM
+			        avaliacao
+			    GROUP BY obra) b ON a.id = b.obra
+			GROUP BY a.id
+			ORDER BY data DESC
+			LIMIT 0, 100
+			Abaixo esta sendo usado uma maneira diferente
+			*/
+		  String sql = String.format("SELECT * FROM (SELECT a.*, b.nome area, c.nome as autorNome FROM (SELECT a.id, a.instituicao, a.area as areaId, a.autor, a.titulo, a.data, a.resumo, a.usuario, a.imagem as path, b.avaliacao from obra a LEFT OUTER JOIN avaliacao b ON a.id = b.obra AND a.usuario = b.usuario WHERE a.usuario=?) a, area b, autor c WHERE a.areaId = b.id AND a.autor = c.id ORDER BY a.data DESC) a LEFT OUTER JOIN (SELECT obra, avg(avaliacao) as media FROM avaliacao GROUP BY obra) b ON a.id = b.obra GROUP BY a.id ORDER BY a.data DESC LIMIT 0, 50");
 		  
 		  //System.out.println(sql);
 		  

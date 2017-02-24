@@ -763,6 +763,7 @@ Work = (function(){
     }).then(function successCallback(response) {
         var data = response.data;
         if(!data.data) return;
+        console.log(data);
         _this.$scope.works = _this.$filter('unique')(data.data, 'titulo');
         console.log("Lista de obras :", _this.$scope.works);
         _this.$rootScope.loaded();
