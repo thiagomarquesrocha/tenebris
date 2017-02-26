@@ -17,6 +17,7 @@
                         <p class="activator"><span class="badge amber darken-4 white-text activator">{{work.area}}</span></p>
                         <div class="activator"><strong>Tipo:</strong> <span class="capitalize">{{ work.obratipo }}</span></div>
                         <div class="activator"><strong>Instituição:</strong> <span class="capitalize">{{ work.instituicao }}</span></div>
+                        <div class="activator"><strong>Palavras-chaves:</strong> <span class="capitalize">{{ keywords }}</span></div>
                         <p class="activator average">
                                 <strong>Avaliado como:</strong>
                                 <button class="fa activator" ng-class="(i <= work.media)? 'fa-star' : 'fa-star-o'" ng-repeat="i in [1,2,3,4,5]"></button>

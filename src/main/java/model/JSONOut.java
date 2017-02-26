@@ -29,6 +29,11 @@ public class JSONOut {
 		public static final String NAO_FOI_POSSIVEL_DELETAR_ESTA_OBRA = BASE + "003";
 	}
 	
+	// CODE : KEYWORDS_{000}
+	public static class Keywords{
+		private static String BASE = "KEYWORDS_";
+		public static final String NENHUMA_PALAVRACHAVE_ENCONTRADA = BASE  + "001";
+	}
 	
 	// CODE : SUCESS_{000}
 	public static class Sucess{

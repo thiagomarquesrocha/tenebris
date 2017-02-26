@@ -3,6 +3,7 @@ package control;
 import java.sql.Connection;
 
 import control.area.AreaDao;
+import control.keywords.KeywordsDao;
 import control.user.UserDao;
 import control.work.WorkDao;
 import model.Dao;
@@ -27,6 +28,11 @@ public class DaoBuilder {
 	
 	public DaoBuilder area() {
 		current = AreaDao.getInstance();
+		return this;
+	}
+
+	public DaoBuilder keywords() {
+		current  = KeywordsDao.getInstance();
 		return this;
 	}
 	

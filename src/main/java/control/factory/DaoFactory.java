@@ -9,6 +9,7 @@ public class DaoFactory {
 	public static final int USER = 1;
 	public static final int WORK = 2;
 	public static final int AREA = 3;
+	public static final int KEYWORDS = 4;
 	
 	public static Dao create(int factory){
 		// Cria o DAO do usuario 
@@ -23,6 +24,9 @@ public class DaoFactory {
 				break;
 			case AREA:
 				dao = dao.area();
+				break;
+			case KEYWORDS :
+				dao = dao.keywords();
 				break;
 		}
 		

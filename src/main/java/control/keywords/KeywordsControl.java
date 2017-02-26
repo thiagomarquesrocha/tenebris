@@ -10,6 +10,8 @@ import org.json.JSONArray;
 import control.Conversor;
 import control.GenericJSON;
 import control.user.UserDao;
+import model.Dao;
+import model.JSONOut;
 
 public class KeywordsControl {
 	
@@ -26,6 +28,23 @@ public class KeywordsControl {
 		stmt.close();
 		
 		return areaId;
+	}
+	
+	public static void listByWork(Dao dao, Long idWork){
+		String sql = String.format("SELECT b.* FROM obra_palavrachave a, idpalavrachave b WHERE a.obra = %s AND a.palavrachave = b.idpchave ", idWork);
+		PreparedStatement stmt;
+		try {
+			stmt = dao.getCon().prepareStatement(sql);
+			ResultSet result = stmt.executeQuery();
+			JSONArray resultQuery = Conversor.convertToJSON(result);
+			dao.getData()
+			.put(JSONOut.DATA, resultQuery);
+		} catch (Exception e) {
+			e.printStackTrace();
+			dao.getData()
+			.put(JSONOut.CODE, JSONOut.Keywords.NENHUMA_PALAVRACHAVE_ENCONTRADA)
+			.put(JSONOut.DATA, null);
+		}
 	}
 	
 	public static Long findByName(Connection conn, String word) throws Exception {

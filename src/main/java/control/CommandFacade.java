@@ -3,9 +3,12 @@ package control;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import control.factory.KeywordsFactory;
 import control.factory.UserCommandFactory;
 import control.factory.WorkCommandFactory;
+import control.keywords.KeywordsInvoke;
 import control.user.UserInvoke;
+import control.work.WorkInvoke;
 import model.Dao;
 import model.Servlet;
 
@@ -14,9 +17,11 @@ public class CommandFacade {
 	// Invocador de comandos
 	public static final int INVOKE_USER = 1;
 	public static final int INVOKE_WORK = 2;
+	public static final int INVOKE_KEYWORDS = 3;
 	// Fabricas de comandos
 	public static final int FACTORY_USER = 1;
 	public static final int FACTORY_WORK = 2;
+	public static final int FACTORY_KEYWORDS = 3;
 	
 	private static CommandFacade instance = new CommandFacade();
 	private Invoke invoke; // Invocador do comando
@@ -45,6 +50,9 @@ public class CommandFacade {
 			case FACTORY_WORK :
 				this.command = WorkCommandFactory.getInstance().create(command);
 				break;
+			case FACTORY_KEYWORDS :
+				this.command = KeywordsFactory.getInstance().create(command);
+				break;
 			default:
 				break;
 		}
@@ -63,7 +71,10 @@ public class CommandFacade {
 				this.invoke = UserInvoke.getInstance();
 				break;
 			case INVOKE_WORK:
-				this.invoke = UserInvoke.getInstance();
+				this.invoke = WorkInvoke.getInstance();
+				break;
+			case INVOKE_KEYWORDS:
+				this.invoke = KeywordsInvoke.getInstance();
 				break;
 			default:
 				break;

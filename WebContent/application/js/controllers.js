@@ -279,7 +279,14 @@ app
 
   var loading = 1;
 
+  // Configura os parametros 
   User.setScope($scope).setRootScope($rootScope);
+  Work
+      .setScope($scope)
+      .setRootScope($rootScope)
+      .setHttp($http)
+      .setTimeout($timeout)
+      .setService(sharedService);
 
   console.log($routeParams);
 
@@ -322,11 +329,11 @@ app
   $scope.$on('handleBroadcast', function() {
     if(sharedService.message != "perfil carregado") return;
       // Request info about work
-      getInfo();
+      $scope.getInfo();
   }); // ON
 
   // Get info about a work
-  function getInfo(tried){
+  $scope.getInfo = function(){
     if(loading > 1) return;
     loading++;
     if($scope.work && $scope.work.titulo) return;
@@ -341,16 +348,19 @@ app
           $rootScope.loaded();
           if(!data || !data[0]){
             console.error("Nao existe essa obra");
-            // if(tried <= 1)
-            //   getInfo(tried+1);
-            // else
-              Materialize.toast("Não foi possível carregar esta obra", 4000);
+            Materialize.toast("Não foi possível carregar esta obra", 4000);
             return;
           } 
           // Mostra a lista de trabalhos recomendados
           $scope.work = data[0];
+
+          // Carrega as palavras chaves
+          Work.setScope($scope).getKeywords(work);
+
           // Redireciona o scroll da tela para o topo
           $("body").animate({ scrollTop : 0 }, 800);
+
+          console.log($scope);
       }, function errorCallback(){
         $rootScope.loaded();
       });
@@ -453,6 +463,8 @@ app
     $scope.file = data.path;
     $scope.type = data.tipo;
     setDate();
+
+    $scope.listKeywords();
   }
 
   // Date
@@ -528,6 +540,11 @@ app
         }, 200);
       });
     }, 200);
+  }
+
+  // Get keyowords from work
+  $scope.listKeywords = function(){
+    Work.getKeywords(work);
   }
 
   // Save or update a work
@@ -764,11 +781,41 @@ Work = (function(){
         var data = response.data;
         if(!data.data) return;
         console.log(data);
-        _this.$scope.works = _this.$filter('unique')(data.data, 'titulo');
+        _this.$scope.works = _this.$filter('unique')(data.data, 'id');
         console.log("Lista de obras :", _this.$scope.works);
         _this.$rootScope.loaded();
     }, function errorCallback(response) {
         console.error("Erro ao carregar as obras recomendadas ");
+        _this.$rootScope.loaded();
+    });
+  }
+
+  // Get list of keywords
+  function getKeywords(workId){
+    if(workId == 0) return;
+
+    console.log("Solicitando as palavras chaves da obra ", workId);
+
+    var _this = this;
+    // Carrega a lista de obras recentes
+    this.$http({
+        method: 'POST',
+        url: Actions.work.keywords,
+        data : { workId : workId, command : "listKeywords" },
+    }).then(function successCallback(response) {
+        var data = response.data;
+        if(!data.data) return;
+        console.log(data);
+        var words = data.data;
+        var words_text = [];
+        for(key in words)
+          words_text.push(words[key].palavrachave);
+        
+        console.log("Convertendo ", words_text, _this.$scope);
+        _this.$scope.keywords = words_text.join(",");
+        _this.$rootScope.loaded();
+    }, function errorCallback(response) {
+        console.error("Erro ao carregar as palavras chaves da obra ");
         _this.$rootScope.loaded();
     });
   }
@@ -824,7 +871,8 @@ Work = (function(){
     cancel : { value : cancel },
     setCancel : { value : setCancel },
     list : { value : getList },
-    getTypes : { value : getTypes }
+    getTypes : { value : getTypes },
+    getKeywords : { value : getKeywords }
   })
 
   return obj;

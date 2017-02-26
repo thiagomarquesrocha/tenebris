@@ -39,6 +39,8 @@ public class WorkControl {
 			String sql = String.format("SELECT * FROM (SELECT a.*, b.avaliacao, c.nome as autor FROM (SELECT a.id, a.autor as autorId, a.resumo, a.data, LCASE(a.titulo) as titulo, a.imagem as path, a.tipo, b.nome as area, c.nome as instituicao, c.id as instituicaoId, d.nome as obraTipo FROM obra a, area b, instituicao c, tipo_obra d WHERE a.area=b.id AND c.id = a.instituicao AND a.id = %s AND a.tipo = d.id) a LEFT OUTER JOIN (SELECT * FROM avaliacao WHERE obra = %s AND usuario = %s) b ON a.id = b.obra, autor c WHERE c.id = a.autorId) a LEFT OUTER JOIN (SELECT obra, avg(avaliacao) as media FROM avaliacao GROUP BY obra) b ON a.id = b.obra GROUP BY a.id", work, work, user);
 			PreparedStatement stmt = dao.getCon().prepareStatement(sql);
 			
+			System.out.println(sql);
+			
 			// Query com os dados do usuario
 			ResultSet resultSet = stmt.executeQuery();
 
@@ -145,7 +147,7 @@ public class WorkControl {
 			// Monta a condicao para buscar a avaliacao de um usuario se existir
 			String hasUser = (user != null)? "AND b.usuario = " + user : "";
 			
-			String sql = String.format("SELECT a.*, b.* FROM (SELECT a.*, b.avaliacao, c.nome as autor FROM (SELECT a.id as id, a.autor as autorId, a.resumo, a.data, LCASE(a.titulo) as titulo, b.nome as area, c.nome as instituicao, a.imagem as file, a.cadastradoEm FROM obra a, area b, instituicao c WHERE a.area=b.id AND c.id = a.instituicao) a LEFT OUTER JOIN avaliacao b ON a.id = b.obra %s, autor c WHERE c.id = a.autorId LIMIT 500) a LEFT OUTER JOIN (SELECT obra, avg(avaliacao) as media FROM avaliacao GROUP BY obra) b ON a.id = b.obra GROUP BY a.id ORDER BY b.media DESC", hasUser);
+			String sql = String.format("SELECT a.*, b.* FROM (SELECT a.*, b.avaliacao, c.nome as autor FROM (SELECT a.id as id, a.autor as autorId, a.resumo, a.data, LCASE(a.titulo) as titulo, b.nome as area, c.nome as instituicao, a.imagem as file, a.cadastradoEm FROM obra a, area b, instituicao c WHERE a.area=b.id AND c.id = a.instituicao) a LEFT OUTER JOIN avaliacao b ON a.id = b.obra %s, autor c WHERE c.id = a.autorId LIMIT 100) a LEFT OUTER JOIN (SELECT obra, avg(avaliacao) as media FROM avaliacao GROUP BY obra) b ON a.id = b.obra GROUP BY a.id ORDER BY b.media DESC", hasUser);
 			//System.out.println("SQL : " + sql);
 			PreparedStatement stmt = dao.getCon().prepareStatement(sql);
 			// Query com os dados do usuario
