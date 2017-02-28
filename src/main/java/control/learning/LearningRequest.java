@@ -34,6 +34,7 @@ public class LearningRequest extends Request<Learning>{
 		String key = request.getParameter(KEY);
 		learning.setWorkId(Long.valueOf(workId));
 		learning.setUserId(Long.valueOf(userId));
+		if(relevant == null) return learning;
 		learning.setRelevant(Integer.valueOf(relevant));
 		learning.setTitle(title);
 		learning.setPchave(Long.valueOf(key));
@@ -46,6 +47,7 @@ public class LearningRequest extends Request<Learning>{
 			JSONObject json = new JSONObject(sb.toString());
 			learning.setWorkId(json.getLong(WORK));
 			learning.setUserId(json.getLong(USER));
+			if(!json.has(RELEVANT)) return learning;
 			learning.setRelevant(json.getInt(RELEVANT));
 			learning.setTitle(json.getString(TITLE));
 			learning.setPchave(json.getLong(KEY));

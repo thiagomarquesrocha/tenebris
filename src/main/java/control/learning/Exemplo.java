@@ -4,8 +4,12 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import javax.servlet.http.HttpServletResponse;
+
 import com.mysql.jdbc.Statement;
 import com.mysql.jdbc.jdbc2.optional.MysqlDataSource;
+
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -14,6 +18,15 @@ import java.sql.SQLException;
 
 public class Exemplo {
 	
+	HttpServletResponse response;
+	
+	public Exemplo(HttpServletResponse response) {
+		super();
+		this.response = response;
+	}
+
+
+
 	public void Metodo(int UserID, int ItemID) throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException {
 		MysqlDataSource dataSource = new MysqlDataSource();
 		
@@ -86,13 +99,13 @@ public class Exemplo {
 		List<ObraRB> artigo = new ArrayList<ObraRB>(); // Lista da classe ObraRB, para guardar cada linha referente ao artigo, que consta na tabela "obra", j� que o que diferencia � a nova coluna "palava-chave"; um registro para cada palavra-chave.
 		while (rs.next()) {
             titulo = rs.getString("TITULO");
-            pchave = rs.getInt("PALAVRACHAVE");
+            //pchave = rs.getInt("PALAVRACHAVE");
             
             // pchave = 2;
             
             ObraRB obra = new ObraRB();
             obra.setTitulo(titulo);
-            obra.setPchave(pchave);
+            //obra.setPchave(pchave);
             artigo.add(obra);
         }
 		
@@ -109,8 +122,17 @@ public class Exemplo {
         	}
         }
 		String[] unknownText1 = (artigo.get(0).getTitulo() + " " + palavraschaves).split("\\s"); // Registro a "d�vida" no modelo de aprendizagem.
-        System.out.println(bayes.classify(Arrays.asList(unknownText1)).getCategory()); // Chamando o m�todo, e assim printo se � "Relevante" ou "Irrelvante".
+        
+		String res = bayes.classify(Arrays.asList(unknownText1)).getCategory();
 		
+		System.out.println(res); // Chamando o m�todo, e assim printo se � "Relevante" ou "Irrelvante".
+		
+        try {
+			response.getWriter().append(res);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+        
         ((BayesClassifier<String, String>) bayes).classifyDetailed(
                 Arrays.asList(unknownText));
 

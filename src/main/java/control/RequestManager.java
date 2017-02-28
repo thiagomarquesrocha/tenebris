@@ -8,9 +8,11 @@ import control.factory.KeywordsFactory;
 import control.factory.LearningFactory;
 import control.factory.UserCommandFactory;
 import control.factory.WorkCommandFactory;
+import control.learning.FrontEnd;
 import control.recomendation.profile.Principal;
 import control.recomendation.rate.BackEndRating;
 import control.recomendation.rate.BackEndRecommendation;
+import model.Learning;
 import model.RecommendRate;
 /**
  * Gerenciador de Requisicoes 
@@ -41,11 +43,13 @@ public class RequestManager {
 	public static final int LISTAR_TIPOS_OBRAS = 19;
 	public static final int LISTAR_PALAVRASCHAVES = 20;
 	public static final int SALVAR_APRENDIZAGEM = 21;
+	public static final int PREDIZER_RELEVANCIA_OBRA = 22;
 	
 	private int op;
 	HttpServletResponse response;
 	HttpServletRequest request;
 	RecommendRate recommend;
+	private Learning learning;
 	
 	public synchronized static RequestManager getInstance() {
 		return instance;
@@ -80,6 +84,11 @@ public class RequestManager {
 	public RecommendRate getRecommend() {
 		return recommend;
 	}
+	
+	public RequestManager setLearning(Learning learning) {
+		this.learning = learning;
+		return this;
+	}
 
 	public void execute() throws Exception{
 		switch (op){
@@ -104,6 +113,9 @@ public class RequestManager {
 				break;
 			case SALVAR_APRENDIZAGEM: // Salva aprendizagem
 				execute(CommandFacade.FACTORY_LEARNING, LearningFactory.SAVE_LEARNING, CommandFacade.FACTORY_LEARNING, DaoFactory.LEARNING);
+				break;
+			case PREDIZER_RELEVANCIA_OBRA :
+				FrontEnd.predict(response, learning.getUserId().intValue(), learning.getWorkId().intValue());
 				break;
 			case AVALIAR: // Avalia uma obra 
 				BackEndRating.BackEndRat(recommend.getUserID(), recommend.getItemID(), recommend.getVarRating());
