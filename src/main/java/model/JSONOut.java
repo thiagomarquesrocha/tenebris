@@ -35,6 +35,12 @@ public class JSONOut {
 		public static final String NENHUMA_PALAVRACHAVE_ENCONTRADA = BASE  + "001";
 	}
 	
+	// CODE : LEARNING_{000}
+	public static class Learning{
+		private static String BASE = "LEARNING_";
+		public static final String NAO_FOI_POSSIVEL_SALVAR_APRENDIZAGEM = BASE  + "001";
+	};
+	
 	// CODE : SUCESS_{000}
 	public static class Sucess{
 		private static String BASE = "SUCESS_";

@@ -300,6 +300,7 @@ app
   }
 
   $scope.submitRating = function(work){
+    
     work.avaliacao = work.preavaliacao;
     work.submited = true;
     work.preavaliacao = 0;
@@ -307,11 +308,51 @@ app
 
     var userId = User.getId();
 
+    var keyword = getKeyword();
+
+    // Salva a aprendizagem
+    if(keyword)
+      save_learning(work, userId, keyword);
+    else
+      console.info("Nao existe palavra chave para esta obra");
+
     // Envia para o servidor a avaliacao da obra
     $http({
         method: 'POST',
         url: Actions.work.rate,
         data : { "itemId" : work.id, "userId" : userId, "rating" : work.avaliacao },
+    }).then(function successCallback(response) {
+        var data = response.data;
+        console.log("Data :", data);
+
+    }, function errorCallback(response) {
+        
+    });
+  }
+
+  function getKeyword(){
+    if(!$scope.keywords_saved || $scope.keywords_saved.length <= 0)
+      return null;
+    // Recupera a primeira palavra chave da lista
+    return $scope.keywords_saved[0].idpchave
+  }
+
+  function save_learning(work, user, keyword){
+    var learning = {
+      "workId" : work.id,
+      "userId" :  user,
+      "relevant" : (work.avaliacao >= 3)? 1 : 0,
+      "title" : work.titulo,
+      "keyword" : keyword
+    }
+
+    console.log("Envia a aprendizagem ", learning);
+
+    // Envia para o servidor a aprendizagem
+    $http({
+        method: 'POST',
+        url: Actions.work.learning,
+        data : learning,
     }).then(function successCallback(response) {
         var data = response.data;
         console.log("Data :", data);
@@ -404,6 +445,14 @@ app
   var work = parseInt($routeParams.obraId);
 
   console.log($rootScope.activetab);
+
+  $scope.types = [
+    // { id : -1, nome : "Selecione o tipo de obra" },
+    { id : 1, nome : "Trabalho de conclusão de curso (TCC)" },
+    { id : 2, nome : "Artigo" },
+    { id : 3, nome : "Dissertação" },
+    { id : 4, nome : "Tese" }
+  ];
   
   // Init datepicker and others configs
   $timeout(function(){
@@ -544,6 +593,7 @@ app
 
   // Get keyowords from work
   $scope.listKeywords = function(){
+    // Carrega a lista de tipos de obras depois de carregar as palavras chaves
     Work.getKeywords(work, $scope.listTypes);
   }
 
@@ -553,6 +603,7 @@ app
         var d = $scope.date;
         var institution = $scope.institution;
         var type = $scope.type;
+        var keywords = $scope.keywords;
         console.log(institution, type);
         if(!user){
           Materialize.toast("Você precisa está logado para realizar essa operação", 4000);
@@ -568,6 +619,10 @@ app
         }
         if(!d){
           Materialize.toast("Você precisa selecionar a data da obra", 4000);
+          return;
+        }
+        if(keywords == ''){
+          Materialize.toast("Informe pelo menos uma palavra chave", 4000);
           return;
         }
         var file = $scope.file;
@@ -807,6 +862,7 @@ Work = (function(){
         if(!data.data) return;
         console.log(data);
         var words = data.data;
+        _this.$scope.keywords_saved = words;
         var words_text = [];
         for(key in words)
           words_text.push(words[key].palavrachave);
@@ -846,22 +902,16 @@ Work = (function(){
             return;
           }
 
-          // console.log(_this.$scope);
+          // console.log(_this);
 
           _this.$scope.types = data.data;
+          // _this.$scope.types.unshift({ id : -1, nome : "Selecione o tipo de obra" });
           if(data.data){
-            var type = _this.$filter('by')('id', (_this.$scope.typeId)? _this.$scope.typeId : 1, data.data);
-            if(DEBUG)
-              console.log("Type ", type);
-            if(type.id >= 0){
-              if(!_this.$scope.type){
-                type.selected = true;
-                _this.$scope.type = type.id;
-                console.log("Type ID ", type);
-              }else{
-                 console.log("Type ID selecionado ", _this.$scope.type);
-              }
-            }
+            // Seleciona o tipo pre-definido
+            _this.setType(_this.$scope.typeId);
+
+            $('select').material_select('destroy');
+            $('select').material_select();
           }
           if(callback)
             callback(_this.$scope.types);
@@ -870,6 +920,22 @@ Work = (function(){
       });
 
     }, 200);
+  }
+
+  function setType(id){
+    var _this = this;
+    //console.log(_this);
+    var type = _this.$filter('by')('id', (id)? id : 1, _this.$scope.types);
+    if(DEBUG)
+      console.log("Type ", type);
+    if(type.id >= 0){
+      if(!_this.$scope.type){
+        _this.$scope.type = type.id;
+        console.log("Type ID ", type);
+      }else{
+          console.log("Type ID selecionado ", _this.$scope.type);
+      }
+    }
   }
 
   var obj = Object.create(Angular, {
@@ -881,7 +947,8 @@ Work = (function(){
     setCancel : { value : setCancel },
     list : { value : getList },
     getTypes : { value : getTypes },
-    getKeywords : { value : getKeywords }
+    getKeywords : { value : getKeywords },
+    setType : { value : setType }
   })
 
   return obj;

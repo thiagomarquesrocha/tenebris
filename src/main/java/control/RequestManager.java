@@ -5,6 +5,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import control.factory.DaoFactory;
 import control.factory.KeywordsFactory;
+import control.factory.LearningFactory;
 import control.factory.UserCommandFactory;
 import control.factory.WorkCommandFactory;
 import control.recomendation.profile.Principal;
@@ -39,6 +40,7 @@ public class RequestManager {
 	public static final int LISTAR_OBRAS_RECENTES = 18;
 	public static final int LISTAR_TIPOS_OBRAS = 19;
 	public static final int LISTAR_PALAVRASCHAVES = 20;
+	public static final int SALVAR_APRENDIZAGEM = 21;
 	
 	private int op;
 	HttpServletResponse response;
@@ -84,13 +86,13 @@ public class RequestManager {
 			case RECUPERAR_PERFIL_USUARIO : // Executa o comando de recuperar o perfil do usuario se ele ja estiver logado
 				execute(CommandFacade.FACTORY_USER, UserCommandFactory.PROFILE, CommandFacade.INVOKE_USER, DaoFactory.USER);
 				break;
-			case RECOMENDAR_HIBRIDAMENTE:	
+			case RECOMENDAR_HIBRIDAMENTE: // Recomenda obras baseado nas duas tecnicas de recomendacao
 				new RecommendHybrid(this).execute();
 				break;
-			case RECOMENDAR_POR_AVALIACAO:	
+			case RECOMENDAR_POR_AVALIACAO:	// Recomenda uma obra baseado na avaliacao dos usuarios
 				new BackEndRecommendation(response).BackEndR(recommend.getUserID(), recommend.getQtdR());
 				break;
-			case RECOMENDAR_POR_PERFIL:	
+			case RECOMENDAR_POR_PERFIL:	// Recomenda uma obra baseado no perfil do usuario
 				System.out.println("Recomendando para o usuário : " + recommend.getUserID());
 				new Principal(response).getRecommender(recommend.getUserID());
 				break;
@@ -100,7 +102,10 @@ public class RequestManager {
 			case LISTAR_PALAVRASCHAVES: // Listar palavras chaves de uma obra
 				execute(CommandFacade.FACTORY_KEYWORDS, KeywordsFactory.LIST_KEYWORDS, CommandFacade.FACTORY_KEYWORDS, DaoFactory.KEYWORDS);
 				break;
-			case AVALIAR:
+			case SALVAR_APRENDIZAGEM: // Salva aprendizagem
+				execute(CommandFacade.FACTORY_LEARNING, LearningFactory.SAVE_LEARNING, CommandFacade.FACTORY_LEARNING, DaoFactory.LEARNING);
+				break;
+			case AVALIAR: // Avalia uma obra 
 				BackEndRating.BackEndRat(recommend.getUserID(), recommend.getItemID(), recommend.getVarRating());
 				break;
 			case OBRA : // Visualiza uma obra

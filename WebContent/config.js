@@ -57,7 +57,8 @@ var Actions = {
 		"remove" : SITE + "obra/remover",
 		"recents" : SITE + "obra/recentes",
 		"types" : SITE + "obra/tipos",
-		"keywords" : SITE + "keywords"
+		"keywords" : SITE + "keywords",
+		"learning" : SITE + "learning"
 	},
 	"preferences" :{
 		"add_interest" : 2,

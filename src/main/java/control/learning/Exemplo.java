@@ -88,6 +88,8 @@ public class Exemplo {
             titulo = rs.getString("TITULO");
             pchave = rs.getInt("PALAVRACHAVE");
             
+            // pchave = 2;
+            
             ObraRB obra = new ObraRB();
             obra.setTitulo(titulo);
             obra.setPchave(pchave);

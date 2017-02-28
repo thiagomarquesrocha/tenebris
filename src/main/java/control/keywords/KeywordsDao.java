@@ -21,13 +21,9 @@ public class KeywordsDao extends Dao{
 		return instance;
 	}
 
-
-
 	public static void setInstance(KeywordsDao instance) {
 		KeywordsDao.instance = instance;
 	}
-
-
 
 	@Override
 	public JSONObject add(Object... o) {

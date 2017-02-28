@@ -4,6 +4,7 @@ import java.sql.Connection;
 
 import control.area.AreaDao;
 import control.keywords.KeywordsDao;
+import control.learning.LearningDao;
 import control.user.UserDao;
 import control.work.WorkDao;
 import model.Dao;
@@ -33,6 +34,11 @@ public class DaoBuilder {
 
 	public DaoBuilder keywords() {
 		current  = KeywordsDao.getInstance();
+		return this;
+	}
+	
+	public DaoBuilder learning(){
+		current = LearningDao.getInstance();
 		return this;
 	}
 	

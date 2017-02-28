@@ -4,9 +4,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import control.factory.KeywordsFactory;
+import control.factory.LearningFactory;
 import control.factory.UserCommandFactory;
 import control.factory.WorkCommandFactory;
 import control.keywords.KeywordsInvoke;
+import control.learning.LearningInvoke;
 import control.user.UserInvoke;
 import control.work.WorkInvoke;
 import model.Dao;
@@ -18,10 +20,13 @@ public class CommandFacade {
 	public static final int INVOKE_USER = 1;
 	public static final int INVOKE_WORK = 2;
 	public static final int INVOKE_KEYWORDS = 3;
+	public static final int INVOKE_LEARNING = 4;
+
 	// Fabricas de comandos
 	public static final int FACTORY_USER = 1;
 	public static final int FACTORY_WORK = 2;
 	public static final int FACTORY_KEYWORDS = 3;
+	public static final int FACTORY_LEARNING = 4;
 	
 	private static CommandFacade instance = new CommandFacade();
 	private Invoke invoke; // Invocador do comando
@@ -53,6 +58,8 @@ public class CommandFacade {
 			case FACTORY_KEYWORDS :
 				this.command = KeywordsFactory.getInstance().create(command);
 				break;
+			case FACTORY_LEARNING :
+				this.command = LearningFactory.getInstance().create(command);
 			default:
 				break;
 		}
@@ -75,6 +82,9 @@ public class CommandFacade {
 				break;
 			case INVOKE_KEYWORDS:
 				this.invoke = KeywordsInvoke.getInstance();
+				break;
+			case INVOKE_LEARNING :
+				this.invoke = LearningInvoke.getInstance();
 				break;
 			default:
 				break;

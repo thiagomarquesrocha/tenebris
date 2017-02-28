@@ -8,7 +8,7 @@ public class FrontEnd {
 		
 		Exemplo ex = new Exemplo();
 		//System.out.println("Aqui estou");
-		ex.Metodo(12, 86);
+		ex.Metodo(2, 86);
 
 	}
 
