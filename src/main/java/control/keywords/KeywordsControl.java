@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 import org.json.JSONArray;
 
@@ -14,6 +15,18 @@ import model.Dao;
 import model.JSONOut;
 
 public class KeywordsControl {
+	
+	
+	public static void clearKeywords(Connection conn, Long workId){
+		String sql = String.format("DELETE FROM obra_palavrachave WHERE obra = %s", workId);
+		Statement st;
+		try {
+			st = conn.createStatement();
+			st.executeUpdate(sql);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
 	
 	public static Long add(Connection conn, String word) throws Exception{
 		String sql = String.format("INSERT INTO idpalavrachave (palavrachave) VALUES ('%s')", word);

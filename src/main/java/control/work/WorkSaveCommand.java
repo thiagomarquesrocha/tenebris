@@ -132,6 +132,7 @@ public class WorkSaveCommand extends WorkCommand{
     	for(int i=0, total = keyword.getWords().length; i<total; i++){    		
     		String word = keyword.getWords()[i];
     		Long Idpalavrachave = null;
+    		word = word.trim();
     		try {
     			// Tenta adicionar a palavra chave no banco
     			Idpalavrachave = KeywordsControl.add(conn, word);

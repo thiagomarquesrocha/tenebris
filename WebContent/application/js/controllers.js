@@ -461,7 +461,7 @@ app
     $scope.resume = data.resumo;
     $scope.area = data.area;
     $scope.file = data.path;
-    $scope.type = data.tipo;
+    $scope.typeId = data.tipo;
     setDate();
 
     $scope.listKeywords();
@@ -521,7 +521,7 @@ app
 
   // Get list of work's type available
   $scope.listTypes = function(){
-    Work.getTypes();
+    Work.setScope($scope).getTypes();
   }
 
    // Get list of institutions available
@@ -544,7 +544,7 @@ app
 
   // Get keyowords from work
   $scope.listKeywords = function(){
-    Work.getKeywords(work);
+    Work.getKeywords(work, $scope.listTypes);
   }
 
   // Save or update a work
@@ -791,7 +791,7 @@ Work = (function(){
   }
 
   // Get list of keywords
-  function getKeywords(workId){
+  function getKeywords(workId, callback){
     if(workId == 0) return;
 
     console.log("Solicitando as palavras chaves da obra ", workId);
@@ -811,12 +811,16 @@ Work = (function(){
         for(key in words)
           words_text.push(words[key].palavrachave);
         
-        console.log("Convertendo ", words_text, _this.$scope);
-        _this.$scope.keywords = words_text.join(",");
+        //console.log("Convertendo ", words_text, _this.$scope);
+        _this.$scope.keywords = words_text.join(", ");
         _this.$rootScope.loaded();
+        if(callback != null)
+          callback();
     }, function errorCallback(response) {
         console.error("Erro ao carregar as palavras chaves da obra ");
         _this.$rootScope.loaded();
+        if(callback != null)
+          callback();
     });
   }
 
@@ -825,6 +829,8 @@ Work = (function(){
     var _this = this;
     this.$timeout(function(){
      
+     console.log('Solitando os tipos de obras');
+
       _this.$http({
           method: 'GET',
           url: Actions.work.types,
@@ -840,15 +846,18 @@ Work = (function(){
             return;
           }
 
+          // console.log(_this.$scope);
+
           _this.$scope.types = data.data;
           if(data.data){
-            var type = _this.$filter('by')('id', 1, data.data);
+            var type = _this.$filter('by')('id', (_this.$scope.typeId)? _this.$scope.typeId : 1, data.data);
             if(DEBUG)
               console.log("Type ", type);
             if(type.id >= 0){
               if(!_this.$scope.type){
+                type.selected = true;
                 _this.$scope.type = type.id;
-                console.log("Type ID ", type.id);
+                console.log("Type ID ", type);
               }else{
                  console.log("Type ID selecionado ", _this.$scope.type);
               }
