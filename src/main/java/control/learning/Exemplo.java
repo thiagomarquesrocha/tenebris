@@ -33,7 +33,7 @@ public class Exemplo {
 		dataSource.setUser("root");
     	dataSource.setPassword("");
     	dataSource.setServerName("localhost");
-    	dataSource.setDatabaseName("tenebris2016");
+    	dataSource.setDatabaseName("tenebris2017");
     	Connection conn = dataSource.getConnection();
     	Statement stmt = (Statement) conn.createStatement();
     	
@@ -48,7 +48,7 @@ public class Exemplo {
         int item;
         int usuario;
         int relevancia;
-        String titulo;
+        String titulo = null;
         int pchave;
         while (rs.next()) {
         	usuario = rs.getInt("IDUSUARIO");
@@ -99,19 +99,22 @@ public class Exemplo {
 		List<ObraRB> artigo = new ArrayList<ObraRB>(); // Lista da classe ObraRB, para guardar cada linha referente ao artigo, que consta na tabela "obra", j� que o que diferencia � a nova coluna "palava-chave"; um registro para cada palavra-chave.
 		while (rs.next()) {
             titulo = rs.getString("TITULO");
-            //pchave = rs.getInt("PALAVRACHAVE");
-            
-            // pchave = 2;
+        }
+		
+		sql = String.format("SELECT * FROM obra_palavrachave where obra=%s", ItemID);
+		rs = stmt.executeQuery(sql);
+		while (rs.next()) {
+            pchave = rs.getInt("PALAVRACHAVE");
             
             ObraRB obra = new ObraRB();
             obra.setTitulo(titulo);
-            //obra.setPchave(pchave);
+            obra.setPchave(pchave);
             artigo.add(obra);
         }
 		
 		String palavraschaves = null;
 		for(int i = 0; i < artigo.size(); i++){
-        	sql = String.format("SELECT * FROM idpalavrachave WHERE idpchave = %s", obras.get(i).getPchave()); // Resgate da palavra-chave. Similar ao processo de resgate para constru��o do modelo de aprendizagem.
+        	sql = String.format("SELECT * FROM idpalavrachave WHERE idpchave = %s", artigo.get(i).getPchave()); // Resgate da palavra-chave. Similar ao processo de resgate para constru��o do modelo de aprendizagem.
         	rs = stmt.executeQuery(sql);
         	while(rs.next()){
         		
@@ -121,24 +124,32 @@ public class Exemplo {
         		
         	}
         }
-		String[] unknownText1 = (artigo.get(0).getTitulo() + " " + palavraschaves).split("\\s"); // Registro a "d�vida" no modelo de aprendizagem.
+		final String[] unknownText1 = (artigo.get(0).getTitulo() + " " + palavraschaves).split("\\s"); // Registro a "d�vida" no modelo de aprendizagem.
+		//System.out.println(bayes.classify(Arrays.asList(unknownText1)).getCategory());
+		try {
+			String res = bayes.classify(Arrays.asList(unknownText1)).getCategory();
+			System.out.println(res);
         
-		String res = bayes.classify(Arrays.asList(unknownText1)).getCategory();
-		
-		System.out.println(res); // Chamando o m�todo, e assim printo se � "Relevante" ou "Irrelvante".
-		
-        try {
-			response.getWriter().append(res);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-        
-        ((BayesClassifier<String, String>) bayes).classifyDetailed(
-                Arrays.asList(unknownText));
+			((BayesClassifier<String, String>) bayes).classifyDetailed(Arrays.asList(unknownText));
 
-        bayes.setMemoryCapacity(500);
+			bayes.setMemoryCapacity(500);
         
-        rs.close();
+			try {
+				response.getWriter().append(res);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+        } catch (NullPointerException e) {
+        	String saida = "Dados insuficientes";
+        	System.out.println(saida);
+        	try {
+				response.getWriter().append(saida);
+			} catch (IOException e1) {
+				e.printStackTrace();
+			}
+        }
+        
+		rs.close();
         stmt.close();
         conn.close();
     }
