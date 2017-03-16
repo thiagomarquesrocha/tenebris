@@ -115,7 +115,7 @@ public class RequestManager {
 				execute(CommandFacade.FACTORY_LEARNING, LearningFactory.SAVE_LEARNING, CommandFacade.FACTORY_LEARNING, DaoFactory.LEARNING);
 				break;
 			case PREDIZER_RELEVANCIA_OBRA :
-				FrontEnd.predict(response, learning.getUserId().intValue(), learning.getWorkId().intValue());
+				FrontEnd.predict(response, learning.getUserId().intValue());
 				break;
 			case AVALIAR: // Avalia uma obra 
 				BackEndRating.BackEndRat(recommend.getUserID(), recommend.getItemID(), recommend.getVarRating());

@@ -7,7 +7,15 @@ import java.util.List;
 import javax.servlet.http.HttpServletResponse;
 
 import com.mysql.jdbc.Statement;
+import com.mysql.jdbc.Util;
 import com.mysql.jdbc.jdbc2.optional.MysqlDataSource;
+
+import com.google.gson.Gson;
+
+import control.ConnectionSingleton;
+import control.JSONUtil;
+import control.recomendation.rate.SaidaJSON;
+import model.Obra;
 
 import java.io.IOException;
 import java.sql.Connection;
@@ -18,27 +26,64 @@ import java.sql.SQLException;
 
 public class Exemplo {
 	
-	HttpServletResponse response;
+	 private HttpServletResponse response;
+	 
+	public Exemplo(){
+		 super();
+	 }
 	
 	public Exemplo(HttpServletResponse response) {
 		super();
 		this.response = response;
 	}
 
+		public void Metodo(int UserID) throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException, IOException {
 
-
-	public void Metodo(int UserID, int ItemID) throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException {
-		MysqlDataSource dataSource = new MysqlDataSource();
-		
-		dataSource.setUser("root");
-    	dataSource.setPassword("");
-    	dataSource.setServerName("localhost");
-    	dataSource.setDatabaseName("tenebris2016");
-    	Connection conn = dataSource.getConnection();
-    	Statement stmt = (Statement) conn.createStatement();
-    	
-		String sql = String.format("SELECT * FROM redebayesiana WHERE idUsuario = %s", UserID); //Conex�o com a nova tabela
-		ResultSet rs = stmt.executeQuery(sql);
+			MysqlDataSource dataSource = new MysqlDataSource();
+			
+			dataSource.setUser("root");
+	    	dataSource.setPassword("");
+	    	dataSource.setServerName("localhost");
+	    	dataSource.setDatabaseName("tenebris2016");
+	    	Connection conn = dataSource.getConnection();
+	    	Statement stmt = (Statement) conn.createStatement();
+			
+	    	ArrayList obrasTotais = new ArrayList();
+	    	
+	    	String sql = String.format("SELECT obra.id FROM obra");
+			ResultSet rs = stmt.executeQuery(sql);
+			while (rs.next()) {
+				
+	            obrasTotais.add(rs.getInt("ID"));
+	            
+	        }
+	    	
+			ArrayList obrasAvaliadas = new ArrayList();
+			
+			sql = String.format("SELECT * FROM avaliacao WHERE usuario=%s", UserID);
+			rs = stmt.executeQuery(sql);
+			while (rs.next()) {
+				
+	            obrasAvaliadas.add(rs.getInt("OBRA"));
+	            
+	        }
+			
+			ArrayList obrasRestantes = new ArrayList();
+			boolean aux = true;
+			for(int i = 0; i < obrasTotais.size(); i++){
+				for(int j = 0; j < obrasAvaliadas.size(); j++){
+					if(obrasTotais.get(i) == obrasAvaliadas.get(j)){
+						aux = false;					
+					}
+				}
+				if(aux == true){
+					obrasRestantes.add(obrasTotais.get(i));
+				}
+				aux = true;
+			}
+			
+		sql = String.format("SELECT * FROM redebayesiana WHERE idUsuario = %s", UserID); //Conex�o com a nova tabela
+		rs = stmt.executeQuery(sql);
 			
 
         final Classifier<String, String> bayes =
@@ -48,7 +93,7 @@ public class Exemplo {
         int item;
         int usuario;
         int relevancia;
-        String titulo;
+        String titulo = null;
         int pchave;
         while (rs.next()) {
         	usuario = rs.getInt("IDUSUARIO");
@@ -91,56 +136,76 @@ public class Exemplo {
         
         // Ao fim deste processo, o modelo de aprendizagem para o usu�rio est� pronto.
         
-        sql = String.format("SELECT * FROM obra where id=%s", ItemID); // Agora, precisamos resgatar as caracter�sticas do artigo que queremos prever a relev�ncia.
-		rs = stmt.executeQuery(sql);
+        System.out.print("{\"data\":[");
+        for(int a = 0; a < obrasRestantes.size(); a++){
+			int ItemID = (int)obrasRestantes.get(a);
         
-		String[] unknownText = " ".split("\\s");
+			sql = String.format("SELECT * FROM obra where id=%s", ItemID); // Agora, precisamos resgatar as caracter�sticas do artigo que queremos prever a relev�ncia.
+			rs = stmt.executeQuery(sql);
+        
+			String[] unknownText = " ".split("\\s");
 		
-		List<ObraRB> artigo = new ArrayList<ObraRB>(); // Lista da classe ObraRB, para guardar cada linha referente ao artigo, que consta na tabela "obra", j� que o que diferencia � a nova coluna "palava-chave"; um registro para cada palavra-chave.
-		while (rs.next()) {
-            titulo = rs.getString("TITULO");
-            //pchave = rs.getInt("PALAVRACHAVE");
+			List<ObraRB> artigo = new ArrayList<ObraRB>(); // Lista da classe ObraRB, para guardar cada linha referente ao artigo, que consta na tabela "obra", j� que o que diferencia � a nova coluna "palava-chave"; um registro para cada palavra-chave.
+			while (rs.next()) {
+				titulo = rs.getString("TITULO");
+			}
+		
+			sql = String.format("SELECT * FROM obra_palavrachave where obra=%s", ItemID);
+			rs = stmt.executeQuery(sql);
+			while (rs.next()) {
+				pchave = rs.getInt("PALAVRACHAVE");
             
-            // pchave = 2;
-            
-            ObraRB obra = new ObraRB();
-            obra.setTitulo(titulo);
-            //obra.setPchave(pchave);
-            artigo.add(obra);
-        }
-		
-		String palavraschaves = null;
-		for(int i = 0; i < artigo.size(); i++){
-        	sql = String.format("SELECT * FROM idpalavrachave WHERE idpchave = %s", obras.get(i).getPchave()); // Resgate da palavra-chave. Similar ao processo de resgate para constru��o do modelo de aprendizagem.
-        	rs = stmt.executeQuery(sql);
-        	while(rs.next()){
-        		
-        		String pcstring = rs.getString("PALAVRACHAVE");
-        		artigo.get(i).setPcstring(pcstring);
-        		palavraschaves = palavraschaves + " " + pcstring; // Como os v�rios itens dentro da lista "artigo" fazem parte do mesmo artigo, decidi por simplesmente reunir numa string. Se a abordagem fosse diferente, ou melhor, similar com a que escohi para o modelo de aprendizagem, seria como perguntar para o sistema de v�rios artigos diferentes e n�o de unicamente um (redund�ncia proposital).
-        		
-        	}
-        }
-		String[] unknownText1 = (artigo.get(0).getTitulo() + " " + palavraschaves).split("\\s"); // Registro a "d�vida" no modelo de aprendizagem.
-        
-		String res = bayes.classify(Arrays.asList(unknownText1)).getCategory();
-		
-		System.out.println(res); // Chamando o m�todo, e assim printo se � "Relevante" ou "Irrelvante".
-		
-        try {
-			response.getWriter().append(res);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-        
-        ((BayesClassifier<String, String>) bayes).classifyDetailed(
-                Arrays.asList(unknownText));
+				ObraRB obra = new ObraRB();
+				obra.setTitulo(titulo);
+				obra.setPchave(pchave);
+				artigo.add(obra);
+			}
 
-        bayes.setMemoryCapacity(500);
+			String palavraschaves = null;
+			for(int i = 0; i < artigo.size(); i++){
+				sql = String.format("SELECT * FROM idpalavrachave WHERE idpchave = %s", artigo.get(i).getPchave()); // Resgate da palavra-chave. Similar ao processo de resgate para constru��o do modelo de aprendizagem.
+				rs = stmt.executeQuery(sql);
+				while(rs.next()){
+        		
+					String pcstring = rs.getString("PALAVRACHAVE");
+					artigo.get(i).setPcstring(pcstring);
+					palavraschaves = palavraschaves + " " + pcstring; // Como os v�rios itens dentro da lista "artigo" fazem parte do mesmo artigo, decidi por simplesmente reunir numa string. Se a abordagem fosse diferente, ou melhor, similar com a que escohi para o modelo de aprendizagem, seria como perguntar para o sistema de v�rios artigos diferentes e n�o de unicamente um (redund�ncia proposital).
+        		
+				}
+			}
+		
+			try{
+				final String[] unknownText1 = (artigo.get(0).getTitulo() + " " + palavraschaves).split("\\s"); // Registro a "d�vida" no modelo de aprendizagem.
+				//System.out.println(bayes.classify(Arrays.asList(unknownText1)).getCategory());
+				
+				try{
+					String res = bayes.classify(Arrays.asList(unknownText1)).getCategory();
+					//System.out.println(res);
+					((BayesClassifier<String, String>) bayes).classifyDetailed(Arrays.asList(unknownText));
+					bayes.setMemoryCapacity(500);
+			
+					if(res == "Relevante"){
+						GSON auxiliar = new GSON();
+						Gson lopes = new Gson();
+						String json = lopes.toJson(auxiliar.ConstrucaoJSON(ItemID));
+						System.out.print(json);
+					}
+		
+					try {
+						response.getWriter().append(res + ": " + ItemID + " | ");
+					} catch (IOException e1) {
+						e1.printStackTrace();
+					}
+				} catch (java.lang.NullPointerException nll) {
+					//System.out.println("Usuario não consta na tabela redebayesiana);
+				}
+			}catch (java.lang.IndexOutOfBoundsException i){
+			//System.out.println("Não foram registradas palava-chaves para a obra de ID: " + ItemID);
+			}
+        }
         
-        rs.close();
-        stmt.close();
-        conn.close();
-    }
+        System.out.println("]}");
+        
+		}
 
 }

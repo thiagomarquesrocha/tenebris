@@ -32,7 +32,7 @@ public class LearningRequest extends Request<Learning>{
 		String relevant = request.getParameter(RELEVANT);
 		String title = request.getParameter(TITLE);
 		String key = request.getParameter(KEY);
-		learning.setWorkId(Long.valueOf(workId));
+		//learning.setWorkId(Long.valueOf(workId));
 		learning.setUserId(Long.valueOf(userId));
 		if(relevant == null) return learning;
 		learning.setRelevant(Integer.valueOf(relevant));
