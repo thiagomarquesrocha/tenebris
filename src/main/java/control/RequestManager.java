@@ -114,7 +114,7 @@ public class RequestManager {
 			case SALVAR_APRENDIZAGEM: // Salva aprendizagem
 				execute(CommandFacade.FACTORY_LEARNING, LearningFactory.SAVE_LEARNING, CommandFacade.FACTORY_LEARNING, DaoFactory.LEARNING);
 				break;
-			case PREDIZER_RELEVANCIA_OBRA :
+			case PREDIZER_RELEVANCIA_OBRA : // Prediz se uma obra eh relevante
 				FrontEnd.predict(response, learning.getUserId().intValue());
 				break;
 			case AVALIAR: // Avalia uma obra 

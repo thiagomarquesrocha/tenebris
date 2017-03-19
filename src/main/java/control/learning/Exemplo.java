@@ -37,7 +37,7 @@ public class Exemplo {
 		this.response = response;
 	}
 
-		public void Metodo(int UserID) throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException, IOException {
+		public List<Obra> Metodo(int UserID) throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException, IOException {
 
 			MysqlDataSource dataSource = new MysqlDataSource();
 			
@@ -137,6 +137,7 @@ public class Exemplo {
         // Ao fim deste processo, o modelo de aprendizagem para o usu�rio est� pronto.
         
         String dataJSON =  "{\"data\":[";
+        List<Obra> list = new ArrayList<>();
         for(int a = 0; a < obrasRestantes.size(); a++){
 			int ItemID = (int)obrasRestantes.get(a);
         
@@ -187,7 +188,9 @@ public class Exemplo {
 					if(res == "Relevante"){
 						GSON auxiliar = new GSON();
 						Gson lopes = new Gson();
-						String json = lopes.toJson(auxiliar.ConstrucaoJSON(ItemID));
+						Obra obra = auxiliar.ConstrucaoJSON(ItemID);
+						list.add(obra);
+						String json = lopes.toJson(obra);
 						dataJSON += json;
 					}
 		
@@ -203,10 +206,13 @@ public class Exemplo {
         
         try {
 			response.getWriter().append(dataJSON);
-		} catch (IOException e1) {
-			e1.printStackTrace();
+			return null;
+		} catch (Exception e1) {
+			// e1.printStackTrace();
 		}
-//        System.out.println(dataJSON);
+        System.out.println(dataJSON);
+        
+        return list;
         
 		}
 
