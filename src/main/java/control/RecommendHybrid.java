@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
 
+import control.learning.Exemplo;
 import control.recomendation.profile.Principal;
 import control.recomendation.rate.BackEndRecommendation;
 import model.Command;
@@ -29,6 +30,8 @@ public class RecommendHybrid implements Command{
 			List<Obra> listByRate = new BackEndRecommendation().BackEndR(recommend.getUserID(), recommend.getQtdR()).getList();
 			// Recomendacao baseada em conteudo
 			List<Obra> listByData = new Principal().getRecommender(recommend.getUserID()).getList();
+			// Lista de obras relevantes
+			List<Obra> listByRelevancy = new Exemplo().Metodo(recommend.getUserID());
 			
 			Recommend recommends = new Recommend();
 			/*// Converte para utf-8
@@ -36,7 +39,7 @@ public class RecommendHybrid implements Command{
 			// Converte para utf-8
 			listByData = (List<Obra>) JSONUtil.get(listByData, List.class);*/
 			
-			recommends.add(listByRate).add(listByData);
+			recommends.add(listByRate).add(listByData).add(listByRelevancy);
 			JSONUtil.print(response, recommends);
 		} catch (Exception e) {
 			e.printStackTrace();
