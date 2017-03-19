@@ -136,7 +136,7 @@ public class Exemplo {
         
         // Ao fim deste processo, o modelo de aprendizagem para o usu�rio est� pronto.
         
-        System.out.print("{\"data\":[");
+        String dataJSON =  "{\"data\":[";
         for(int a = 0; a < obrasRestantes.size(); a++){
 			int ItemID = (int)obrasRestantes.get(a);
         
@@ -188,14 +188,9 @@ public class Exemplo {
 						GSON auxiliar = new GSON();
 						Gson lopes = new Gson();
 						String json = lopes.toJson(auxiliar.ConstrucaoJSON(ItemID));
-						System.out.print(json);
+						dataJSON += json;
 					}
 		
-					try {
-						response.getWriter().append(res + ": " + ItemID + " | ");
-					} catch (IOException e1) {
-						e1.printStackTrace();
-					}
 				} catch (java.lang.NullPointerException nll) {
 					//System.out.println("Usuario não consta na tabela redebayesiana);
 				}
@@ -204,7 +199,14 @@ public class Exemplo {
 			}
         }
         
-        System.out.println("]}");
+        dataJSON += "]}";
+        
+        try {
+			response.getWriter().append(dataJSON);
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
+//        System.out.println(dataJSON);
         
 		}
 
