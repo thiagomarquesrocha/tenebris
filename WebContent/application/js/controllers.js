@@ -985,7 +985,7 @@ User = (function(){
     }).then(function successCallback(response) {
         var data = response.data;
         if(!data || !data.recommend) return;
-        _this.$scope.works = _this.$filter('unique')(data.recommend, 'titulo');
+        _this.$scope.works = _this.$filter('unique')(data.recommend, 'id');
         console.log("Recomendação :", _this.$scope.works);
         _this.$rootScope.loaded();
     }, function errorCallback(response) {

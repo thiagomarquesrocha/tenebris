@@ -30,11 +30,18 @@ app = angular.module('App', ['ngRoute', 'ngProgress'])
 
   return function (arr, field) {
     var o = {}, i, l = arr.length, r = [];
+    var err = [];
     for(i=0; i<l;i+=1) {
-      o[arr[i][field]] = arr[i];
+      try{
+        o[arr[i][field]] = arr[i];
+      }catch(e){ err.push(e) }
     }
     for(i in o) {
       r.push(o[i]);
+    }
+    if(err.length){
+      console.warm("Total de erros no filtro unique ", err.length);
+      console.error(err);
     }
     return r;
   };
