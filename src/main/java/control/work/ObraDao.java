@@ -50,13 +50,13 @@ public class ObraDao {
 		  return id;
 	}
     
-    public static void atualizaObra(long id, int type, String instituicao, String area, String autor, String titulo, String data, String resumo, String imagem) throws SQLException {
+    public static void atualizaObra(long id, int type, String instituicao, String area, Long autor, String titulo, String data, String resumo, String imagem) throws SQLException {
     	
     	 try {
     	
     	  Connection conn = ConnectionSingleton.getInstance().getConnection();
    		    
-   		  String sql = "UPDATE obra SET tipo="+type+",instituicao="+instituicao+",area="+area+",titulo=?,data=?,resumo=?,imagem=? WHERE id = "+id;
+   		  String sql = "UPDATE obra SET tipo="+type+",instituicao="+instituicao+",area="+area+",titulo=?,data=?,resumo=?,imagem=?,autor=? WHERE id = "+id;
 		
    		  System.out.println(sql);
    		  
@@ -67,6 +67,7 @@ public class ObraDao {
    		  st.setString(2, data);
    		  st.setString(3, resumo);
    		  st.setString(4, imagem);
+   		  st.setLong(5, autor);
    		  
 		  st.executeUpdate();
 		  

@@ -129,6 +129,10 @@ public class WorkUpdateCommand extends WorkCommand{
 		
 		System.out.println("ID area : " + areaId.toString());
 		
+		// Insert auth into table and generate ID 
+		Long authId = WorkSaveCommand.saveAuth(work);
+		System.out.println("ID auth : " + authId.toString());
+		
 		// Updated table obra 
 		ObraDao.atualizaObra
 		(
@@ -136,7 +140,7 @@ public class WorkUpdateCommand extends WorkCommand{
 				work.getType(),
 				work.getinstituicao(), 
 				areaId.toString(), 
-				work.getautor(), 
+				authId, 
 				work.gettitulo(), 
 				work.getdata(), 
 				work.getresumo(), 

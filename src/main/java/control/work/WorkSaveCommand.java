@@ -162,7 +162,7 @@ public class WorkSaveCommand extends WorkCommand{
     	} // Fim for
 	}
 
-	private Long saveAuth(Obra work) {
+	public static Long saveAuth(Obra work) {
     	Connection conn = ConnectionSingleton.getInstance().getConnection();
     	String auth = work.getautor();
     	Long authId = null;

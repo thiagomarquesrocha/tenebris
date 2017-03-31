@@ -40,7 +40,7 @@ app = angular.module('App', ['ngRoute', 'ngProgress'])
       r.push(o[i]);
     }
     if(err.length){
-      console.warm("Total de erros no filtro unique ", err.length);
+      console.warn("Total de erros no filtro unique ", err.length);
       console.error(err);
     }
     return r;
