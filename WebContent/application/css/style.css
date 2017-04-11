@@ -1,5 +1,5 @@
 .c-red{ color: #f00; }
-.text-b{ color: #2196f3}
+.text-b{ color: #43a047}
 .text-w{ color: #fff }
 
 #logo-container img{ margin-bottom: -10px !important;}
@@ -63,7 +63,7 @@ a .resume{ color: #000 !important}
 	position: absolute; top: 50%; left: 50%; margin: -30px 0 0 -121px; 
 	animation: loading 2s linear infinite alternate;
 }
-.loading{ background: #2196F3 !important}
+.loading{ background: #43a047 !important}
 
 footer.page-footer {
     padding-top: 10px

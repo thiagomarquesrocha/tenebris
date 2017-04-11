@@ -1,9 +1,9 @@
 <!--Work-->
 <div class="section scrollspy" id="work">
     <div class="panel-body">
-        <header class="fixing header white z-depth-1">
+        <header class="fixing header light-green lighten-1 z-depth-1">
             <div class="container">
-                <h1 class="text_b"><i class="material-icons fa fa-book"></i> Recentemente adicionada</h1>
+                <h1 class="text-w"><i class="material-icons fa fa-book"></i> Recentemente adicionada</h1>
             </div>
         </header>
         <div class="container">
@@ -29,7 +29,7 @@
                                     Você avaliou esta obra em {{ work.avaliacao }} estrela{{ (work.avaliacao <= 1)? '' : 's' }}
                                 </p>
                             </a>
-                            <a class="btn-floating btn-large waves-effect waves-light" ng-class="{ 'light-blue darken-1' : (work.file), grey : (!work.file) }" title="{{ (!work.file)? 'Não disponível' : 'Baixar' }}" ng-click="open(work.file)"><i class="material-icons fa fa-download"></i></a>
+                            <a class="btn-floating btn-large waves-effect waves-light" ng-class="{ 'green darken-1' : (work.file), grey : (!work.file) }" title="{{ (!work.file)? 'Não disponível' : 'Baixar' }}" ng-click="open(work.file)"><i class="material-icons fa fa-download"></i></a>
                         </div>
                     </div>
                 </div>

@@ -32,8 +32,8 @@
                                     Você avaliou esta obra em {{ work.avaliacao }} estrela{{ (work.avaliacao <= 1)? '' : 's' }}
                                 </p>
                             </a>
-                            <a class="btn-floating btn-large waves-effect waves-light" ng-class="{ 'light-blue darken-1' : (work.file), grey : (!work.file) }" title="{{ (!work.file)? 'Não disponível' : 'Baixar' }}" ng-click="open(work.file)"><i class="material-icons fa fa-download"></i></a>
-                            <a class="btn-floating btn-large waves-effect waves-light green" title="Editar" ng-click="view(work.id, 'edit')"><i class="material-icons fa fa-edit"></i></a>
+                            <a class="btn-floating btn-large waves-effect waves-light" ng-class="{ 'green darken-1' : (work.file), grey : (!work.file) }" title="{{ (!work.file)? 'Não disponível' : 'Baixar' }}" ng-click="open(work.file)"><i class="material-icons fa fa-download"></i></a>
+                            <a class="btn-floating btn-large waves-effect waves-light amber darken-1" title="Editar" ng-click="view(work.id, 'edit')"><i class="material-icons fa fa-edit"></i></a>
                             <a class="btn-floating btn-large waves-effect waves-light red darken-4" title="Deletar" ng-click="remove(work, $index)"><i class="material-icons fa fa-trash"></i></a>
                         </div>
                     </div>

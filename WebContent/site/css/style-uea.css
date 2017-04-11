@@ -8,8 +8,8 @@
 #work .fa-star-o{ color: #BBB6B6 }
 
 .login .btn{ color: #fff;}
-.login input{ border-bottom: 1px solid #83BEEC;}
-.login a{ color: #83BEEC;}
+.login input{ border-bottom: 1px solid #388e3c;}
+.login a{ color: #388e3c;}
 
 /* label color */
 .login .input-field label {
@@ -36,7 +36,7 @@
 }
 /* icon prefix focus color */
 .login .input-field .prefix {
- color: #83BEEC;
+ color: #424242;
 }
 /* icon prefix focus color */
 .login .input-field .prefix.active {

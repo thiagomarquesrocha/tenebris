@@ -1,6 +1,6 @@
 <!--Work-->
 <div class="section scrollspy" id="work">
-    <header class="fixing header darken-1 z-depth-1" ng-class="{ red : !hasWork(work), blue : hasWork(work) }">
+    <header class="fixing header  green darken-2 z-depth-1" ng-class="{ red : !hasWork(work), green : hasWork(work) }">
 		        <div class="container">
                     <h1 class="text-w" ng-show="hasWork(work)"><i class="material-icons fa fa-book"></i> {{ work.titulo }}</h1>
                     <h1 class="text-w" ng-show="!hasWork(work)"><i class="material-icons fa fa-warning"></i> Ocorreu um problema no carregamento</h1>
@@ -34,7 +34,7 @@
                             </div>
                         </div>
                         <div class="row m16 p10" ng-controller="WorkToolsCtrl">
-                            <a class="btn-floating btn-large waves-effect waves-light" ng-class="{ 'light-blue darken-1' : (work.path), grey : (!work.path) }" title="{{ (!work.path)? 'Não disponível' : 'Baixar' }}" ng-click="open(work.path)"><i class="material-icons fa fa-download"></i></a>
+                            <a class="btn-floating btn-large waves-effect waves-light" ng-class="{ 'green darken-1' : (work.path), grey : (!work.path) }" title="{{ (!work.path)? 'Não disponível' : 'Baixar' }}" ng-click="open(work.path)"><i class="material-icons fa fa-download"></i></a>
                         </div>
                     </div>
                 </div>

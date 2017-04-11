@@ -628,7 +628,7 @@ app
         var file = $scope.file;
         var uploadUrl = (update)? Actions.work.update : Actions.work.new;
         var fd = new FormData();
-        fd.append('type', type)        
+        fd.append('type', type);        
         fd.append('title', $scope.title.toLowerCase());
         // 1 - EST
         if(update)
