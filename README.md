@@ -13,7 +13,7 @@ O projeto necessita de:
 1. [Tomcat >= 7.0](https://tomcat.apache.org/download-70.cgi)
 2. [Mysql](https://www.mysql.com/) ou [MariaDB](https://mariadb.org/)
 
-# 1. Instalação
+# Instalação
 
 Clonando o projeto
 
