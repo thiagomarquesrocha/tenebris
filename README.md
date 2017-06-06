@@ -17,7 +17,7 @@ O projeto necessita de:
 
 Clonando o projeto
 
-`$ git clone https://github.com/thiagomarques2015/tenebris.git /tenebris`
+`$ git clone https://github.com/thiagomarquesrocha/tenebris.git /tenebris`
 
 Depois de clonar o projeto, certifique-se de que você está visualizando o branch __master__
 
