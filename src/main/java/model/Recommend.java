@@ -11,6 +11,7 @@ public class Recommend {
 	}
 	
 	public Recommend add(List<Obra> list){
+		if(list == null) return this;
 		recommend.addAll(list);
 		return this;
 	}

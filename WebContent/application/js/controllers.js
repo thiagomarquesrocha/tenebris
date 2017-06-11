@@ -987,12 +987,14 @@ User = (function(){
     var userId = this.getId();
     if(userId == 0) return;
 
+    var recommendation = this.$scope.profile.user.recommendation;
+
     var _this = this;
     // Carrega a lista de recomendacoes para o usuario
     this.$http({
         method: 'POST',
         url: Actions.work.recommend.hibryd,
-        data : { "userId" : userId, qtd : 200 },
+        data : { "userId" : userId, qtd : 200, recommendation : recommendation },
     }).then(function successCallback(response) {
         var data = response.data;
         if(!data || !data.recommend) return;

@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import control.RequestManager;
 import control.recomendation.rate.RecommendRequest;
-import model.RecommendRate;
+import model.RecommendParameters;
 
 /**
  * Servlet implementation class RecommendationServlet
@@ -35,7 +35,7 @@ public class RecommendationByRateServlet extends HttpServlet {
 		//response.getWriter().append("Recomendar por avaliacao ");
 		try {
 			// Cria o pedido recomendacao
-			RecommendRate recommend = RecommendRequest.getInstance().create(request);
+			RecommendParameters recommend = RecommendRequest.getInstance().create(request);
 			// Executa a recomendacao
 			RequestManager.getInstance()
 			.action(RequestManager.RECOMENDAR_POR_AVALIACAO)

@@ -1,10 +1,10 @@
 package model;
 
-public class RecommendRate {
-	int UserID, QtdR, ItemID, RatingID;
+public class RecommendParameters {
+	int UserID, QtdR, ItemID, RatingID, type; // type - type of recomendation (1,2..)
 	float VarRating;
 	
-	public RecommendRate(){
+	public RecommendParameters(){
 		
 	}
 	
@@ -68,5 +68,13 @@ public class RecommendRate {
 
 	public void setVarRating(float varRating) {
 		VarRating = varRating;
+	}
+
+	public int getType() {
+		return type;
+	}
+
+	public void setType(int type) {
+		this.type = type;
 	}
 }

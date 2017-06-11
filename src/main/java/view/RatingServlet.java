@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import control.RequestManager;
 import control.recomendation.rate.RateUtil;
-import model.RecommendRate;
+import model.RecommendParameters;
 
 /**
  * Servlet implementation class RatingWorkServlet
@@ -33,7 +33,7 @@ public class RatingServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
 			// Cria o pedido recomendacao
-			RecommendRate recommend = RateUtil.getInstance().create(request);
+			RecommendParameters recommend = RateUtil.getInstance().create(request);
 			// Executa a avaliacaoa
 			RequestManager.getInstance()
 			.action(RequestManager.AVALIAR)

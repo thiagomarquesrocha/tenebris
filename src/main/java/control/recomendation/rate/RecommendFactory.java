@@ -1,6 +1,6 @@
 package control.recomendation.rate;
 
-import model.RecommendRate;
+import model.RecommendParameters;
 
 /**
  * Fabrica de criacao de recomendacoes
@@ -8,7 +8,7 @@ import model.RecommendRate;
  *
  */
 public class RecommendFactory {
-	public static RecommendRate create(){
-		return new RecommendRate();
+	public static RecommendParameters create(){
+		return new RecommendParameters();
 	}
 }

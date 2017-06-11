@@ -36,8 +36,7 @@ public class UserDao extends Dao{
 	
 	private static final UserDao instance = new UserDao();
 	public static final String LABEL_ALL_PROFILE = "a.id, a.nome, a.login, UNIX_TIMESTAMP(a.cadastradoEm) as cadastradoEm, a.recommendation, b.nome as area, b.id as areaId";
-	
-	
+		
 	private UserDao(){
 		super();
 	}

@@ -13,7 +13,7 @@ import control.recomendation.profile.Principal;
 import control.recomendation.rate.BackEndRating;
 import control.recomendation.rate.BackEndRecommendation;
 import model.Learning;
-import model.RecommendRate;
+import model.RecommendParameters;
 /**
  * Gerenciador de Requisicoes 
  * @author Thiago
@@ -49,7 +49,7 @@ public class RequestManager {
 	private int op;
 	HttpServletResponse response;
 	HttpServletRequest request;
-	RecommendRate recommend;
+	RecommendParameters recommend;
 	private Learning learning;
 	
 	public synchronized static RequestManager getInstance() {
@@ -63,7 +63,7 @@ public class RequestManager {
 		return this;
 	}
 
-	public RequestManager setRecommend(RecommendRate recommendRate){
+	public RequestManager setRecommend(RecommendParameters recommendRate){
 		this.recommend = recommendRate;
 		return this;
 	}
@@ -82,7 +82,7 @@ public class RequestManager {
 		return response;
 	}
 
-	public RecommendRate getRecommend() {
+	public RecommendParameters getRecommend() {
 		return recommend;
 	}
 	

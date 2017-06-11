@@ -5,10 +5,10 @@ import javax.servlet.http.HttpServletRequest;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import model.RecommendRate;
+import model.RecommendParameters;
 import model.Request;
 
-public class RateUtil extends Request<RecommendRate> {
+public class RateUtil extends Request<RecommendParameters> {
 	private static final String ITEM_ID = "itemId";
 	private static final String USER_ID = "userId";
 	private static final String RATING = "rating";
@@ -22,8 +22,8 @@ public class RateUtil extends Request<RecommendRate> {
 	}
 
 	@Override
-	public RecommendRate get(HttpServletRequest request) {
-		RecommendRate recommend = RecommendFactory.create();
+	public RecommendParameters get(HttpServletRequest request) {
+		RecommendParameters recommend = RecommendFactory.create();
 		int ItemID = Integer.valueOf(request.getParameter(ITEM_ID));
 		int UserID = Integer.valueOf(request.getParameter(USER_ID));
 		float VarRating = Float.valueOf(request.getParameter(RATING));
@@ -32,9 +32,9 @@ public class RateUtil extends Request<RecommendRate> {
 	}
 
 	@Override
-	public RecommendRate post(StringBuffer sb) {
+	public RecommendParameters post(StringBuffer sb) {
 		String json = sb.toString();
-		RecommendRate recommend = RecommendFactory.create();
+		RecommendParameters recommend = RecommendFactory.create();
 		JSONObject oRecommend;
 		try {
 			oRecommend = new JSONObject(json);
