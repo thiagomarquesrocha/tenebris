@@ -8,7 +8,7 @@ import control.factory.KeywordsFactory;
 import control.factory.LearningFactory;
 import control.factory.UserCommandFactory;
 import control.factory.WorkCommandFactory;
-import control.learning.FrontEnd;
+import control.learning.bayes.FrontEnd;
 import control.recomendation.profile.Principal;
 import control.recomendation.rate.BackEndRating;
 import control.recomendation.rate.BackEndRecommendation;

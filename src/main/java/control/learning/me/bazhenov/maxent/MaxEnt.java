@@ -1,4 +1,4 @@
-package me.bazhenov.maxent;
+package control.learning.me.bazhenov.maxent;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -7,6 +7,12 @@ import java.util.ArrayList;
 import java.util.Collection;
 import com.mysql.jdbc.Statement;
 import com.mysql.jdbc.jdbc2.optional.MysqlDataSource;
+
+import control.factory.ConnectionFactory;
+import control.learning.GSON;
+import control.learning.ObraRB;
+import model.Obra;
+
 import com.google.gson.Gson;
 import opennlp.maxent.GIS;
 import opennlp.maxent.GISModel;
@@ -169,7 +175,7 @@ public class MaxEnt {
 					if(bestOutcome == "Relevante"){
 						GSON auxiliar = new GSON();
 						Gson lopes = new Gson();
-						Obra obra = auxiliar.ConstrucaoJSON(ItemID, conn);
+						model.Obra obra = auxiliar.ConstrucaoJSON(ItemID, conn);
 						list.add(obra);
 						String json = lopes.toJson(obra);
 						dataJSON += json;
@@ -198,10 +204,10 @@ public class MaxEnt {
 	IllegalAccessException, ClassNotFoundException, SQLException, IOException {
 		
 		MysqlDataSource dataSource = new MysqlDataSource();
-		dataSource.setUser("lucas");
-    	dataSource.setPassword("123");
-    	dataSource.setServerName("localhost");
-    	dataSource.setDatabaseName("tenebris2016");
+		dataSource.setUser(ConnectionFactory.USER);
+    	dataSource.setPassword(ConnectionFactory.PASSWORD);
+    	dataSource.setServerName(ConnectionFactory.HOST_NAME);
+    	dataSource.setDatabaseName(ConnectionFactory.BD);
     	
     	Connection conn = dataSource.getConnection();
     	Statement stmt = (Statement) conn.createStatement();

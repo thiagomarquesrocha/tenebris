@@ -1,4 +1,4 @@
-package me.bazhenov.maxent;
+package control.learning.me.bazhenov.maxent;
 
 public class LearningSample {
 

@@ -39,7 +39,8 @@ var Actions = {
 			"user" : SITE + "usuario/adicionar"
 		},
 		"update" : {
-			"area" : SITE + "usuario/atualizar/area"
+			"area" : SITE + "usuario/atualizar/area",
+			"recommendation" : SITE + "usuario/atualizar/recomendacao"
 		}
  	},
 	"work" : 

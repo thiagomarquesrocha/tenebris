@@ -8,6 +8,21 @@ public class ObraRB {
 	private String titulo;
 	private int palavrachave;
 	private String pcString;
+	
+	public ObraRB(){}
+	
+	public ObraRB(int ID, int Usuario, int Relevancia, String Titulo, int Palavrachave){
+		id = ID;
+		usuario = Usuario;
+		relevancia = Relevancia;
+		titulo = Titulo;
+		palavrachave = Palavrachave;
+	}
+	
+	public ObraRB(String tit, int keyword){
+		 titulo = tit;
+		 palavrachave = keyword;
+	}
  
 	public int getId() {
         return id;

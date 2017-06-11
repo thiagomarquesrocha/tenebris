@@ -1,4 +1,4 @@
-package me.bazhenov.maxent;
+package control.learning.me.bazhenov.maxent;
 
 import com.google.common.base.Splitter;
 import opennlp.model.Event;

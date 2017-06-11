@@ -14,16 +14,18 @@
 		            <div class="nav-wrapper">
 		                <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="mdi-navigation-menu"></i></a>
 		                <ul class="hide-on-med-and-down">
-		                    <li><a href="#/perfil" ng-click="selection='menu1'" ng-class="isActivatedMenu('menu1')">Interesses</a></li>
-		                    <li><a href="#/perfil" ng-click="selection='menu2'" ng-class="isActivatedMenu('menu2')">Instituições</a></li>
-		                    <li><a href="#/perfil" ng-click="selection='menu3'" ng-class="isActivatedMenu('menu3')">Área</a></li>
-		                    <li><a href="#/perfil" ng-click="selection='menu4'" ng-class="isActivatedMenu('menu4')">Autores</a></li>
+		                    <li ng-class="{ active : selection == 'menu1'}"><a href="#/perfil" ng-click="selection='menu1'" ng-class="isActivatedMenu('menu1')">Interesses</a></li>
+		                    <li ng-class="{ active : selection == 'menu2'}"><a href="#/perfil" ng-click="selection='menu2'" ng-class="isActivatedMenu('menu2')">Instituições</a></li>
+		                    <li ng-class="{ active : selection == 'menu3'}"><a href="#/perfil" ng-click="selection='menu3'" ng-class="isActivatedMenu('menu3')">Área</a></li>
+		                    <li ng-class="{ active : selection == 'menu4'}"><a href="#/perfil" ng-click="selection='menu4'" ng-class="isActivatedMenu('menu4')">Autores</a></li>
+												<li ng-class="{ active : selection == 'menu5'}"><a href="#/perfil" ng-click="selection='menu5'" ng-class="isActivatedMenu('menu5')">Recomendações</a></li>
 		                </ul>
 		                <ul class="side-nav" id="mobile-demo" style="left: -250px;">
-		                    <li><a href="#/perfil" ng-click="selection='menu1'" ng-class="isActivatedMenu('menu1')">Interesses</a></li>
-		                    <li><a href="#/perfil" ng-click="selection='menu2'" ng-class="isActivatedMenu('menu2')">Instituições</a></li>
-		                    <li><a href="#/perfil" ng-click="selection='menu3'" ng-class="isActivatedMenu('menu3')">Área</a></li>
-		                    <li><a href="#/perfil" ng-click="selection='menu4'" ng-class="isActivatedMenu('menu4')">Autores</a></li>
+		                    <li ng-class="{ active : selection == 'menu1'}"><a href="#/perfil" ng-click="selection='menu1'" ng-class="isActivatedMenu('menu1')">Interesses</a></li>
+		                    <li ng-class="{ active : selection == 'menu2'}"><a href="#/perfil" ng-click="selection='menu2'" ng-class="isActivatedMenu('menu2')">Instituições</a></li>
+		                    <li ng-class="{ active : selection == 'menu3'}"><a href="#/perfil" ng-click="selection='menu3'" ng-class="isActivatedMenu('menu3')">Área</a></li>
+		                    <li ng-class="{ active : selection == 'menu4'}"><a href="#/perfil" ng-click="selection='menu4'" ng-class="isActivatedMenu('menu4')">Autores</a></li>
+												<li ng-class="{ active : selection == 'menu5'}"><a href="#/perfil" ng-click="selection='menu5'" ng-class="isActivatedMenu('menu5')">Recomendações</a></li>
 		                </ul>
 		            </div>
 		        </nav>
@@ -33,97 +35,116 @@
 		  <!-- CONTEUDO PRINCIPAL -->
 		  <div class="container" id="content">
 		  	<div class="row">
-			  <div class="col-sm-8" class="animate-switch-container" ng-switch on="selection">
-			  	    <div class="animate-switch" ng-switch-when="menu1">
-					  	<div class="panel-body">
-						  <form class="form-inline" ng-submit="addTag(tag)">
-								  <div class="form-group">
-								    <div class="input-field">
-								      <i class="material-icons prefix fa fa-tags"></i>
-								      <input type="text" id="icon_prefix_interesse" required class="form-control validade" id="interesse" ng-model="tag">
-								      <label for="icon_prefix_interesse">Interesse</label>
-								    </div>
-								  </div>
-								  <button type="submit" class="btn btn-primary">Adicionar</button>
-							</form>
-						</div>
-						<div class="container-fluid">
-							<ul class="collection with-header" id="interests">
-								<li class="collection-header"><h4><span class="fa fa-tags"></span>  Interesses</h4></li>
-						        <a class="collection-item" ng-repeat="tag in profile.user.tags track by $index">
-											{{tag.nome }} 
-											<i class="fa fa-minus-circle pull-right" ng-click="control.remove.tag($index, tag.id)"></i>
-										</a>
-				  			</ul>
-					  	</div>
-			  		</div>
-				  	<div class="panel-body" class="animate-switch" ng-switch-when="menu2">
-				  		<div class="panel-body">
-						  <form class="form-inline" ng-submit="addInstituition(institution)">
-								  <div class="form-group">
-								    <div class="input-field">
-								      <!-- <input type="text" id="icon_prefix_instituicao" required class="form-control validade" id="instituicao" ng-model="institution"> -->
-								      <div class="input-field select-box col s12" ng-init="listInstitutions()">
-									    <select class="desactived" ng-model="institution">
-									      <option value="" disabled selected>Selecione uma instituição</option>
-									      <option value="{{institution.nome}}" ng-repeat="institution in institutions">{{institution.nome | uppercase}}</option>
-									    </select>
-									    <label>Instituição</label>
-									  </div>
-								    </div>
-								  </div>
-								  <button type="submit" class="btn btn-primary">Adicionar</button>
-							</form>
-						</div>
-						<div class="container-fluid">
-							<ul class="collection with-header">
-								<li class="collection-header"><h4><span class="fa fa-tags"></span>  Instituições</h4></li>
-						        <a class="collection-item" ng-repeat="instituicao in profile.user.instituicoes track by $index">
-											{{instituicao.nome}}
-											<i class="fa fa-minus-circle pull-right" ng-click="control.remove.institution($index, instituicao.id)"></i>
-										</a>
-				  			</ul>
-					  	</div>
-				  	</div>
-				  	<div class="panel-body" class="animate-switch" ng-switch-when="menu3" id="about">
-				  		<div class="panel-body">
-						  <form class="form-inline" ng-submit="addArea(profile.user.area)">
-								  <div class="form-group">
-								  	<label for="icon_prefix_area">Área</label>
-								    <div class="input-field">
-								      <i class="material-icons prefix fa fa-tags"></i>
-								      <input type="text" id="icon_prefix_area" required class="form-control validade" id="area" ng-model="profile.user.area">
-								      <label for="icon_prefix_area"></label>
-								    </div>
-								  </div>
-								  <button type="submit" class="btn btn-primary">Atualizar</button>
-							</form>
-						</div>
-				  	</div>
-			  		<div class="panel-body" class="animate-switch" ng-switch-when="menu4">
-			  			<div class="panel-body">
-						  <form class="form-inline" ng-submit="addAuth(auth)">
-								  <div class="form-group">
-								    <div class="input-field">
-								      <i class="material-icons prefix fa fa-tags"></i>
-								      <input type="text" id="icon_prefix_auth" required class="form-control validade" id="auth" ng-model="auth">
-								      <label for="icon_prefix_auth">Autor</label>
-								    </div>
-								  </div>
-								  <button type="submit" class="btn btn-primary">Adicionar</button>
-							</form>
-						</div>
-						<div class="container-fluid">
-							<ul class="collection with-header">
-								<li class="collection-header"><h4><span class="fa fa-tags"></span>  Autores</h4></li>
-						        <a href="" class="collection-item" ng-repeat="auth in profile.user.autores track by $index">
-											{{auth.nome}}
-											<i class="fa fa-minus-circle pull-right" ng-click="control.remove.auth($index, auth.id)"></i>
-										</a>
-				  			</ul>
-					  	</div>
-				  	</div>
-			  		</div>
+					<div class="col-sm-8" class="animate-switch-container" ng-switch on="selection">
+								<div class="animate-switch" ng-switch-when="menu1">
+									<div class="panel-body">
+										<form class="form-inline" ng-submit="addTag(tag)">
+												<div class="form-group">
+													<div class="input-field">
+														<i class="material-icons prefix fa fa-tag"></i>
+														<input type="text" id="icon_prefix_interesse" required class="form-control validade" id="interesse" ng-model="tag">
+														<label for="icon_prefix_interesse">Interesse</label>
+													</div>
+												</div>
+												<button type="submit" class="btn btn-primary">Adicionar</button>
+										</form>
+									</div>
+									<div class="container-fluid">
+										<ul class="collection with-header" id="interests">
+											<li class="collection-header"><h4><span class="fa fa-tags"></span> Veja seus interesses</h4></li>
+													<a class="collection-item" ng-repeat="tag in profile.user.tags track by $index">
+														{{tag.nome }} 
+														<i class="fa fa-minus-circle pull-right" ng-click="control.remove.tag($index, tag.id)"></i>
+													</a>
+											</ul>
+										</div>
+								</div>
+								<div class="panel-body" class="animate-switch" ng-switch-when="menu2">
+									<div class="panel-body">
+										<form class="form-inline" ng-submit="addInstituition(institution)">
+												<div class="form-group">
+													<div class="input-field">
+														<!-- <input type="text" id="icon_prefix_instituicao" required class="form-control validade" id="instituicao" ng-model="institution"> -->
+														<div class="input-field select-box col s12" ng-init="listInstitutions()">
+														<select class="desactived" ng-model="institution">
+															<option value="" disabled selected>Selecione uma instituição</option>
+															<option value="{{institution.nome}}" ng-repeat="institution in institutions">{{institution.nome | uppercase}}</option>
+														</select>
+														<label>Instituição</label>
+													</div>
+													</div>
+												</div>
+												<button type="submit" class="btn btn-primary">Adicionar</button>
+										</form>
+									</div>
+									<div class="container-fluid">
+										<ul class="collection with-header">
+											<li class="collection-header"><h4><span class="fa fa-institution"></span>  Instituições</h4></li>
+													<a class="collection-item" ng-repeat="instituicao in profile.user.instituicoes track by $index">
+														{{instituicao.nome}}
+														<i class="fa fa-minus-circle pull-right" ng-click="control.remove.institution($index, instituicao.id)"></i>
+													</a>
+											</ul>
+										</div>
+								</div>
+								<div class="panel-body" class="animate-switch" ng-switch-when="menu3" id="about">
+									<div class="panel-body">
+										<form class="form-inline" ng-submit="addArea(profile.user.area)">
+												<div class="form-group">
+													<label for="icon_prefix_area">Área</label>
+													<div class="input-field">
+														<i class="material-icons prefix fa fa-tag"></i>
+														<input type="text" id="icon_prefix_area" required class="form-control validade" id="area" ng-model="profile.user.area">
+														<label for="icon_prefix_area"></label>
+													</div>
+												</div>
+												<button type="submit" class="btn btn-primary">Atualizar</button>
+										</form>
+									</div>
+								</div>
+								<div class="panel-body" class="animate-switch" ng-switch-when="menu4">
+									<div class="panel-body">
+										<form class="form-inline" ng-submit="addAuth(auth)">
+												<div class="form-group">
+													<div class="input-field">
+														<i class="material-icons prefix fa fa-user-plus"></i>
+														<input type="text" id="icon_prefix_auth" required class="form-control validade" id="auth" ng-model="auth">
+														<label for="icon_prefix_auth">Autor</label>
+													</div>
+												</div>
+												<button type="submit" class="btn btn-primary">Adicionar</button>
+										</form>
+									</div>
+									<div class="container-fluid">
+										<ul class="collection with-header">
+											<li class="collection-header"><h4><span class="fa fa-users"></span>  Veja seus autores preferidos</h4></li>
+													<a href="" class="collection-item" ng-repeat="auth in profile.user.autores track by $index">
+														{{auth.nome}}
+														<i class="fa fa-minus-circle pull-right" ng-click="control.remove.auth($index, auth.id)"></i>
+													</a>
+											</ul>
+									</div>
+								</div>
+								<div class="panel-body" class="animate-switch" ng-switch-when="menu5" id="about">
+									<div class="panel-body">
+										<form ng-submit="saveRecommendation(recommendation)">
+											<div class="container-fluid">
+												<ul class="collection with-header">
+													<li class="collection-header"><h4><span class="fa fa-cubes"></span>  Troque o tipo de recomendação</h4> A combinação de técnicas poderá melhorá sua experiência no sistema e as recomendações</li>
+													<li class="collection-item">
+														<input name="recomendation_option" type="radio" id="recommendation1" ng-checked="recommendation==1" ng-model="recommendation" value="1" />
+														<label for="recommendation1">Recomendação Híbrida 1 - Técnicas colaborativa, baseada em conteúdo e naive bayes</label>
+													</li>
+													<li class="collection-item">
+														<input name="recomendation_option" type="radio" id="recommendation2" ng-checked="recommendation==2" ng-model="recommendation" value="2" />
+														<label for="recommendation2">Recomendação Híbrida 2 - Técnicas colaborativa, baseada em conteúdo e máxima entropia</label>
+													</li>
+											</div>
+											<button type="submit" class="btn btn-primary">Salvar</button>
+										</form>
+									</div>
+								</div>
+					</div><!-- end animate-switch-container-->
 			  </div>
 			</div>
 		  </div>

@@ -1,4 +1,4 @@
-package control.learning;
+package control.learning.bayes;
 
 import java.io.IOException;
 import java.sql.Connection;

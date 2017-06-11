@@ -18,9 +18,9 @@ import model.Obra;
 
 public class GSON {
 	
-		public Obra ConstrucaoJSON(int ItemID) throws SQLException {
+		public Obra ConstrucaoJSON(int ItemID, Connection conn) throws SQLException {
 			
-			Connection conn = ConnectionSingleton.getInstance().getConnection();
+			// Connection conn = ConnectionSingleton.getInstance().getConnection();
 	 		//System.out.println("ID da obra classe GSON: " + ItemID);
 	 		
 	 		Obra obra = new Obra();

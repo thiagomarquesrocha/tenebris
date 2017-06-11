@@ -4,7 +4,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
 
-import control.learning.Exemplo;
+import control.learning.bayes.Exemplo;
 import control.recomendation.profile.Principal;
 import control.recomendation.rate.BackEndRecommendation;
 import model.Command;

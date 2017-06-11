@@ -1,4 +1,4 @@
-package control.learning;
+package control.learning.bayes;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -8,6 +8,10 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.mysql.jdbc.Statement;
 import com.mysql.jdbc.jdbc2.optional.MysqlDataSource;
+
+import control.ConnectionSingleton;
+import control.learning.GSON;
+import control.learning.ObraRB;
 
 import com.google.gson.Gson;
 
@@ -184,7 +188,8 @@ public class Exemplo {
 					if(res == "Relevante"){
 						GSON auxiliar = new GSON();
 						Gson lopes = new Gson();
-						Obra obra = auxiliar.ConstrucaoJSON(ItemID);
+						Connection connsingleton = ConnectionSingleton.getInstance().getConnection();
+						Obra obra = auxiliar.ConstrucaoJSON(ItemID, connsingleton);
 						list.add(obra);
 						String json = lopes.toJson(obra);
 						dataJSON += json;

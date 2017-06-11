@@ -1,4 +1,4 @@
-package control.learning;
+package control.learning.bayes;
 
 /**
  * Simple interface defining the method to calculate the feature probability.

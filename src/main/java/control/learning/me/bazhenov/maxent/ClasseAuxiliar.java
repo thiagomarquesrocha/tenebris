@@ -1,6 +1,8 @@
-package me.bazhenov.maxent;
+package control.learning.me.bazhenov.maxent;
 
 import java.util.List;
+
+import control.learning.ObraRB;
 
 public class ClasseAuxiliar {
 

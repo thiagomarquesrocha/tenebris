@@ -36,6 +36,10 @@ app
   $scope.$on('handleBroadcast', function() {
     if(sharedService.message == 'perfil carregado'){
       $scope.area = $scope.profile.user.area;
+      /*
+       @TODO adicionar a configuração salva no perfil 
+      */
+      $scope.recommendation = 1;
       return;
     }
     if(sharedService.message != "usuario esta logado") return;
@@ -168,6 +172,16 @@ app
       $("#icon_prefix_auth").val('');
     });
   };
+
+  $scope.saveRecommendation = function(recommendation){
+    console.log(recommendation);
+    var userId = User.getId();
+    User.update.recommendation(User, userId, recommendation, function(){
+        Materialize.toast("Recomendação atualizada", 4000);
+    }, function(){
+        Materialize.toast("Não foi possível atualizar a recomendação", 4000);
+    });
+  }
 
   $scope.isActivatedMenu = function(value){
     return ($scope.selection == value)? 'active' : '';
@@ -1017,6 +1031,21 @@ User = (function(){
     });
   }
 
+  // Update recommendation type
+  function updateRecommendation(ctx, userId, recommendation, successCall, errorCall){
+     ctx.$http({
+        method: 'POST',
+        url: Actions.user.update.recommendation,
+        data : { "userId" : userId, recommendation : recommendation },
+    }).then(function successCallback(response) {
+        var data = response.data;
+        if(successCall) successCall(data);
+    }, function errorCallback(response) {
+        console.error("Erro ao atualizar o tipo de recomendacao do usuario ");
+        if(errorCall) errorCall();
+    });
+  }
+
   // Check if user is login in
   function isLoggin(){
       if( this.$scope.profile.user || this.loaded ){
@@ -1080,6 +1109,11 @@ User = (function(){
     },
     getInstitutions : {
       value : getInstitutions
+    },
+    update : {
+      value:{
+        recommendation : updateRecommendation
+      }
     }
   });
 
