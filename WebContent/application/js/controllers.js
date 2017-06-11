@@ -174,6 +174,7 @@ app
     console.log(recommendation);
     var userId = User.getId();
     User.update.recommendation(User, userId, recommendation, function(){
+        User.setRecommendation(recommendation);
         Materialize.toast("Recomendação atualizada", 4000);
     }, function(){
         Materialize.toast("Não foi possível atualizar a recomendação", 4000);
@@ -978,6 +979,12 @@ User = (function(){
     return (this.$scope.profile && this.$scope.profile.user)? this.$scope.profile.user.id : 0;
   }
 
+  // Update recommendation user
+  function setRecommendation(recommendation){
+    if(this.$scope.profile && this.$scope.profile.user)
+      this.$scope.profile.user.recommendation = recommendation; 
+  }
+
   // Recommendation for one user
   function getWorks(){
     if(this.$scope.works && this.$scope.works.length){
@@ -1113,6 +1120,9 @@ User = (function(){
       value:{
         recommendation : updateRecommendation
       }
+    },
+    setRecommendation : {
+      value : setRecommendation
     }
   });
 

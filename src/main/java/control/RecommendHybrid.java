@@ -39,6 +39,7 @@ public class RecommendHybrid implements Command{
 			switch(recommend.getType()){
 				case RECOMMENDATION_1 :
 					listByRelevancy = new Exemplo().Metodo(recommend.getUserID());
+					System.out.println("Total de obras relevantes " + listByRelevancy.size());
 					break;
 				case RECOMMENDATION_2 :
 					// listByRelevancy = new MaxEnt().Metodo(recommend.getUserID());
