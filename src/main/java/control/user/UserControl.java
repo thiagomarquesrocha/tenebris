@@ -261,4 +261,32 @@ public class UserControl {
 			.put(JSONOut.DATA, null);
 		}
 	}
+
+	public static void updateRecommendation(UserDao dao, Object[] o) {
+		try{
+			User user = (User) o[1];
+			String sql;
+			PreparedStatement stmt;
+			Long areaId;
+			ResultSet resultSet;
+			
+			sql = String.format("UPDATE usuario SET recommendation = %s WHERE id = %s", user.getRecommendation(), user.getId());
+			// Tenta atualizar recomendacao no sistema
+			stmt = dao.getCon().prepareStatement(sql, UserDao.COLUMMN_ID);
+			// executa
+			stmt.execute();
+			
+			stmt.close();
+			
+			dao.getData()
+			.put(JSONOut.CODE, JSONOut.Sucess.COMPLETADA)
+			.put(JSONOut.DATA, null ); 
+		} catch (Exception e) {
+			// Nao foi possivel atualizar a recomendacao
+			dao.getData()
+			.put(JSONOut.CODE, JSONOut.User.NAO_FOI_POSSIVEL_COMPLETAR_ACAO)
+			.put(JSONOut.DATA, null);
+			e.printStackTrace();
+		}
+	}
 }

@@ -1036,7 +1036,7 @@ User = (function(){
      ctx.$http({
         method: 'POST',
         url: Actions.user.update.recommendation,
-        data : { "userId" : userId, recommendation : recommendation },
+        data : { command: "updateRecommendation", "id" : userId, recommendation : recommendation },
     }).then(function successCallback(response) {
         var data = response.data;
         if(successCall) successCall(data);

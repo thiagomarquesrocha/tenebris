@@ -19,6 +19,7 @@ public class UserRequest extends Request<User> {
 	private static final String AREA_ID = "areaId";
 	private static final String INSTITUTION = "institution";
 	private static final String COMMAND = "command";
+	private static final String RECOMMENDATION = "recommendation";
 	
 	private User user;
 	
@@ -115,7 +116,9 @@ public class UserRequest extends Request<User> {
 		String command = request.getParameter(COMMAND);
 		String areaName = request.getParameter(AREA);
 		String areaId = request.getParameter(AREA_ID);
-		
+		String recStr = request.getParameter(RECOMMENDATION);
+		int recommendation = (recStr == null)? 1 : Integer.valueOf(recStr);
+
 		String method = request.getMethod();
 		
 		// POST
@@ -126,6 +129,7 @@ public class UserRequest extends Request<User> {
 				command = json.optString(COMMAND);
 				areaName = json.optString(AREA);
 				areaId = json.optString(AREA_ID);
+				recommendation = json.optInt(RECOMMENDATION, 1);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -138,6 +142,9 @@ public class UserRequest extends Request<User> {
 				 return;
 			 if( command.equals("listRecents") ) // ONLY RECENTS
 				 return;
+			 if( command.equals("updateRecommendation") ){ // Recommendation
+				 user.setRecommendation(recommendation);
+			 }
 		}
 		
 		Area area = new Area();

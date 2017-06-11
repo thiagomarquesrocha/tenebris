@@ -44,6 +44,7 @@ public class RequestManager {
 	public static final int LISTAR_PALAVRASCHAVES = 20;
 	public static final int SALVAR_APRENDIZAGEM = 21;
 	public static final int PREDIZER_RELEVANCIA_OBRA = 22;
+	public static final int ATUALIZAR_USUARIO_RECOMENDACAO = 23;
 	
 	private int op;
 	HttpServletResponse response;
@@ -140,6 +141,9 @@ public class RequestManager {
 				break;
 			case ATUALIZAR_USUARIO_AREA : // Atualiza a area de um usuario
 				execute(CommandFacade.FACTORY_USER, UserCommandFactory.UPDATE_AREA, CommandFacade.FACTORY_USER, DaoFactory.USER);
+				break;
+			case ATUALIZAR_USUARIO_RECOMENDACAO : // Atualiza o tipo de recomendacao do usuario
+				execute(CommandFacade.FACTORY_USER, UserCommandFactory.UPDATE_RECOMMENDATION, CommandFacade.FACTORY_USER, DaoFactory.USER);
 				break;
 			case LISTAR_INSTITUICOES : // Lista as instituicoes do banco
 				execute(CommandFacade.FACTORY_USER, UserCommandFactory.LIST_INSTITUTIONS, CommandFacade.FACTORY_USER, DaoFactory.USER);

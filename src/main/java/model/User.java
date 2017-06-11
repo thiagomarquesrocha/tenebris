@@ -5,6 +5,7 @@ public class User {
 	private String name, login, password;
 	private Area area;
 	private long institution;
+	private int recommendation = 1;
 	
 	public User() {
 	}
@@ -57,5 +58,13 @@ public class User {
 
 	public long getInstitution() {
 		return institution;
+	}
+
+	public void setRecommendation(int recommendation) {
+		this.recommendation = recommendation;
+	}
+
+	public int getRecommendation() {
+		return recommendation;
 	}
 }

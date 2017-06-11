@@ -9,6 +9,7 @@ import control.user.PreferenceCRUDCommand;
 import control.user.ProfileUserCommand;
 import control.user.SessionUserCommand;
 import control.user.UpdateAreaCommand;
+import control.user.UpdateRecommendationCommand;
 import model.NoCommand;
 
 public class UserCommandFactory extends CommandFactory<MainCommand> {
@@ -23,6 +24,7 @@ public class UserCommandFactory extends CommandFactory<MainCommand> {
 	public static final String SESSION = "session";
 	public static final String ADD_INTEREST = "add_interest";
 	public static final String UPDATE_AREA = "update_area";
+	public static final String UPDATE_RECOMMENDATION = "update_recommendation";
 	public static final String LIST_INSTITUTIONS = "list_institutions";
 	
 	private UserCommandFactory(){}
@@ -56,6 +58,9 @@ public class UserCommandFactory extends CommandFactory<MainCommand> {
 				break;
 			case UPDATE_AREA :
 				c = new UpdateAreaCommand();
+				break;
+			case UPDATE_RECOMMENDATION :
+				c = new UpdateRecommendationCommand();
 				break;
 			case LIST_INSTITUTIONS:
 				c = new ListInstitutionsCommand();

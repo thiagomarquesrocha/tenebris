@@ -24,6 +24,7 @@ public class UserDao extends Dao{
 	public static final int ADD_AUTH = 4;
 	public static final int UPDATE_AREA = 5;
 	public static final int LIST_INSTITUTIONS = 6;
+	public static final int UPDATE_RECOMMENDATION = 7;
 	
 	public static final int FIND_BY_LOGIN = 1;
 	public static final int FIND_BY_ID = 2;
@@ -133,6 +134,9 @@ public class UserDao extends Dao{
 		switch(op){
 			case UPDATE_AREA :
 				UserControl.updateArea(this, o);
+				break;
+			case UPDATE_RECOMMENDATION :
+				UserControl.updateRecommendation(this, o);
 				break;
 		}
 		

@@ -14,14 +14,14 @@ import control.RequestManager;
  * Servlet implementation class AddUser
  * URL : {PATH}/usuario/atualizar/area{PARAMS}
  */
-@WebServlet("/usuario/atualizar/recomendacao")
-public class UpdateUserAreaServlet extends HttpServlet {
+@WebServlet("/usuario/atualizar/area")
+public class UpdateUserRecommendationServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public UpdateUserAreaServlet() {
+    public UpdateUserRecommendationServlet() {
     	super();
     }
 
@@ -44,7 +44,7 @@ public class UpdateUserAreaServlet extends HttpServlet {
 		// Executa o comando para cadastrar um usuário
 		try {
 			RequestManager.getInstance()
-			.action(RequestManager.ATUALIZAR_USUARIO_RECOMENDACAO)
+			.action(RequestManager.ATUALIZAR_USUARIO_AREA)
 			.setResponse(response)
 			.setRequest(request)
 			.execute();
