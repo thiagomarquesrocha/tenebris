@@ -36,10 +36,7 @@ app
   $scope.$on('handleBroadcast', function() {
     if(sharedService.message == 'perfil carregado'){
       $scope.area = $scope.profile.user.area;
-      /*
-       @TODO adicionar a configuração salva no perfil 
-      */
-      $scope.recommendation = 1;
+      $scope.recommendation = $scope.profile.user.recommendation;
       return;
     }
     if(sharedService.message != "usuario esta logado") return;

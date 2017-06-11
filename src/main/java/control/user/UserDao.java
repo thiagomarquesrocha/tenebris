@@ -35,7 +35,7 @@ public class UserDao extends Dao{
 	public static final String LABEL_ID = "id";
 	
 	private static final UserDao instance = new UserDao();
-	public static final String LABEL_ALL_PROFILE = "a.id, a.nome, a.login, UNIX_TIMESTAMP(a.cadastradoEm) as cadastradoEm, b.nome as area, b.id as areaId";
+	public static final String LABEL_ALL_PROFILE = "a.id, a.nome, a.login, UNIX_TIMESTAMP(a.cadastradoEm) as cadastradoEm, a.recommendation, b.nome as area, b.id as areaId";
 	
 	
 	private UserDao(){
