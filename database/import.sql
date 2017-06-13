@@ -3,9 +3,9 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: 20-Mar-2017 às 14:27
+-- Generation Time: 13-Jun-2017 às 03:30
 -- Versão do servidor: 5.6.15-log
--- PHP Version: 5.4.24
+-- PHP Version: 5.5.8
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -62,7 +62,7 @@ CREATE TABLE IF NOT EXISTS `autor` (
   `nome` varchar(255) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `nome` (`nome`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=103 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=105 ;
 
 --
 -- Extraindo dados da tabela `autor`
@@ -149,6 +149,7 @@ INSERT INTO `autor` (`id`, `nome`) VALUES
 (71, 'tarcia b. borges, marcos c. araújo, anna beatriz marques'),
 (34, 'teste'),
 (13, 'thiago'),
+(104, 'thiago e fábio'),
 (17, 'thiago m.'),
 (9, 'Thiago Marques'),
 (21, 'victor kaleb leite gomes'),
@@ -527,7 +528,7 @@ CREATE TABLE IF NOT EXISTS `idpalavrachave` (
   `palavrachave` varchar(255) CHARACTER SET latin1 DEFAULT NULL,
   PRIMARY KEY (`idpchave`),
   UNIQUE KEY `palavrachave` (`palavrachave`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=14 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=17 ;
 
 --
 -- Extraindo dados da tabela `idpalavrachave`
@@ -536,7 +537,8 @@ CREATE TABLE IF NOT EXISTS `idpalavrachave` (
 INSERT INTO `idpalavrachave` (`idpchave`, `palavrachave`) VALUES
 (13, ' machine learning'),
 (1, 'biologia'),
-(2, 'computação');
+(2, 'computação'),
+(16, 'machine learning');
 
 -- --------------------------------------------------------
 
@@ -650,10 +652,10 @@ INSERT INTO `obra` (`id`, `usuario`, `area`, `autor`, `tipo`, `instituicao`, `ca
 (95, 2, 2, 84, 2, 1, '2016-07-14 19:02:30', 'uso de un robot como herramienta para fortalecer la matemática en educación básica', '2015-11-04', 'este trabajo presenta los resultados iniciales de un proyecto que pretende utilizar la robótica educativa en la didáctica de la matemática. el proyecto consiste en utilizar una placa raspberry pi, un kit de robótica gopigo y el lenguaje de programación scratch, el propósito es hacer uso de estas tres herramientas como una propuesta para mejorar la práctica didáctica utilizando utilizando la tecnología. el raspberry pi puede proporcionar las posibilidades de usarlo para mejorar la práctica pedagógica de las matematicas empleando la robótica. los resultados iniciales presentados en este artículo involucran alumnos y profesores de educación básica de la especialidad de matemáticas. los participantes reconocen que el uso de la robótica educativa permite fácilmente crear propuestas tecnológicas propias. para que una práctica docente sea fortalecida es necesario que el profesor reconozca la importancia del uso de las nuevas tecnologias. esta propuesta debe ser capaz de despertar la motivación para el estudio de las matemáticas en los estudiantes.', 'C:\\Users\\ENG COMPUTACAO\\workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\tenebris\\obras\\14_6_2016_15_2_1468522950459.pdf'),
 (96, 2, 2, 85, 2, 1, '2016-07-14 19:03:54', 'utilização do aplicativo mobile foodclean desenvolvido para  auxiliar na aprendizagem de boas práticas de manipulação de  alimentos no curso técnico em cozinha', '2015-11-04', 'este  artigo  apresenta  o  aplicativo mobile foodclean, desenvolvido com base nas teorias de boas práticas de manipulação de alimentos do curso técnico em cozinha. é um jogo desenvolvido com o uso do motor de jogo unity 3d  utilizando  a  linguagem  javascript  de  programação.  o  aplicativo  tem por objetivo ajudar no desenvolvimento educacional do aluno do curso técnico em cozinha através de uma atividade sobre placas de cortes, um dos conteúdos ministrados  em  sala  de  aula.  esse  projeto  é  resultado  de  um  trabalho  de pesquisa  feito  dentro  da  disciplina  de  estágio  supervisionado  i  do  curso  de licenciatura em informática da universidade do estado do amazonas.', 'C:\\Users\\ENG COMPUTACAO\\workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\tenebris\\obras\\14_6_2016_15_3_1468523034322.pdf'),
 (97, 2, 2, 86, 2, 1, '2016-07-14 19:05:27', 'aplicação da metodologia ágil scrumpara elaboração  do projeto do aplicativo tôdebike! para incentivar a prática  de uso de bicicletas', '2015-11-04', 'diversas teorias de modelagem de software são experimentadas em contexto  acadêmico,  sejam  de  métodos  tradicionais  ou  dos  métodos  ágeis. este  artigo  apresenta  um  relato  de  experiência  de utilização  da metodologia ágil para modelagem e levantamento de requisitos, planejamento e desenvolvimento em uml do aplicativo  tô debike! que tem como objetivo ajudar  usuários  a  encontrarem  grupos  de  pessoas  para  pedaladas,  eventos relacionados  a  este  grupo,  melhor  percurso  para  um  ciclista,  além  de incentivar  as  pessoas  a  prática  de  uso  da  bicicleta.obteve-se  sucesso  na implantação do projeto e experiência com a aplicação da metodologia scrum.', 'C:\\Users\\ENG COMPUTACAO\\workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\tenebris\\obras\\14_6_2016_15_5_1468523127522.pdf'),
-(98, 2, 2, 87, 2, 1, '2016-07-14 20:26:33', 'carrinhos inteligentes – otimização de compras em  estabelecimentos comerciais via rfid.', '2015-11-04', 'atualmente os estabelecimentos comerciais apresentam um alto nível de automação no uso de sistemas computacionais para o fechamento da venda. porém, o modo que o cliente apresenta seus produtos aos operadores de caixa continuam o mesmo de antes desta automação comercial. este trabalho propõe construir  um registrador  das  compras  dos  clientes  de  forma  mais  rápida  e confiável. a metodologia utilizada é o uso de etiquetas rfid nos produtos e leitores instalados nos carrinhos. espera-se com a implantação deste sistema agilizar o processo de fechamento de venda por cliente, fazendo negócios.', 'C:\\Users\\ENG COMPUTACAO\\workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\tenebris\\obras\\14_6_2016_16_26_1468527993740.pdf'),
+(98, 2, 2, 87, 2, 1, '2016-07-14 20:26:33', 'carrinhos inteligentes - otimização de compras em  estabelecimentos comerciais via rfid.', '2015-11-04', 'atualmente os estabelecimentos comerciais apresentam um alto nível de automação no uso de sistemas computacionais para o fechamento da venda. porém, o modo que o cliente apresenta seus produtos aos operadores de caixa continuam o mesmo de antes desta automação comercial. este trabalho propõe construir  um registrador  das  compras  dos  clientes  de  forma  mais  rápida  e confiável. a metodologia utilizada é o uso de etiquetas rfid nos produtos e leitores instalados nos carrinhos. espera-se com a implantação deste sistema agilizar o processo de fechamento de venda por cliente, fazendo negócios.', 'C:\\Users\\ENG COMPUTACAO\\workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\tenebris\\obras\\14_6_2016_16_26_1468527993740.pdf'),
 (99, 2, 2, 88, 2, 1, '2016-07-14 20:27:52', 'combinação de técnicas e ferramentas computacionais  para ajudar no desenvolvimento daintegração lavourapecuária-floresta no amazonas', '2015-11-04', 'a  integração  lavoura-pecuária-floresta  tem  como  objetivo  a mudança no sistema de uso da terra, aliando o aumento da produtividade com a conservação de recursos naturais no processo de intensificação de uso das áreas  já  desmatadas.  no  entanto,  no  estado  do  amazonas, a logística é um entrave na difusão das tecnologias e conhecimentos,  dificultando o acesso a muitos pequenos agricultores e ocasionando planejamentos mal feitos, baixa produção e endividamentos. de forma a fortalecer as ações de transferência de  tecnologia  no  amazonas,  foi  proposto  e  está  em  desenvolvimento  um aplicativo para smartphones com google android, que faz uso de técnicas de aprendizado de máquina.', 'C:\\Users\\ENG COMPUTACAO\\workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\tenebris\\obras\\14_6_2016_16_27_1468528072293.pdf'),
-(6322, 2, 2, 13, 1, 1, '2017-02-21 03:54:58', 'teste 20/02', '2017-02-20', 'teste', 'C:\\Users\\Thiago\\workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp1\\wtpwebapps\\tenebris\\obras\\20_1_2017_23_54_1487649298069.pdf'),
-(6323, 2, 2, 13, 1, 1, '2017-02-24 00:28:28', 'teste', '2017-02-23', 'teste', 'C:\\Users\\Thiago\\workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp1\\wtpwebapps\\tenebris\\obras\\23_1_2017_20_28_1487896108080.pdf');
+(6322, 2, 2, 13, 1, 1, '2017-02-21 03:54:58', 'teste 20/02', '2017-02-20', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin ut mollis risus. Sed eu pharetra lacus. Nam convallis mi a tellus sodales, quis viverra magna venenatis. Quisque ante felis, auctor nec lacinia quis, gravida nec nibh. Vestibulum egestas ullamcorper velit, a posuere tortor posuere iaculis. Sed consectetur hendrerit fermentum. Maecenas scelerisque volutpat est, nec dapibus ipsum vehicula in. Phasellus vehicula a metus eu convallis. ', 'C:\\Users\\Thiago\\workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp1\\wtpwebapps\\tenebris\\obras\\20_1_2017_23_54_1487649298069.pdf'),
+(6323, 2, 2, 104, 4, 2, '2017-02-24 00:28:28', 'teste atualizado hoje', '2017-02-13', 'resumo atualizadoo', 'C:\\Users\\Thiago\\workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp1\\wtpwebapps\\tenebris\\obras\\23_1_2017_20_28_1487896108080.pdf');
 
 -- --------------------------------------------------------
 
@@ -673,9 +675,11 @@ CREATE TABLE IF NOT EXISTS `obra_palavrachave` (
 --
 
 INSERT INTO `obra_palavrachave` (`obra`, `palavrachave`) VALUES
+(98, 2),
 (6322, 2),
 (6323, 2),
-(6322, 13);
+(6322, 16),
+(6323, 16);
 
 -- --------------------------------------------------------
 
@@ -860,6 +864,7 @@ CREATE TABLE IF NOT EXISTS `usuario` (
   `senha` varchar(255) NOT NULL,
   `area` int(11) DEFAULT NULL,
   `cadastradoEm` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `recommendation` int(11) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`),
   UNIQUE KEY `login` (`login`),
   KEY `area` (`area`)
@@ -869,31 +874,31 @@ CREATE TABLE IF NOT EXISTS `usuario` (
 -- Extraindo dados da tabela `usuario`
 --
 
-INSERT INTO `usuario` (`id`, `login`, `nome`, `senha`, `area`, `cadastradoEm`) VALUES
-(2, 'thiago', 'thiagô', '202cb962ac59075b964b07152d234b70', 2, '2016-03-31 00:29:27'),
-(54, 'Gi', NULL, '202cb962ac59075b964b07152d234b70', NULL, '2016-07-12 14:47:04'),
-(55, 'daniel', NULL, '202cb962ac59075b964b07152d234b70', NULL, '2016-07-12 15:03:46'),
-(56, 'arquelau', NULL, '202cb962ac59075b964b07152d234b70', NULL, '2016-07-12 15:23:01'),
-(57, 'Eduardo', NULL, '202cb962ac59075b964b07152d234b70', NULL, '2016-07-12 15:58:45'),
-(58, 'salomao', NULL, '2d1ef8f39d2c1590daf9a3737c8a931d', NULL, '2016-07-12 17:47:46'),
-(60, 'Kazuo', NULL, '202cb962ac59075b964b07152d234b70', NULL, '2016-07-12 19:01:30'),
-(61, 'netoolii', NULL, '2c958b8b032651742e860d52594c412c', 23, '2016-07-12 19:21:17'),
-(62, 'luscas', NULL, '81dc9bdb52d04dc20036dbd8313ed055', NULL, '2016-07-12 19:50:30'),
-(63, 'thaldral', NULL, '202cb962ac59075b964b07152d234b70', 23, '2016-07-13 14:28:20'),
-(65, 'Leuow', NULL, '202cb962ac59075b964b07152d234b70', NULL, '2016-07-13 19:29:48'),
-(66, 'Matheus Miranda Matos', NULL, 'a178e22bf614dd6f301af05dd977833d', 23, '2016-07-13 19:42:43'),
-(67, 'rafaeladss', NULL, '888f57b0e788f7b2de3aa28c17078c4a', 23, '2016-07-13 20:00:44'),
-(68, 'usuarioteste', NULL, '202cb962ac59075b964b07152d234b70', NULL, '2016-07-14 19:27:23'),
-(69, 'JandersonLiraDM', NULL, '6909f816cf4298960ff414e9529a16f0', NULL, '2016-07-15 17:39:36'),
-(70, 'novoUsuario1', NULL, 'c4ca4238a0b923820dcc509a6f75849b', NULL, '2016-07-18 18:22:01'),
-(71, 'usuario2', NULL, 'c4ca4238a0b923820dcc509a6f75849b', NULL, '2016-07-18 18:22:55'),
-(72, 'usuarioteste3', NULL, 'c4ca4238a0b923820dcc509a6f75849b', NULL, '2016-07-18 18:23:53'),
-(73, 'usuÃ¡rioTeste4', NULL, 'c4ca4238a0b923820dcc509a6f75849b', NULL, '2016-07-18 18:24:21'),
-(74, 'Fabio', NULL, '202cb962ac59075b964b07152d234b70', NULL, '2016-07-18 19:57:53'),
-(76, 'testando', NULL, '202cb962ac59075b964b07152d234b70', NULL, '2016-07-21 03:35:36'),
-(77, 'novoUsuario', NULL, '202cb962ac59075b964b07152d234b70', 28, '2016-08-26 03:11:31'),
-(78, 'LetSteps', NULL, '202cb962ac59075b964b07152d234b70', 29, '2016-08-26 12:34:45'),
-(79, 'usuer', NULL, '202cb962ac59075b964b07152d234b70', NULL, '2016-08-26 19:32:20');
+INSERT INTO `usuario` (`id`, `login`, `nome`, `senha`, `area`, `cadastradoEm`, `recommendation`) VALUES
+(2, 'thiago', 'thiagô', '202cb962ac59075b964b07152d234b70', 2, '2016-03-31 00:29:27', 1),
+(54, 'Gi', NULL, '202cb962ac59075b964b07152d234b70', NULL, '2016-07-12 14:47:04', 1),
+(55, 'daniel', NULL, '202cb962ac59075b964b07152d234b70', NULL, '2016-07-12 15:03:46', 1),
+(56, 'arquelau', NULL, '202cb962ac59075b964b07152d234b70', NULL, '2016-07-12 15:23:01', 1),
+(57, 'Eduardo', NULL, '202cb962ac59075b964b07152d234b70', NULL, '2016-07-12 15:58:45', 1),
+(58, 'salomao', NULL, '2d1ef8f39d2c1590daf9a3737c8a931d', NULL, '2016-07-12 17:47:46', 1),
+(60, 'Kazuo', NULL, '202cb962ac59075b964b07152d234b70', NULL, '2016-07-12 19:01:30', 1),
+(61, 'netoolii', NULL, '2c958b8b032651742e860d52594c412c', 23, '2016-07-12 19:21:17', 1),
+(62, 'luscas', NULL, '81dc9bdb52d04dc20036dbd8313ed055', NULL, '2016-07-12 19:50:30', 1),
+(63, 'thaldral', NULL, '202cb962ac59075b964b07152d234b70', 23, '2016-07-13 14:28:20', 1),
+(65, 'Leuow', NULL, '202cb962ac59075b964b07152d234b70', NULL, '2016-07-13 19:29:48', 1),
+(66, 'Matheus Miranda Matos', NULL, 'a178e22bf614dd6f301af05dd977833d', 23, '2016-07-13 19:42:43', 1),
+(67, 'rafaeladss', NULL, '888f57b0e788f7b2de3aa28c17078c4a', 23, '2016-07-13 20:00:44', 1),
+(68, 'usuarioteste', NULL, '202cb962ac59075b964b07152d234b70', NULL, '2016-07-14 19:27:23', 1),
+(69, 'JandersonLiraDM', NULL, '6909f816cf4298960ff414e9529a16f0', NULL, '2016-07-15 17:39:36', 1),
+(70, 'novoUsuario1', NULL, 'c4ca4238a0b923820dcc509a6f75849b', NULL, '2016-07-18 18:22:01', 1),
+(71, 'usuario2', NULL, 'c4ca4238a0b923820dcc509a6f75849b', NULL, '2016-07-18 18:22:55', 1),
+(72, 'usuarioteste3', NULL, 'c4ca4238a0b923820dcc509a6f75849b', NULL, '2016-07-18 18:23:53', 1),
+(73, 'usuÃ¡rioTeste4', NULL, 'c4ca4238a0b923820dcc509a6f75849b', NULL, '2016-07-18 18:24:21', 1),
+(74, 'Fabio', NULL, '202cb962ac59075b964b07152d234b70', NULL, '2016-07-18 19:57:53', 1),
+(76, 'testando', NULL, '202cb962ac59075b964b07152d234b70', NULL, '2016-07-21 03:35:36', 1),
+(77, 'novoUsuario', NULL, '202cb962ac59075b964b07152d234b70', 28, '2016-08-26 03:11:31', 1),
+(78, 'LetSteps', NULL, '202cb962ac59075b964b07152d234b70', 29, '2016-08-26 12:34:45', 1),
+(79, 'usuer', NULL, '202cb962ac59075b964b07152d234b70', NULL, '2016-08-26 19:32:20', 1);
 
 -- --------------------------------------------------------
 
