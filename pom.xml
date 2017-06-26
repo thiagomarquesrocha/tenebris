@@ -50,22 +50,21 @@
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
 			<version>5.1.37</version>
-		</dependency>     
-		<dependency>
-			<groupId>javax.servlet</groupId>
-			<artifactId>javax.servlet-api</artifactId>
-			<scope>provided</scope>
-			<version>3.1.0</version>
 		</dependency>
 		<dependency>
-    		<groupId>org.apache.opennlp</groupId>
-    		<artifactId>opennlp-maxent</artifactId>
-    		<version>3.0.1-incubating</version>
+    			<groupId>javax.servlet</groupId>
+    			<artifactId>servlet-api</artifactId>
+    			<version>3.0-alpha-1</version>
 		</dependency>
 		<dependency>
-    		<groupId>org.testng</groupId>
-    		<artifactId>testng</artifactId>
-    		<version>6.11</version>
+    			<groupId>org.apache.opennlp</groupId>
+    			<artifactId>opennlp-maxent</artifactId>
+    			<version>3.0.1-incubating</version>
+		</dependency>
+		<dependency>
+    			<groupId>org.testng</groupId>
+    			<artifactId>testng</artifactId>
+    			<version>6.11</version>
 		</dependency>
 	</dependencies>
 </project>

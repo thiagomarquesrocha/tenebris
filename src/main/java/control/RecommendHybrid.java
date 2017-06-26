@@ -42,7 +42,7 @@ public class RecommendHybrid implements Command{
 					System.out.println("Total de obras relevantes " + listByRelevancy.size());
 					break;
 				case RECOMMENDATION_2 :
-					// listByRelevancy = new MaxEnt().Metodo(recommend.getUserID());
+					listByRelevancy = new MaxEnt().Metodo(recommend.getUserID());
 					break;
 			}
 			
