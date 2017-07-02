@@ -106,6 +106,7 @@ public class MaxEnt {
 		
 		for(ObraRB obra : obras){
 			String palavra = obra.getTitulo() + " " + obra.getPcstring();
+			System.out.println(palavra);
         	if(obra.getRelevancia() > 0){
             	modelo.add(new LearningSample("Relevante", palavra));
             	} else{
@@ -167,8 +168,9 @@ public class MaxEnt {
 			try{
 				try{
 					String aux = artigo.get(0).getTitulo() + "" + palavraschaves;
+					System.out.println(aux);
 					String[] input = (aux).split("\\s");
-					//System.out.println(ItemID);
+					System.out.println("MAX ENTROP AQUI");
 					double[] result = model.eval(input);
 					//System.out.println(artigo.get(0).getTitulo() + "" + palavraschaves);
 					String bestOutcome = model.getBestOutcome(result);
@@ -184,7 +186,7 @@ public class MaxEnt {
 					}
 					
 				} catch (java.lang.NullPointerException nll) {
-					//System.out.println("Usuario não consta na tabela redebayesiana);
+					//System.out.println("Usuario não consta na tabela redebayesiana");
 				}
 			}catch (java.lang.IndexOutOfBoundsException i){
 				//System.out.println("Não foram registradas palava-chaves para a obra de ID: " + ItemID);

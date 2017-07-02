@@ -42,7 +42,7 @@ public class Exemplo {
 			MysqlDataSource dataSource = new MysqlDataSource();
 			
 			dataSource.setUser("root");
-	    	dataSource.setPassword("");
+	    	dataSource.setPassword("123");
 	    	dataSource.setServerName("localhost");
 	    	dataSource.setDatabaseName("tenebris2016");
 	    	Connection conn = dataSource.getConnection();
@@ -180,6 +180,7 @@ public class Exemplo {
 				//System.out.println(bayes.classify(Arrays.asList(unknownText1)).getCategory());
 				
 				try{
+					System.out.println("NAIVE BAYES AQUI");
 					String res = bayes.classify(Arrays.asList(unknownText1)).getCategory();
 					//System.out.println(res);
 					((BayesClassifier<String, String>) bayes).classifyDetailed(Arrays.asList(unknownText));
