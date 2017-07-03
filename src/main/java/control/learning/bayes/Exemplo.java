@@ -10,6 +10,7 @@ import com.mysql.jdbc.Statement;
 import com.mysql.jdbc.jdbc2.optional.MysqlDataSource;
 
 import control.ConnectionSingleton;
+import control.factory.ConnectionFactory;
 import control.learning.GSON;
 import control.learning.ObraRB;
 
@@ -41,10 +42,10 @@ public class Exemplo {
 
 			MysqlDataSource dataSource = new MysqlDataSource();
 			
-			dataSource.setUser("root");
-	    	dataSource.setPassword("123");
-	    	dataSource.setServerName("localhost");
-	    	dataSource.setDatabaseName("tenebris2016");
+			dataSource.setUser(ConnectionFactory.USER);
+	    	dataSource.setPassword(ConnectionFactory.PASSWORD);
+	    	dataSource.setServerName(ConnectionFactory.HOST_NAME);
+	    	dataSource.setDatabaseName(ConnectionFactory.BD);
 	    	Connection conn = dataSource.getConnection();
 	    	Statement stmt = (Statement) conn.createStatement();
 			
