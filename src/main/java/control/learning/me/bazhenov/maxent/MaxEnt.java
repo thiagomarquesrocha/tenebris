@@ -116,9 +116,13 @@ public class MaxEnt {
 		
 		PlainTextEventStream stream = new PlainTextEventStream(modelo);
 		
-		GISModel model = GIS.trainModel(stream, 100, 1, false, false);
+		try{
+			GISModel model = GIS.trainModel(stream, 100, 1, false, false);
+			return model;
+		} catch(java.lang.NullPointerException nll){
+			return null;
+		}
 		
-		return model;
 		
 	}
 	
@@ -220,10 +224,15 @@ public class MaxEnt {
     	
     	List obrasRestantes = ca.getObrasR();
     	
-    	GISModel modelo = modeloMaxEnt(obras);
+    	if (modeloMaxEnt(obras) != null){
+    		GISModel modelo = modeloMaxEnt(obras);
     	
-    	List<Obra> list = modeloParaResposta(modelo, obrasRestantes, stmt, conn);
-    	return list;
+    		List<Obra> list = modeloParaResposta(modelo, obrasRestantes, stmt, conn);
+    		
+    		return list;
+    	} else{
+    		return null;
+    	}
 	}
 
 }
