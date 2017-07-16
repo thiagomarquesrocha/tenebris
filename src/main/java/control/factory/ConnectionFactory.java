@@ -25,6 +25,7 @@ public class ConnectionFactory {
 	public static final String BD = "tenebris2016";
 	public static final String USER = "root";
 	public static final String PASSWORD = "";
+	//public static final String PASSWORD = "123";
 	
 	public Connection getConnection(){
 		try {

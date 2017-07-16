@@ -180,10 +180,10 @@ public class MaxEnt {
 					String bestOutcome = model.getBestOutcome(result);
 					if(bestOutcome == "Relevante"){
 						GSON auxiliar = new GSON();
-						Gson lopes = new Gson();
+						Gson auxiliargson = new Gson();
 						model.Obra obra = auxiliar.ConstrucaoJSON(ItemID, conn);
 						list.add(obra);
-						String json = lopes.toJson(obra);
+						String json = auxiliargson.toJson(obra);
 						dataJSON += json;
 					} else{
 						//System.out.println(artigo.get(0).getTitulo() + "" + palavraschaves);
@@ -226,12 +226,15 @@ public class MaxEnt {
     	
     	if (modeloMaxEnt(obras) != null){
     		GISModel modelo = modeloMaxEnt(obras);
-    	
     		List<Obra> list = modeloParaResposta(modelo, obrasRestantes, stmt, conn);
-    		
     		return list;
+    		
     	} else{
-    		return null;
+    		List<Obra> list = new ArrayList<>();
+    		String dataJSON =  "{\"data\":[]}";
+    		System.out.println(dataJSON);
+    		return list;
+    		
     	}
 	}
 
