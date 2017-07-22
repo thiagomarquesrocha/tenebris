@@ -313,6 +313,7 @@ app
 
   $scope.submitRating = function(work){
     
+    var preavaliacao = work.preavaliacao;
     work.avaliacao = work.preavaliacao;
     work.submited = true;
     work.preavaliacao = 0;
@@ -325,9 +326,14 @@ app
     // Salva a aprendizagem
     if(keyword)
       save_learning(work, userId, keyword);
-    else
+    else{
+      Materialize.toast("O autor da obra não cadastrou palavras chave", 4000);
+      work.avaliacao = 0;
+      work.submited = false;
+      work.preavaliacao = preavaliacao;
       console.info("Nao existe palavra chave para esta obra");
-
+      return;
+    }
     // Envia para o servidor a avaliacao da obra
     $http({
         method: 'POST',

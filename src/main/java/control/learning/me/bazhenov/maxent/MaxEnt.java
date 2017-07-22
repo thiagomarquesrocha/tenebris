@@ -109,7 +109,7 @@ public class MaxEnt {
 			System.out.println(palavra);
         	if(obra.getRelevancia() > 0){
             	modelo.add(new LearningSample("Relevante", palavra));
-            	} else{
+            } else{
             	modelo.add(new LearningSample("Irrelevante", palavra));
         	}
 		}
@@ -126,7 +126,7 @@ public class MaxEnt {
 		
 	}
 	
-	public List<Obra> modeloParaResposta(GISModel model, List obrasRestantes, Statement stmt, Connection conn) throws SQLException{
+	public List<Obra> modeloParaResposta(GISModel model, List<?> obrasRestantes, Statement stmt, Connection conn) throws SQLException{
 		
 		List<Obra> list = new ArrayList<>();
 		
