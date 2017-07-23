@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: 13-Jun-2017 às 03:30
+-- Generation Time: 23-Jul-2017 às 03:07
 -- Versão do servidor: 5.6.15-log
 -- PHP Version: 5.5.8
 
@@ -32,7 +32,7 @@ CREATE TABLE IF NOT EXISTS `area` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `nome_2` (`nome`),
   KEY `nome` (`nome`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=30 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=41 ;
 
 --
 -- Extraindo dados da tabela `area`
@@ -62,7 +62,7 @@ CREATE TABLE IF NOT EXISTS `autor` (
   `nome` varchar(255) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `nome` (`nome`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=105 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=116 ;
 
 --
 -- Extraindo dados da tabela `autor`
@@ -89,7 +89,7 @@ INSERT INTO `autor` (`id`, `nome`) VALUES
 (52, 'clarice de souza santos'),
 (97, 'daivson dos s. melo, walter c. s. simões, leonardo s. valcácio'),
 (63, 'danúbia ramos lustosa'),
-(40, 'daniel henrique braz de aquino'),
+(40, 'Daniel Henrique Braz de Aquino'),
 (39, 'danúbia ramos lustoza'),
 (33, 'darlisson marinho de jesus'),
 (31, 'darlisson marinho jesus'),
@@ -242,6 +242,7 @@ INSERT INTO `avaliacao` (`obra`, `usuario`, `avaliacao`) VALUES
 (41, 67, 2),
 (41, 69, 3),
 (41, 74, 2),
+(42, 2, 5),
 (42, 54, 4),
 (42, 55, 3),
 (42, 56, 1),
@@ -266,6 +267,7 @@ INSERT INTO `avaliacao` (`obra`, `usuario`, `avaliacao`) VALUES
 (44, 66, 1),
 (44, 67, 1),
 (44, 74, 1),
+(45, 2, 5),
 (45, 54, 4),
 (45, 55, 4),
 (45, 56, 4),
@@ -277,6 +279,7 @@ INSERT INTO `avaliacao` (`obra`, `usuario`, `avaliacao`) VALUES
 (45, 65, 1),
 (45, 66, 5),
 (45, 67, 3),
+(46, 2, 3),
 (46, 54, 3),
 (46, 55, 5),
 (46, 56, 4),
@@ -289,6 +292,7 @@ INSERT INTO `avaliacao` (`obra`, `usuario`, `avaliacao`) VALUES
 (46, 66, 5),
 (46, 67, 4),
 (46, 69, 4),
+(48, 2, 4),
 (48, 54, 4),
 (48, 55, 2),
 (48, 56, 5),
@@ -313,6 +317,7 @@ INSERT INTO `avaliacao` (`obra`, `usuario`, `avaliacao`) VALUES
 (52, 67, 3),
 (52, 69, 3),
 (52, 74, 4),
+(54, 2, 4),
 (54, 54, 3),
 (54, 55, 4),
 (54, 56, 2),
@@ -321,6 +326,7 @@ INSERT INTO `avaliacao` (`obra`, `usuario`, `avaliacao`) VALUES
 (54, 63, 3),
 (54, 66, 1),
 (54, 67, 1),
+(55, 2, 5),
 (55, 54, 3),
 (55, 55, 3),
 (55, 56, 3),
@@ -330,6 +336,7 @@ INSERT INTO `avaliacao` (`obra`, `usuario`, `avaliacao`) VALUES
 (55, 63, 4),
 (55, 66, 1),
 (55, 67, 1),
+(56, 2, 4),
 (56, 54, 4),
 (56, 55, 3),
 (56, 56, 4),
@@ -340,6 +347,7 @@ INSERT INTO `avaliacao` (`obra`, `usuario`, `avaliacao`) VALUES
 (56, 65, 1),
 (56, 66, 1),
 (56, 67, 3),
+(57, 2, 5),
 (57, 54, 4),
 (57, 55, 3),
 (57, 56, 2),
@@ -352,6 +360,7 @@ INSERT INTO `avaliacao` (`obra`, `usuario`, `avaliacao`) VALUES
 (58, 57, 3),
 (58, 61, 5),
 (58, 63, 2),
+(59, 2, 3),
 (59, 54, 5),
 (59, 55, 4),
 (59, 56, 2),
@@ -528,7 +537,7 @@ CREATE TABLE IF NOT EXISTS `idpalavrachave` (
   `palavrachave` varchar(255) CHARACTER SET latin1 DEFAULT NULL,
   PRIMARY KEY (`idpchave`),
   UNIQUE KEY `palavrachave` (`palavrachave`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=17 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=34 ;
 
 --
 -- Extraindo dados da tabela `idpalavrachave`
@@ -536,8 +545,13 @@ CREATE TABLE IF NOT EXISTS `idpalavrachave` (
 
 INSERT INTO `idpalavrachave` (`idpchave`, `palavrachave`) VALUES
 (13, ' machine learning'),
+(20, 'algoritmo'),
 (1, 'biologia'),
 (2, 'computação'),
+(27, 'desenvolvimento'),
+(26, 'engenharia'),
+(21, 'informática'),
+(19, 'inteligência artificial'),
 (16, 'machine learning');
 
 -- --------------------------------------------------------
@@ -590,7 +604,7 @@ CREATE TABLE IF NOT EXISTS `obra` (
   KEY `autor_2` (`autor`),
   KEY `tipo` (`tipo`),
   KEY `tipo_2` (`tipo`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6324 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=100 ;
 
 --
 -- Extraindo dados da tabela `obra`
@@ -598,16 +612,16 @@ CREATE TABLE IF NOT EXISTS `obra` (
 
 INSERT INTO `obra` (`id`, `usuario`, `area`, `autor`, `tipo`, `instituicao`, `cadastradoEm`, `titulo`, `data`, `resumo`, `imagem`) VALUES
 (36, 2, 2, 18, 1, 2, '2016-07-05 16:58:03', 'educação a distância: a aprender online', '2016-07-01', 'problematiza-se a educação a distância sob o que alguns autores\nacreditam ser a sua inovação tecnológica mais recente caracterizada pela\nperspectiva online. para início da tarefa achamos por bem começar pela definição e\norigem do termo online. embora seu significado já esteja suficientemente\npopularizado ainda persistem algumas polêmicas em torno do assunto, as quais\nanalisaremos no âmbito de uma breve contextualização da ead no mundo. em\nseguida refletiremos sobre os tempos e espaços diferentes instituídos pela internet,\nsuas repercussões no ensino e a aprendizagem e como desenvolver modelos de\ncursos mais adequados a essa nova perspectiva na educação.', 'C:\\Users\\ENG COMPUTACAO\\workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\tenebris\\obras\\12_6_2016_16_48_1468356497985.pdf'),
-(37, 2, 2, 19, 1, 2, '2016-07-05 16:59:53', 'contribuições do jogo didático no ensino de embriologia', '2016-07-01', 'os materiais didáticos são meios necessários para o processo ensinoaprendizagem\r\ne os jogos didáticos tornam-se uma alternativa lúdica para auxiliar neste\r\nprocesso. com base nessa visão, neste trabalho apresenta-se a confecção, aplicação e\r\nanálise de um jogo didático com o objetivo de colaborar na compreensão e aprendizagem\r\ndo conteúdo de embriologia, mais especificamente o desenvolvimento embrionário humano.\r\no jogo foi elaborado utilizando-se materiais de baixo custo, tais como isopor, tinta guache e\r\nmassa de modelar caseira. após a confecção do jogo, procedeu-se a sua aplicação em uma\r\nturma do 2º ano do ensino médio do instituto federal de educação, ciência e tecnologia do\r\namazonas – ifam. a partir da aplicação, os resultados evidenciaram que a maioria dos\r\nalunos aprendeu os conceitos básicos do desenvolvimento embrionário humano, pois\r\nevidenciaram que os materiais utilizados na fabricação do material oportunizaram a\r\nvisualização correspondente à fase embrionária estudada. isso permite afirmar que a\r\nutilização de jogos didáticos pode contribuir para otimizar o processo ensino-aprendizagem\r\nem ciências, possibilitando uma participação intensa dos alunos nas atividades propostas.', 'C:\\Users\\ENG COMPUTACAO\\workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\tenebris\\obras\\12_6_2016_16_48_1468356518252.pdf'),
+(37, 2, 2, 19, 1, 2, '2016-07-05 16:59:53', 'Contribuições do jogo didático no ensino de embriologia', '2016-07-01', 'Os materiais didáticos são meios necessários para o processo ensinoaprendizagem\r\ne os jogos didáticos tornam-se uma alternativa lúdica para auxiliar neste\r\nprocesso. Com base nessa visão, neste trabalho apresenta-se a confecção, aplicação e\r\nanálise de um jogo didático com o objetivo de colaborar na compreensão e aprendizagem\r\ndo conteúdo de embriologia, mais especificamente o desenvolvimento embrionário humano.\r\no jogo foi elaborado utilizando-se materiais de baixo custo, tais como isopor, tinta guache e\r\nmassa de modelar caseira. Após a confecção do jogo, procedeu-se a sua aplicação em uma\r\nturma do 2º ano do ensino médio do instituto federal de educação, ciência e tecnologia do\r\namazonas – ifam. A partir da aplicação, os resultados evidenciaram que a maioria dos\r\nalunos aprendeu os conceitos básicos do desenvolvimento embrionário humano, pois\r\nevidenciaram que os materiais utilizados na fabricação do material oportunizaram a\r\nvisualização correspondente à fase embrionária estudada. Isso permite afirmar que a\r\nutilização de jogos didáticos pode contribuir para otimizar o processo ensino-aprendizagem\r\nem ciências, possibilitando uma participação intensa dos alunos nas atividades propostas.', 'C:\\Users\\ENG COMPUTACAO\\workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\tenebris\\obras\\12_6_2016_16_48_1468356518252.pdf'),
 (39, 2, 2, 21, 1, 1, '2016-07-05 17:15:38', 'desenvolvimento de um jogo de memorização luminosa na plataforma arduino', '2012-12-17', 'este trabalho descreve o desenvolvimento de um jogo de memorização baseada no\r\ngenius simon, jogo de memorização famoso na dácada de 80. o jogo utiliza-se dos recursos\r\nda plataforma arduino para se tornar funcional, tem como objetivo a memorização da\r\nsequência luminosa gerada aleatoriamente toda vez que o jogo se inicia.o produto consiste\r\nna geração de uma sequência luminosa, que será repetida pelo seu usuário ate o numero de\r\nvezes correta, para seu fim.', 'C:\\Users\\ENG COMPUTACAO\\workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\tenebris\\obras\\12_6_2016_16_51_1468356681571.pdf'),
-(40, 2, 2, 22, 1, 1, '2016-07-05 17:17:08', 'desenvolvimento de um sistema de pré-seleção de disciplina com princípios de heurística de usabilidade', '2016-07-09', 'devido diversidade de dispositivos e formas de interação, a necessidade de\r\ndesenvolver sistemas com base na usabilidade ergonomia e experiência do usuário\r\nse torna necessária, pois todos os dispositivos tem um modo de interagir diferente\r\ncomo celulares, palmtops, netbooks, cada um com uma forma de interação. neste\r\ntrabalho desenvolvemos um sistema de inscrição de disciplinas para os alunos da\r\nest – uea com foco na usabilidade para interação em um dispositivo com tela\r\nsensível ao toque.', 'C:\\Users\\ENG COMPUTACAO\\workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\tenebris\\obras\\13_6_2016_11_4_1468422248266.pdf'),
-(41, 2, 2, 23, 2, 1, '2016-07-05 17:20:53', 'estágios curriculares do bacharelato em eng. mecânica', '2016-07-11', 'os planos curriculares da globalidade dos cursos de\r\nbacharelato ministrados na escola superior de\r\ntecnologia (est) contêm uma disciplina designada\r\npor estágio, de carácter obrigatório, a qual se\r\ndesenvolve, em geral, no período compreendido entre\r\no final do 2º semestre e o início do 1º semestre do\r\nano lectivo seguinte.\r\no seu objectivo primordial é o de permitir a\r\nintegração dos alunos em situações de actividade\r\nprofissional concretas, num ambiente real e externo à\r\nescola, como complemento da sua formação\r\nacadémica.', 'C:\\Users\\ENG COMPUTACAO\\workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\tenebris\\obras\\13_6_2016_11_3_1468422211139.pdf'),
+(40, 2, 2, 22, 1, 1, '2016-07-05 17:17:08', 'Desenvolvimento de um sistema de pré-seleção de disciplina com princípios de heurística de usabilidade', '2016-07-09', 'Devido diversidade de dispositivos e formas de interação, a necessidade de\r\ndesenvolver sistemas com base na usabilidade ergonomia e experiência do usuário\r\nse torna necessária, pois todos os dispositivos tem um modo de interagir diferente\r\ncomo celulares, palmtops, netbooks, cada um com uma forma de interação. Neste\r\ntrabalho desenvolvemos um sistema de inscrição de disciplinas para os alunos da\r\nest – uea com foco na usabilidade para interação em um dispositivo com tela\r\nsensível ao toque.', 'C:\\Users\\ENG COMPUTACAO\\workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\tenebris\\obras\\13_6_2016_11_4_1468422248266.pdf'),
+(41, 2, 2, 23, 2, 1, '2016-07-05 17:20:53', 'Estágios curriculares do bacharelato em eng. mecânica', '2016-07-11', 'Os planos curriculares da globalidade dos cursos de\r\nbacharelato ministrados na escola superior de\r\ntecnologia (est) contêm uma disciplina designada\r\npor estágio, de carácter obrigatório, a qual se\r\ndesenvolve, em geral, no período compreendido entre\r\no final do 2º semestre e o início do 1º semestre do\r\nano lectivo seguinte.\r\nO seu objectivo primordial é o de permitir a\r\nintegração dos alunos em situações de actividade\r\nprofissional concretas, num ambiente real e externo à\r\nescola, como complemento da sua formação\r\nacadémica.', 'C:\\Users\\ENG COMPUTACAO\\workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\tenebris\\obras\\13_6_2016_11_3_1468422211139.pdf'),
 (42, 2, 2, 24, 1, 1, '2016-07-05 17:24:04', 'analise de desempenho de algoritmos de programação distribuída em ooerlang com intel r mpi benchmarks e esqueletos algorítmicos em ooerlang', '2013-11-11', 'este artigo apresenta um estudo realizado com algoritmos escritos nas linguagens de\r\nprogramação erlang e ooerlang. primeiramente são apresentados os algoritmos de testes\r\nerlang seguindo a intel \r\nr mpi benchmarks com objetivo de medir o desempenho da\r\nlinguagem. e então, pequenos exemplos de programação distribuída com esqueletos de\r\nalgoritmos em ooerlang para estudos sobre esses conceitos e a extensão da aplicabilidade\r\ndesta extensão para erlang recentemente publicada.', 'C:\\Users\\ENG COMPUTACAO\\workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\tenebris\\obras\\12_6_2016_16_50_1468356634449.pdf'),
 (44, 2, 2, 26, 1, 1, '2016-07-05 17:27:37', 'padrões de projeto em ooerlang', '2013-12-18', 'padrões de projetos são métodos de modelagem para vários tipos de problemas com\r\nfoco na programação orientada a objetos. estes padrões foram descobertos e documentados\r\npara serem corretamente utilizados quando for preciso, sendo aplicáveis a qualquer\r\nlinguagem orientada a objetos, baseados nos princípios de design para programação orientada\r\na objetos. ooerlang é uma extensão da linguagem ooerlang, com suporte à modelagem\r\norientada a objetos. com a utilização da extensão ooerlang, pode-se modelar problemas\r\nutilizando-se dos vários tipos de padrões de projetos existentes.', 'C:\\Users\\ENG COMPUTACAO\\workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\tenebris\\obras\\13_6_2016_11_2_1468422120715.pdf'),
 (45, 2, 2, 27, 1, 1, '2016-07-05 17:28:49', 'filtros de imagens para ios', '2013-11-26', 'este trabalho tem como finalidade apresentar o desenvolvimento de três filtros, com\r\no enfoque em processamento digital de imagens utilizando a plataforma ios. ios é um\r\nsistema operacional móvel da apple,inc. utilizado em iphone, ipads, ipods touch e apple\r\ntv. os algoritmos desenvolvidos neste projeto tem como objetivo manipular imagens e\r\nvídeos.', 'C:\\Users\\ENG COMPUTACAO\\workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\tenebris\\obras\\12_6_2016_16_49_1468356566698.pdf'),
 (46, 2, 2, 28, 1, 1, '2016-07-05 17:31:59', 'sistema de segurança veicular com uso de gps baseado em arduino', '2013-12-01', 'este trabalho apresenta o desenvolvimento de um sistema voltado a segurança veicular\r\ncom uso de gps, o que permite o rastreamento, em tempo real, do automóvel por\r\nmeio de uma aplicação web. além da função de rastreamento, o sistema permite realizar\r\no bloqueio, ou seja, é possível desligar o automóvel remotamente e de modo irrevogável,\r\nimpedindo que este sofra danos causados pela condução agressiva de meliantes em tentativas\r\nde fuga ou mesmo na realiza¸c˜ao de novos crimes. a combinação da localização\r\ngeográfica com o desligamento remoto reduz as chances de danos ao patrimônio e evita\r\nque o proprietário tente reagir no momento de uma abordagem, pois poder´a contar com\r\nauxílio do sistema.', 'C:\\Users\\ENG COMPUTACAO\\workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\tenebris\\obras\\12_6_2016_16_38_1468355922117.pdf'),
 (48, 2, 2, 30, 1, 1, '2016-07-05 17:40:51', 'análise comparativa de algoritmos que computam transformada discreta de fourier e hartley', '2013-11-26', 'este trabalho apresentará um estudo comparativo entre os algoritmos que computam as\r\ntransformada rápidas de fourier e hartley. tais algoritmos são essenciais em aplicações dos\r\nramos de processamento de sinais e imagens. conhecer o desempenho dessas transformadas\r\nrápidas é importante no desenvolvimento das aplicações que a utilizam. o ponto central\r\ndeste estudo é a comparação de eficiência em termos de tempo de processamento e mem´oria\r\nnecessária para computar ambas às transformadas. além disso, esta monografia apresenta\r\ngráficos ilustrando o desempenho de cada algoritmo implementado.', 'C:\\Users\\ENG COMPUTACAO\\workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\tenebris\\obras\\12_6_2016_16_36_1468355806204.pdf'),
-(52, 2, 2, 40, 1, 1, '2016-07-05 17:53:06', 'comparação do desempenho da programação concorrente entre java, erlang, scala, python, ruby e ooerlang utilizando intel mpi benchmark', '2016-07-18', 'este trabalho de conclusão de curso apresenta um estudo do desempenho da programação\r\nconcorrente entre as linguagens java, erlang, scala, python e ruby, utilizadas para\r\no desenvolvimento de back-ends na web 2.0 e ooerlang, uma extensão orientada a objetos\r\npara erlang. utiliza-se um conjunto de testes disponibilizados pela intel, conhecido\r\ncomo imb (intel mpi benchmark) para manter um caráter idôneo na execução deste trabalho,\r\nvisando avaliar o desempenho das linguagens. existe uma descrição do imb e uma\r\ndescrição específica para cada benchmarck utilizado. estes benchmarcks foram projetados\r\npara avaliar o desempenho de máquinas; os mesmos foram reescritos para avaliar o\r\ndesempenho e o comportamento das linguagens.', 'C:\\Users\\ENG COMPUTACAO\\workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\tenebris\\obras\\13_6_2016_11_2_1468422167875.pdf'),
+(52, 2, 2, 40, 1, 1, '2016-07-05 17:53:06', 'Comparação do desempenho da programação concorrente entre java, erlang, scala, python, ruby e ooerlang utilizando intel mpi benchmark', '2016-07-18', 'Este trabalho de conclusão de curso apresenta um estudo do desempenho da programação\r\nconcorrente entre as linguagens java, erlang, scala, python e ruby, utilizadas para\r\no desenvolvimento de back-ends na web 2.0 e ooerlang, uma extensão orientada a objetos\r\npara erlang. Utiliza-se um conjunto de testes disponibilizados pela intel, conhecido\r\ncomo imb (intel mpi benchmark) para manter um caráter idôneo na execução deste trabalho,\r\nvisando avaliar o desempenho das linguagens. Existe uma descrição do imb e uma\r\ndescrição específica para cada benchmarck utilizado. estes benchmarcks foram projetados\r\npara avaliar o desempenho de máquinas; os mesmos foram reescritos para avaliar o\r\ndesempenho e o comportamento das linguagens.', 'C:\\Users\\ENG COMPUTACAO\\workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\tenebris\\obras\\13_6_2016_11_2_1468422167875.pdf'),
 (54, 2, 2, 42, 1, 1, '2016-07-06 14:04:30', 'implementação de suporte a subprogramas, módulos e pacotes da linguagem java para o compilador jaraki', '2012-11-23', 'este trabalho apresenta a implementação de suporte a subprogramas, módulos e pacotes\r\nque estão presentes na linguagem de programação java para o compilador jaraki, no qual é\r\num projeto que tem como entrada códigos-fonte java e compila para gerar um código-fonte\r\nsemelhante em erlang, por fim este é executado na máquina virtual do erlang (evm).', 'C:\\Users\\ENG COMPUTACAO\\workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\tenebris\\obras\\12_6_2016_16_57_1468357027890.pdf'),
 (55, 2, 2, 43, 1, 1, '2016-07-06 14:07:50', 'implementação das estruturas de controle da linguagem java para o compilador jaraki', '2012-11-23', 'este trabalho apresenta a implementação das estruturas de controle, presentes na linguagem\r\nde programação java para o compilador jaraki, um projeto que compila códigos-fonte\r\njava para a máquina virtual do erlang. utiliza as ferramentas leex e yecc para\r\ngerar as análises léxica e sintática, além de módulos em erlang e bibliotecas que facilitam\r\na geração de códigos das estruturas desenvolvidas.', 'C:\\Users\\ENG COMPUTACAO\\workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\tenebris\\obras\\12_6_2016_16_58_1468357102234.pdf'),
 (56, 2, 2, 44, 1, 1, '2016-07-06 14:09:32', 'dominó adaptativo', '2012-12-10', 'este trabalho tem o objetivo de apresentar uma tecnologia inovadora para solucionar\r\nproblemas, tanto clássicos como atuais, utilizando técnicas adaptativas. esta ideia será\r\naplicada em um jogo de dominó, que inicialmente comporta-se como o jogo convencional,\r\nporém, no decorrer de uma partida, as regras do jogo podem ser modificadas por\r\nmeio de ações adaptativas impostas pelos jogadores. propondo uma nova direção para o\r\ndesenvolvimento de jogos.', 'C:\\Users\\ENG COMPUTACAO\\workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\tenebris\\obras\\12_6_2016_16_52_1468356757953.pdf'),
@@ -625,14 +639,14 @@ INSERT INTO `obra` (`id`, `usuario`, `area`, `autor`, `tipo`, `instituicao`, `ca
 (68, 2, 2, 56, 1, 1, '2016-07-06 14:54:53', 'comparação de desempenho da programação concorrente entre java e erlang utilizando intel mpi benchmarck', '2011-12-16', 'este trabalho apresenta um estudo sobre o desempenho da programação concorrente\r\nentre as linguagens java e erlang. ambas as linguagens são largamente utilizadas para\r\naplicações diversas e que em muitos dos casos trata frequentemente de situações de paralelismo\r\nmassivo, como as aplicações web que recebem diversas requisições de serviços em curto espaço de tempo. utilizou-se um conjuntos de testes disponibilizados pela intel. conhecido como imb – intel mpi benchmarck para manter um caráter idôneo na execução deste trabalho, visando avaliar o desempenho das linguagens. existe uma descrição do imb e uma descrição específica para cada benchmarck utilizado. estes benchmarcks foram projetados para avaliar o desempenho de máquinas, então os mesmos foram reescritos para avaliar o desempenho e o comportamento das linguagens.', 'C:\\Users\\ENG COMPUTACAO\\workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\tenebris\\obras\\12_6_2016_17_8_1468357722838.pdf'),
 (69, 2, 2, 57, 1, 1, '2016-07-06 14:56:09', 'sistema web para aluguel de imóveis na cidade de manaus', '2010-12-07', 'o presente trabalho descreve a modelagem e a implementação de um\r\nsistema web voltado pra aluguel de imóveis na cidade de manaus. o sistema será\r\ndesenvolvido utilizando a linguagem php e a base de dados mysql. suas\r\ncaracterísticas serão semelhantes a um classificado tradicional, porém com todos\r\nos recursos que a internet pode proporcionar dando ao usuário mais opções de\r\nescolha como: imagens, localização, infra-estrutura do local, distância de pontos\r\nespecíficos. o sistema permitirá que o usuário faça o orçamento de anúncio e o\r\ncálculo do valor é feito no ato de sua inscrição. além da praticidade, um dos\r\nobjetivos principais é atender aos usuários que não conhecem a cidade,\r\noferecendo conforto, economia e maior segurança na hora de alugar um imóvel.', 'C:\\Users\\ENG COMPUTACAO\\workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\tenebris\\obras\\12_6_2016_17_11_1468357860262.pdf'),
 (70, 2, 2, 58, 1, 1, '2016-07-06 14:57:53', 'integrando os frameworks cakephp e flex para aplicaçõoes web', '2010-12-07', 'o propósito deste trabalho é demonstrar através de um estudo de caso (uma aplicação\r\nreal) o uso e a integração de duas poderosas tecnologias altamente conhecidas pela maioria\r\ndos programadores orientados para aplicações web, cakephp e flex. essas tecnologias são\r\nconhecidas como frameworks. sendo que o primeiro, cakephp, aplica o padrão arquitetural\r\nmvc (model, view e controller) e o segundo, flex, aplica a tecnologia ria (rich internet\r\napplication). o estudo de caso implementado neste trabalho está baseado em um problema\r\nreal e conhecido pela est (escola superior de tecnologia).', 'C:\\Users\\ENG COMPUTACAO\\workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\tenebris\\obras\\12_6_2016_17_11_1468357888854.pdf'),
-(71, 2, 2, 59, 1, 1, '2016-07-12 20:16:47', 'sistema web para gestão de um condomínio', '2016-07-07', 'este trabalho apresenta o desenvolvimento de um sistema web para gestão de um \r\ncondomínio. o sistema foi desenvolvido na linguagem de programação php e com base \r\nde dados em mysql. o sistema e uma ferramenta de administração centralizadora, que \r\npermiti ao sindico e ao condômino um gerenciamento  online total, de qualquer local que \r\nse encontrar, basta acessar por senha, toda a estrutura que esta a sua disposição. com este \r\nsistema  o  síndico  controla  os  condôminos  que  estão  inadimplentes  e  faz  uma \r\ncomunicação  maior  com  os  mesmos.  também  neste  sistema  pode  o  condômino \r\nacompanhar os eventos que acontecem no condomínio, fazer reservas das áreas de lazer e \r\ndo salão de festas, bem como fazer a retirada do boleto da taxa condominial.', 'C:\\Users\\ENG COMPUTACAO\\workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\tenebris\\obras\\12_6_2016_16_16_1468354607525.pdf'),
+(71, 2, 2, 59, 1, 1, '2016-07-12 20:16:47', 'Sistema web para gestão de um condomínio', '2016-07-07', 'Este trabalho apresenta o desenvolvimento de um sistema web para gestão de um \r\ncondomínio. o sistema foi desenvolvido na linguagem de programação php e com base \r\nde dados em mysql. o sistema e uma ferramenta de administração centralizadora, que \r\npermiti ao sindico e ao condômino um gerenciamento  online total, de qualquer local que \r\nse encontrar, basta acessar por senha, toda a estrutura que esta a sua disposição. Com este \r\nsistema  o  síndico  controla  os  condôminos  que  estão  inadimplentes  e  faz  uma \r\ncomunicação  maior  com  os  mesmos. Também  neste  sistema  pode  o  condômino \r\nacompanhar os eventos que acontecem no condomínio, fazer reservas das áreas de lazer e \r\ndo salão de festas, bem como fazer a retirada do boleto da taxa condominial.', 'C:\\Users\\ENG COMPUTACAO\\workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\tenebris\\obras\\12_6_2016_16_16_1468354607525.pdf'),
 (72, 2, 2, 41, 1, 1, '2016-07-12 20:22:05', 'removendo marcadores de texto em documentos monocrom  aticos envelhecidos', '2012-12-10', 'um texto em destaque e freq uentemente usado para enfatizar partes de um documento\r\npor alguma determinada razão. a cor e o tipo da caneta de texto (selecionador de texto) são\r\nde escolha pessoal do leitor e podem ser vistos ou analisado como apenas um "danicador"\r\ndo documento original. dependendo da cor utilizada no texto, esta pode afetar de maneiras\r\ndiferentes documentos monocromaticos com o fundo de papel branco e envelhecido. este\r\nprojeto tem por objetivo apresentar um algoritmo baseado no comparativo da analise\r\nestatstica dos histogramas entre a parte afetada e não afetada pelo selecionador de texto\r\nda imagem original, usando os metodos do calculo da media e do desvio padrão, com o\r\nintuito de remover o efeito do selecionador de texto em documentos monocromaticos que\r\nsofreram efeito de envelhecimento devido a situações naturais.', 'C:\\Users\\ENG COMPUTACAO\\workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\tenebris\\obras\\12_6_2016_16_22_1468354925309.pdf'),
 (73, 2, 2, 25, 1, 1, '2016-07-12 20:24:47', 'websocket para aplicações web em erlang', '2011-12-16', 'este trabalho descreve a implementação em erlang do internet-draft websocket hixie 76 do html5. a descrição do protocolo, o processo de modelagem, definição da application programming interface e os resultados obtidos com os experimentos que demonstramo uso da api. a implementação foi estruturada em modulos que permitisse a maxima reutilizaçã de codigo por outros desenvolvedores. o sistema foi estruturado em processo com interfaces de passagem de mensagens bem denidas que podem ser extendidas para uso em outros protocolos semelhantes ao websocket.', 'C:\\Users\\ENG COMPUTACAO\\workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\tenebris\\obras\\12_6_2016_16_24_1468355087624.pdf'),
 (74, 2, 2, 63, 1, 1, '2016-07-12 20:28:15', 'rede social geo educacional -geoeducar', '2013-12-09', 'o propósito deste trabalho e demostrar a utilização de conceitos moveis em softwares educacionais através do desenvolvimento de um aplicativo móvel que viabilize uma rede social utilizando georreferenciamento na área da educação para um público carente de aplicativos específicos que seriam os estudantes.', 'C:\\Users\\ENG COMPUTACAO\\workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\tenebris\\obras\\12_6_2016_16_28_1468355295013.pdf'),
 (75, 2, 2, 29, 1, 1, '2016-07-12 20:47:20', 'uso do método de inspeção semi-ótica na prototipação de sistemas', '2012-12-04', 'este trabalho apresenta o desenvolvimento de um artefato de software que utiliza o modelo de processo de desenvolvimento por prototipação onde ha a adaptação deste para possibilitar a inclusão do estudo da interface através do uso do metodo de inspeção semiotica (mis), presente na engenharia semiótica, que visa mostrar o quanto a comunicação do designer para com o usuário e eciente e eficaz, medindo o nvel de comunicabilidade da interface. esta abordagem é necéssaria visto que a análise da comunicabilidade e realizada quando o artefato ja foi desenvolvido e esta sendo utilizado, como consequência as observações de falhas encontradas apenas documentadas e não aplicadas ao artefato por alguns fatores, como o econômico para a manutenção do software, por exemplo. além de que nas fases nais de prototipação a atenção e focada no quanto a interface permite ao usuário atingir seus objetivos, o que n~ao deveria ser a meta, pois nestas ha o incio da formação de um novo ciclo de trabalho, onde a prioridade s~ao as coletas ou modicações de requisitos.', 'C:\\Users\\ENG COMPUTACAO\\workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\tenebris\\obras\\12_6_2016_16_47_1468356440047.pdf'),
-(77, 2, 2, 66, 1, 1, '2016-07-13 20:55:19', 'agentes evolutivos com personalidade para o jogo de dominó de 4 pontas', '2015-11-04', 'o jogo de dominó de 4 pontas ´ e uma versão jogada em manaus, que possui como mecânicas principais a contagem das numerações das peças e a ação de passar a vez. entre as jogadas possíveis, existe no dominó amazonense uma ação conhecida como ”trancar o jogo”, onde jogadores por uma questão estratégica, ou até mesmo por falta de atenção ou habilidade, bloqueiam todas as jogadas futuras. personagens não jogáveis (non-playable characters - npcs) podem usar movimentos inesperados como o ”trancamento de jogo” para gerar a percepção de personalidade, aumentando o envolvimento com o jogo. nosso objetivo é evoluir heurísticas para agentes que seguem uma personalidade predefinida no jogo de dominó de 4 pontas. foram feitas simulações em matlab para demonstrar que a nossa abordagem evolutiva pode gerar npcs com forte aderência às personalidades previamente definidas.', 'C:\\Users\\ENG COMPUTACAO\\workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\tenebris\\obras\\13_6_2016_16_55_1468443319279.pdf'),
+(77, 2, 2, 66, 1, 1, '2016-07-13 20:55:19', 'Agentes evolutivos com personalidade para o jogo de dominó de 4 pontas', '2015-11-04', 'O jogo de dominó de 4 pontas ´ e uma versão jogada em manaus, que possui como mecânicas principais a contagem das numerações das peças e a ação de passar a vez. Entre as jogadas possíveis, existe no dominó amazonense uma ação conhecida como ”trancar o jogo”, onde jogadores por uma questão estratégica, ou até mesmo por falta de atenção ou habilidade, bloqueiam todas as jogadas futuras. Personagens não jogáveis (non-playable characters - npcs) podem usar movimentos inesperados como o ”trancamento de jogo” para gerar a percepção de personalidade, aumentando o envolvimento com o jogo. Nosso objetivo é evoluir heurísticas para agentes que seguem uma personalidade predefinida no jogo de dominó de 4 pontas. Foram feitas simulações em matlab para demonstrar que a nossa abordagem evolutiva pode gerar npcs com forte aderência às personalidades previamente definidas.', 'C:\\Users\\ENG COMPUTACAO\\workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\tenebris\\obras\\13_6_2016_16_55_1468443319279.pdf'),
 (78, 2, 2, 67, 2, 1, '2016-07-14 13:26:19', 'estudo comparativo entre algoritmos genéticos e pesquisa em vizinhança variável aplicados na otimização de redes ip', '2015-10-12', 'neste artigo, será apresentado um estudo comparativo entre os algoritmos gen éticos e a pesquisa em vizinhanc¸a variável aplicados na otimização de um ambiente controlado de redes ip. os algoritmos buscam atenderá várias requisições simultâneas, que possuem requisitos mínimos de largura de\r\nbanda, de modo que se simule o atendimento a índices de qualidade de serviço para aplicações multimídias. na proposta do algoritmo genético, utilizam-se operadores genéticos específicos com elitismo. na busca com a pesquisa em vizinhançaa variável, utiliza-se o vns básico aplicado ao cenário em estudo. nos resultados são discutidas as caracter´ ?sticas que favorecem ou prejudicam\r\na escolha de cada algoritmo a ser empregado nesse contexto.', 'C:\\Users\\ENG COMPUTACAO\\workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\tenebris\\obras\\14_6_2016_9_26_1468502779227.pdf'),
-(79, 2, 2, 65, 2, 1, '2016-07-14 18:20:20', 'análise estatística de geradores pseudo-aleatórios baseados em autômatos celulares', '2015-11-04', 'autômatos celulares são modelos de computação baseados em células que se auto-reproduzem. de acordo com a literatura, estes autômatos são estruturalmente simples, mas capazes de gerar padrões complexos, o que culmina na adoção dos mesmos para geração de números pseudo-aleatórios. levando isto em consideração, este trabalho teve como objetivo analisar a qualidade estatística das sequências produzidas por geradores baseados nas versões elementares e totalísticas destes autômatos. como resultado, foi possível constatar que este modelo de computação não se mostra adequado para geração de sequências pseudo-aleatórias, mostrando baixa qualidade estatística. estes resultados impactam na não-indicação deste modelo para geração de sequências numéricas, pois podem comprometer as aplicações que os utilizam.', 'C:\\Users\\ENG COMPUTACAO\\workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\tenebris\\obras\\14_6_2016_14_20_1468520420131.pdf'),
+(79, 2, 2, 65, 2, 1, '2016-07-14 18:20:20', 'Análise estatística de geradores pseudo-aleatórios baseados em autômatos celulares', '2015-11-04', 'Autômatos celulares são modelos de computação baseados em células que se auto-reproduzem. De acordo com a literatura, estes autômatos são estruturalmente simples, mas capazes de gerar padrões complexos, o que culmina na adoção dos mesmos para geração de números pseudo-aleatórios.Levando isto em consideração, este trabalho teve como objetivo analisar a qualidade estatística das sequências produzidas por geradores baseados nas versões elementares e totalísticas destes autômatos. Como resultado, foi possível constatar que este modelo de computação não se mostra adequado para geração de sequências pseudo-aleatórias, mostrando baixa qualidade estatística. Estes resultados impactam na não-indicação deste modelo para geração de sequências numéricas, pois podem comprometer as aplicações que os utilizam.', 'C:\\Users\\ENG COMPUTACAO\\workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\tenebris\\obras\\14_6_2016_14_20_1468520420131.pdf'),
 (80, 2, 2, 69, 2, 1, '2016-07-14 18:22:28', 'aplicação de um método multicritério para identificação e  avaliação de requisitos de software', '2015-11-04', 'devido  ao  constante  avanço  tecnológico,  a  identificação  de  requisitos,  que  satisfaçam  as  necessidades  dos  usuários,  se  tornou  ao  longo  dos  anos  um  dos  fatores fundamentais para o sucesso dos sistemas computacionais. é importante garantir que os requisitos  essenciais  para  o  desenvolvimento  de  sistemas  sejam  identificados corretamente visando diminuir o esforço no processo de elicitação. a elicitação ajuda a descobrir as necessidades dos usuários por meio de técnicas específicas.  a escolha de métodos  que  ajudam  na  elicitação  de  requisitos  pode  minimizar  os  erros  no desenvolvimento  de  sistemas.  este  artigo  apresenta  uma  proposta  para  selecionar  a técnica  mais  adequada  para  elicitação  de  requisitos  no  desenvolvimento  de  sistemas computacionais.  a  abordagem  proposta  é  baseada  no  uso  da  matriz  de  decisão utilizando o método electre i. para o uso do método foram especificados critérios, pesos e  alternativas,  de  modo  que  a  melhor  técnica  é  selecionada  a  partir  dos  cálculos  de concordância e discordância. os resultados obtidos podem contribuir para o processo \r\nde elicitação de requisitos necessário para o desenvolvimento de aplicações.', 'C:\\Users\\ENG COMPUTACAO\\workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\tenebris\\obras\\14_6_2016_14_22_1468520548299.pdf'),
 (81, 2, 2, 70, 2, 1, '2016-07-14 18:24:36', 'arquitetura para integração de sistemas independentes de  automação residencial através de webservices embarcados', '2015-11-04', 'a  automação  residencial  busca,  através  um  conjunto  dispositivos, possibilitar o gerenciamento remoto de recursos em uma residência tais como lâmpadas, janelas, sensores e outros. por meio de protocolos customizados, as diferentes soluções integram esses dispositivos para atuarem como um único sistema  de  automação  residencial  que,  embora  eficientes,  são  limitados quanto  sua  interação  com  sistemas/dispositivos  externos  à  solução.  neste cenário, o artigo apresenta uma arquitetura para casas inteligentes onde os dispositivos  são  tratados  como  sistemas  de  automação  independentes, conectados  à  uma  rede  local,  que  viabilizam  sua  operabilidade  através  de requisições http. a implementação desta arquitetura permitiu a integração dos  dispositivos  entre  si  e  com  outros  sistemas  independentes  como  os navegadores  web,  aplicativos  para  a  plataforma  android  os,  thingspeak (banco  de  dados  na  nuvem)  e  telegram  (mensageiro  baseado  em  nuvem). através  dos resultados, este estudo destaca a expansão dos limites quanto a integração  de  sistemas  de  automação  residencial  com  outras  ferramentas  e sistemas autônomos por meio de requisições http.', 'C:\\Users\\ENG COMPUTACAO\\workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\tenebris\\obras\\14_6_2016_14_24_1468520676792.pdf'),
 (82, 2, 2, 71, 2, 1, '2016-07-14 18:26:08', 'avaliação experimental de um modelo descritivo para  navegação em dispositivos móveis', '2015-11-04', 'a navegação é um aspecto que impacta diretamente na usabilidade. como  primeiro  passo  para  o  projeto  da  navegação  de  aplicativos  com qualidade,  padovani  et  al.  (2013)  propuseram  um  modelo  descritivo  para sistemas  de  dispositivos  móveis  que  permita  projetar  a  navegação  destes considerando seus aspectos específicos de interação. porém o modelo ainda não  havia  sido  analisado.  este  artigo  descreve  um  estudo  experimental  que avaliou este modelo junto a profissionais com experiência no desenvolvimento de  aplicativos.  como  resultado,  observou-se  que  a  nomenclatura  utilizada pelo  modelo  se  mostrou  confusa  e  uma  maior  exatidão  na  descrição  dos elementos do modelo é necessária.', 'C:\\Users\\ENG COMPUTACAO\\workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\tenebris\\obras\\14_6_2016_14_26_1468520768316.pdf'),
@@ -653,9 +667,7 @@ INSERT INTO `obra` (`id`, `usuario`, `area`, `autor`, `tipo`, `instituicao`, `ca
 (96, 2, 2, 85, 2, 1, '2016-07-14 19:03:54', 'utilização do aplicativo mobile foodclean desenvolvido para  auxiliar na aprendizagem de boas práticas de manipulação de  alimentos no curso técnico em cozinha', '2015-11-04', 'este  artigo  apresenta  o  aplicativo mobile foodclean, desenvolvido com base nas teorias de boas práticas de manipulação de alimentos do curso técnico em cozinha. é um jogo desenvolvido com o uso do motor de jogo unity 3d  utilizando  a  linguagem  javascript  de  programação.  o  aplicativo  tem por objetivo ajudar no desenvolvimento educacional do aluno do curso técnico em cozinha através de uma atividade sobre placas de cortes, um dos conteúdos ministrados  em  sala  de  aula.  esse  projeto  é  resultado  de  um  trabalho  de pesquisa  feito  dentro  da  disciplina  de  estágio  supervisionado  i  do  curso  de licenciatura em informática da universidade do estado do amazonas.', 'C:\\Users\\ENG COMPUTACAO\\workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\tenebris\\obras\\14_6_2016_15_3_1468523034322.pdf'),
 (97, 2, 2, 86, 2, 1, '2016-07-14 19:05:27', 'aplicação da metodologia ágil scrumpara elaboração  do projeto do aplicativo tôdebike! para incentivar a prática  de uso de bicicletas', '2015-11-04', 'diversas teorias de modelagem de software são experimentadas em contexto  acadêmico,  sejam  de  métodos  tradicionais  ou  dos  métodos  ágeis. este  artigo  apresenta  um  relato  de  experiência  de utilização  da metodologia ágil para modelagem e levantamento de requisitos, planejamento e desenvolvimento em uml do aplicativo  tô debike! que tem como objetivo ajudar  usuários  a  encontrarem  grupos  de  pessoas  para  pedaladas,  eventos relacionados  a  este  grupo,  melhor  percurso  para  um  ciclista,  além  de incentivar  as  pessoas  a  prática  de  uso  da  bicicleta.obteve-se  sucesso  na implantação do projeto e experiência com a aplicação da metodologia scrum.', 'C:\\Users\\ENG COMPUTACAO\\workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\tenebris\\obras\\14_6_2016_15_5_1468523127522.pdf'),
 (98, 2, 2, 87, 2, 1, '2016-07-14 20:26:33', 'carrinhos inteligentes - otimização de compras em  estabelecimentos comerciais via rfid.', '2015-11-04', 'atualmente os estabelecimentos comerciais apresentam um alto nível de automação no uso de sistemas computacionais para o fechamento da venda. porém, o modo que o cliente apresenta seus produtos aos operadores de caixa continuam o mesmo de antes desta automação comercial. este trabalho propõe construir  um registrador  das  compras  dos  clientes  de  forma  mais  rápida  e confiável. a metodologia utilizada é o uso de etiquetas rfid nos produtos e leitores instalados nos carrinhos. espera-se com a implantação deste sistema agilizar o processo de fechamento de venda por cliente, fazendo negócios.', 'C:\\Users\\ENG COMPUTACAO\\workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\tenebris\\obras\\14_6_2016_16_26_1468527993740.pdf'),
-(99, 2, 2, 88, 2, 1, '2016-07-14 20:27:52', 'combinação de técnicas e ferramentas computacionais  para ajudar no desenvolvimento daintegração lavourapecuária-floresta no amazonas', '2015-11-04', 'a  integração  lavoura-pecuária-floresta  tem  como  objetivo  a mudança no sistema de uso da terra, aliando o aumento da produtividade com a conservação de recursos naturais no processo de intensificação de uso das áreas  já  desmatadas.  no  entanto,  no  estado  do  amazonas, a logística é um entrave na difusão das tecnologias e conhecimentos,  dificultando o acesso a muitos pequenos agricultores e ocasionando planejamentos mal feitos, baixa produção e endividamentos. de forma a fortalecer as ações de transferência de  tecnologia  no  amazonas,  foi  proposto  e  está  em  desenvolvimento  um aplicativo para smartphones com google android, que faz uso de técnicas de aprendizado de máquina.', 'C:\\Users\\ENG COMPUTACAO\\workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\tenebris\\obras\\14_6_2016_16_27_1468528072293.pdf'),
-(6322, 2, 2, 13, 1, 1, '2017-02-21 03:54:58', 'teste 20/02', '2017-02-20', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin ut mollis risus. Sed eu pharetra lacus. Nam convallis mi a tellus sodales, quis viverra magna venenatis. Quisque ante felis, auctor nec lacinia quis, gravida nec nibh. Vestibulum egestas ullamcorper velit, a posuere tortor posuere iaculis. Sed consectetur hendrerit fermentum. Maecenas scelerisque volutpat est, nec dapibus ipsum vehicula in. Phasellus vehicula a metus eu convallis. ', 'C:\\Users\\Thiago\\workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp1\\wtpwebapps\\tenebris\\obras\\20_1_2017_23_54_1487649298069.pdf'),
-(6323, 2, 2, 104, 4, 2, '2017-02-24 00:28:28', 'teste atualizado hoje', '2017-02-13', 'resumo atualizadoo', 'C:\\Users\\Thiago\\workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp1\\wtpwebapps\\tenebris\\obras\\23_1_2017_20_28_1487896108080.pdf');
+(99, 2, 2, 88, 2, 1, '2016-07-14 20:27:52', 'combinação de técnicas e ferramentas computacionais  para ajudar no desenvolvimento daintegração lavourapecuária-floresta no amazonas', '2015-11-04', 'a  integração  lavoura-pecuária-floresta  tem  como  objetivo  a mudança no sistema de uso da terra, aliando o aumento da produtividade com a conservação de recursos naturais no processo de intensificação de uso das áreas  já  desmatadas.  no  entanto,  no  estado  do  amazonas, a logística é um entrave na difusão das tecnologias e conhecimentos,  dificultando o acesso a muitos pequenos agricultores e ocasionando planejamentos mal feitos, baixa produção e endividamentos. de forma a fortalecer as ações de transferência de  tecnologia  no  amazonas,  foi  proposto  e  está  em  desenvolvimento  um aplicativo para smartphones com google android, que faz uso de técnicas de aprendizado de máquina.', 'C:\\Users\\ENG COMPUTACAO\\workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\tenebris\\obras\\14_6_2016_16_27_1468528072293.pdf');
 
 -- --------------------------------------------------------
 
@@ -675,11 +687,23 @@ CREATE TABLE IF NOT EXISTS `obra_palavrachave` (
 --
 
 INSERT INTO `obra_palavrachave` (`obra`, `palavrachave`) VALUES
+(37, 1),
+(79, 1),
+(41, 2),
+(45, 2),
+(56, 2),
+(57, 2),
+(59, 2),
 (98, 2),
-(6322, 2),
-(6323, 2),
-(6322, 16),
-(6323, 16);
+(42, 20),
+(48, 20),
+(52, 20),
+(54, 20),
+(55, 20),
+(41, 26),
+(40, 27),
+(71, 27),
+(77, 27);
 
 -- --------------------------------------------------------
 
@@ -703,10 +727,51 @@ CREATE TABLE IF NOT EXISTS `redebayesiana` (
 --
 
 INSERT INTO `redebayesiana` (`idObra`, `idUsuario`, `pchave`, `relevancia`, `titulo`) VALUES
+(36, 2, 21, 1, 'educação a distância: a aprender online'),
+(36, 54, 21, 1, 'educação a distância: a aprender online'),
+(40, 2, 19, 1, 'desenvolvimento de um sistema de pré-seleção de disciplina com princípios de heurística de usabilidade'),
+(42, 2, 20, 1, 'analise de desempenho de algoritmos de programação distribuída em ooerlang com intel r mpi benchmarks e esqueletos algorítmicos em ooerlang'),
+(45, 2, 2, 1, 'filtros de imagens para ios'),
+(45, 54, 2, 0, 'filtros de imagens para ios'),
+(45, 56, 2, 0, 'filtros de imagens para ios'),
+(45, 57, 2, 1, 'filtros de imagens para ios'),
+(45, 61, 2, 1, 'filtros de imagens para ios'),
+(45, 62, 2, 1, 'filtros de imagens para ios'),
+(45, 66, 2, 1, 'filtros de imagens para ios'),
+(45, 77, 2, 0, 'filtros de imagens para ios'),
+(48, 2, 20, 1, 'análise comparativa de algoritmos que computam transformada discreta de fourier e hartley'),
+(48, 57, 20, 1, 'análise comparativa de algoritmos que computam transformada discreta de fourier e hartley'),
+(48, 61, 20, 1, 'análise comparativa de algoritmos que computam transformada discreta de fourier e hartley'),
+(48, 62, 20, 1, 'análise comparativa de algoritmos que computam transformada discreta de fourier e hartley'),
+(48, 63, 20, 1, 'análise comparativa de algoritmos que computam transformada discreta de fourier e hartley'),
+(48, 67, 20, 1, 'análise comparativa de algoritmos que computam transformada discreta de fourier e hartley'),
+(48, 78, 20, 0, 'análise comparativa de algoritmos que computam transformada discreta de fourier e hartley'),
+(54, 2, 20, 1, 'implementação de suporte a subprogramas, módulos e pacotes da linguagem java para o compilador jaraki'),
+(55, 2, 20, 1, 'implementação das estruturas de controle da linguagem java para o compilador jaraki'),
+(56, 2, 2, 1, 'dominó adaptativo'),
+(56, 61, 2, 0, 'dominó adaptativo'),
+(56, 62, 2, 1, 'dominó adaptativo'),
+(56, 69, 2, 1, 'dominó adaptativo'),
+(57, 2, 2, 1, 'implementação do tratamento de variáveis e erros em erlang no compilador jaraki'),
+(57, 55, 2, 1, 'implementação do tratamento de variáveis e erros em erlang no compilador jaraki'),
+(57, 61, 2, 0, 'implementação do tratamento de variáveis e erros em erlang no compilador jaraki'),
+(59, 2, 2, 1, 'esquema integrado de proteção compartilhada de caminho e restauração aplicado à redes ópticas transparentes'),
+(59, 55, 2, 1, 'esquema integrado de proteção compartilhada de caminho e restauração aplicado à redes ópticas transparentes'),
+(59, 57, 2, 1, 'esquema integrado de proteção compartilhada de caminho e restauração aplicado à redes ópticas transparentes'),
+(59, 63, 2, 1, 'esquema integrado de proteção compartilhada de caminho e restauração aplicado à redes ópticas transparentes'),
+(59, 65, 2, 0, 'esquema integrado de proteção compartilhada de caminho e restauração aplicado à redes ópticas transparentes'),
+(59, 74, 2, 1, 'esquema integrado de proteção compartilhada de caminho e restauração aplicado à redes ópticas transparentes'),
 (78, 54, 1, 0, 'estudo comparativo entre algoritmos genéticos e pesquisa em vizinhança variável aplicados na otimização de redes ip'),
+(78, 62, 1, 0, 'estudo comparativo entre algoritmos genéticos e pesquisa em vizinhança variável aplicados na otimização de redes ip'),
+(78, 66, 1, 0, 'estudo comparativo entre algoritmos genéticos e pesquisa em vizinhança variável aplicados na otimização de redes ip'),
+(78, 74, 1, 1, 'estudo comparativo entre algoritmos genéticos e pesquisa em vizinhança variável aplicados na otimização de redes ip'),
+(80, 2, 20, 1, 'aplicação de um método multicritério para identificação e  avaliação de requisitos de software'),
+(80, 65, 20, 1, 'aplicação de um método multicritério para identificação e  avaliação de requisitos de software'),
 (92, 2, 2, 1, 'uma abordagem baseada em redes neurais para a predicão de chuva em manaus, amazonas'),
 (92, 54, 2, 1, 'uma abordagem baseada em redes neurais para a predicão de chuva em manaus, amazonas'),
-(92, 54, 13, 1, 'uma abordagem baseada em redes neurais para a predicão de chuva em manaus, amazonas');
+(92, 54, 13, 1, 'uma abordagem baseada em redes neurais para a predicão de chuva em manaus, amazonas'),
+(92, 65, 2, 1, 'uma abordagem baseada em redes neurais para a predicão de chuva em manaus, amazonas'),
+(92, 65, 13, 1, 'uma abordagem baseada em redes neurais para a predicão de chuva em manaus, amazonas');
 
 -- --------------------------------------------------------
 
@@ -719,7 +784,7 @@ CREATE TABLE IF NOT EXISTS `tag` (
   `nome` varchar(255) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `nome` (`nome`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=198 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=201 ;
 
 --
 -- Extraindo dados da tabela `tag`
@@ -875,7 +940,7 @@ CREATE TABLE IF NOT EXISTS `usuario` (
 --
 
 INSERT INTO `usuario` (`id`, `login`, `nome`, `senha`, `area`, `cadastradoEm`, `recommendation`) VALUES
-(2, 'thiago', 'thiagô', '202cb962ac59075b964b07152d234b70', 2, '2016-03-31 00:29:27', 1),
+(2, 'thiago', 'thiagô', '202cb962ac59075b964b07152d234b70', 2, '2016-03-31 00:29:27', 2),
 (54, 'Gi', NULL, '202cb962ac59075b964b07152d234b70', NULL, '2016-07-12 14:47:04', 1),
 (55, 'daniel', NULL, '202cb962ac59075b964b07152d234b70', NULL, '2016-07-12 15:03:46', 1),
 (56, 'arquelau', NULL, '202cb962ac59075b964b07152d234b70', NULL, '2016-07-12 15:23:01', 1),
@@ -993,6 +1058,7 @@ INSERT INTO `usuario_tags` (`usuario`, `tag`) VALUES
 (68, 4),
 (74, 4),
 (78, 4),
+(2, 49),
 (2, 50),
 (2, 51),
 (63, 51),
@@ -1053,6 +1119,7 @@ INSERT INTO `usuario_tags` (`usuario`, `tag`) VALUES
 (67, 146),
 (63, 147),
 (63, 148),
+(2, 149),
 (63, 149),
 (68, 149),
 (63, 150),
