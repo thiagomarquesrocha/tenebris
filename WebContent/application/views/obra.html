@@ -2,7 +2,7 @@
 <div class="section scrollspy" id="work">
     <header class="fixing header  green darken-2 z-depth-1" ng-class="{ red : !hasWork(work), green : hasWork(work) }">
 		        <div class="container">
-                    <h1 class="text-w" ng-show="hasWork(work)"><i class="material-icons fa fa-book"></i> {{ work.titulo }}</h1>
+                    <h1 class="text-w" ng-show="hasWork(work)" ng-class="{ 'title-middle' : work.titulo.length > 50 && work.titulo.length <= 80, 'title-small' : work.titulo.length > 80 }"><i class="material-icons fa fa-book"></i> {{ work.titulo | capitalize}}</h1>
                     <h1 class="text-w" ng-show="!hasWork(work)"><i class="material-icons fa fa-warning"></i> Ocorreu um problema no carregamento</h1>
                  </div>
 	</header>
@@ -13,7 +13,7 @@
                     <div class="card-content activator" ng-init="work.avaliacao = (!work.avaliacao)? 0 : work.avaliacao">
                         <p><strong>Resumo</strong></p>
                         <p>{{ work.resumo | capitalize }}</p>
-                        <p class="activator"><a href="">{{work.autor | capitalize }}, {{work.data | date:'yyyy'}}</a></p>
+                        <p class="activator"><a href="">{{work.autor }}, {{work.data | date:'yyyy'}}</a></p>
                         <p class="activator"><span class="badge amber darken-4 white-text activator">{{work.area}}</span></p>
                         <div class="activator"><strong>Tipo:</strong> <span class="capitalize">{{ work.obratipo }}</span></div>
                         <div class="activator"><strong>Instituição:</strong> <span class="capitalize">{{ work.instituicao }}</span></div>

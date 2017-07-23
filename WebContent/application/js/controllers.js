@@ -647,17 +647,17 @@ app
         var uploadUrl = (update)? Actions.work.update : Actions.work.new;
         var fd = new FormData();
         fd.append('type', type);        
-        fd.append('title', $scope.title.toLowerCase());
+        fd.append('title', $scope.title);
         // 1 - EST
         if(update)
           fd.append('id', $scope.id);
         fd.append('institution', institution);
-        fd.append('auth', $scope.auth.toLowerCase());
+        fd.append('auth', $scope.auth);
         fd.append('area', $scope.area.toLowerCase());
         fd.append('date', $scope.date);
         fd.append('user', user);
         fd.append('keywords', $scope.keywords);
-        fd.append('resume', $scope.resume.toLowerCase());
+        fd.append('resume', $scope.resume);
         fd.append('file', file);
         $http.post(uploadUrl, fd, {
             transformRequest: angular.identity,

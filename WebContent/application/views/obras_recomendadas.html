@@ -11,7 +11,7 @@
                 <div class="col s12 14" ng-class="getGrid($index)" ng-repeat="work in works | orderBy:'-media' track by $index">
                     <div class="card">
                         <div class="card-content activator">
-                            <a href="#/obra/{{work.id}}"><span class="card-title activator grey-text text-darken-4">{{work.titulo}} </span></a>
+                            <a href="#/obra/{{work.id}}"><span class="card-title activator grey-text text-darken-4">{{work.titulo | capitalize}} </span></a>
                             <a href="#/obra/{{work.id}}"><p class="resume">{{ (work.resumo | limitTo: 150) | capitalize }} {{ work.resumo.length > 150 ? '...' : ''}}</p></a>
                             <a href="#/obra/{{work.id}}"><p class="activator capitalize">{{work.autor}}, {{work.data | date:'yyyy'}}</p></a>
                             <a href="#/obra/{{work.id}}"><p class="activator"><span class="badge amber darken-4 white-text activator">{{work.area}}</span></p></a>

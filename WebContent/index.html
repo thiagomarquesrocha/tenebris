@@ -106,9 +106,9 @@
                 <div class="col s10 m10 10" ng-repeat="work in works">
                     <div class="card">
                         <div class="card-content">
-                            <span class="card-title grey-text text-darken-4">{{ work.titulo }}</span>
+                            <span class="card-title grey-text text-darken-4">{{ work.titulo | capitalize }}</span>
                             <p class="activator capitalize"><a href="">{{work.autor}}, {{work.data | date:'yyyy'}}</a></p>
-                            <p>{{ work.resumo }}</p>
+                            <p>{{ work.resumo | capitalize }}</p>
                             <p class="activator">
                                 <strong>Avaliado como:</strong>
                                 <button class="fa activator" ng-class="(i <= work.media)? 'fa-star' : 'fa-star-o'" ng-repeat="i in [1,2,3,4,5]"></button>

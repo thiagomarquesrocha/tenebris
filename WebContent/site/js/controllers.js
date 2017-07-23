@@ -1,5 +1,12 @@
 var app = angular.module('App', ['ngProgress'])
 
+// Capitalize
+.filter('capitalize', function() {
+    return function(input) {
+      return (!!input) ? input.charAt(0).toUpperCase() + input.substr(1) : '';
+    }
+})
+
 .factory('sharedService', function($rootScope) {
   var sharedService = {};
 

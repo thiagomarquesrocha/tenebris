@@ -34,17 +34,19 @@
 #work{ padding-top: 0}
 #work .header h1{ font-size: 3.2rem }
 #work .badge{ position: static; margin-right: 10px; padding: 3px 10px}
-#work .card-title{ text-transform: capitalize; }
+/*#work .card-title{ text-transform: capitalize; }*/
 #work .card-reveal .card-title{ font-size: 20px;}
 #work .card .obs{ font-size: 13px; }
 #work .card button.fa{ background: none; border: none; }
 #work .fa-star{ color: #f00;}
 #work .fa-star-o{ color: #BBB6B6 }
 #work .card-reveal .submit-rating{  }
-#work .header{ text-transform: capitalize;}
+/*	#work .header{ text-transform: capitalize;}*/
 a .resume{ color: #000 !important}
 .card-content .rate{ color: #000 !important  }
 .average button{ cursor: inherit !important}
+.title-middle{ font-size: 2.2rem !important}
+.title-small{ font-size: 2.0rem !important}
 
 
 #work .panel-body{ min-height: 500px }

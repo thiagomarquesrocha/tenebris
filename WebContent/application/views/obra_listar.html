@@ -17,7 +17,7 @@
                 <div class="col s12 14" ng-repeat="work in works">
                     <div class="card">
                         <div class="card-content activator">
-                            <a href="#/obra/{{work.id}}"><span class="card-title activator grey-text text-darken-4">{{work.titulo}} <!-- <i class="mdi-navigation-more-vert right"></i> --></span></a>
+                            <a href="#/obra/{{work.id}}"><span class="card-title activator grey-text text-darken-4">{{work.titulo | capitalize}} <!-- <i class="mdi-navigation-more-vert right"></i> --></span></a>
                             <a href="#/obra/{{work.id}}"><p class="resume">{{ (work.resumo | limitTo: 150) | capitalize }} {{ work.resumo.length > 150 ? '...' : ''}}</p></a>
                             <a href="#/obra/{{work.id}}"><p class="activator">{{work.autor}}, {{work.data | date:'yyyy'}}</p></a>
                             <a href="#/obra/{{work.id}}"><p class="activator"><span class="badge amber darken-4 white-text activator">{{work.area}}</span></p></a>
