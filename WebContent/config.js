@@ -16,9 +16,9 @@ var Code = {
 };
 
 var Version = {
-	current : "1.0",
-	build : "6",
-	version : "10"
+	current : "1.5",
+	build : "7",
+	version : "11"
 };
 
 var SITE = "/tenebris2016/";
