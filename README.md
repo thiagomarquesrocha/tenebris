@@ -73,7 +73,9 @@ localhost:8080/tenebris2016
 # Equipe
 
 Fábio Santos (Coordernador)
+
 Thiago Marques (Aluno)
+
 Lucas Coimbra (Aluno)
 
 
