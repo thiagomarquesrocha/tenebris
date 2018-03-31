@@ -70,5 +70,11 @@ Execute pelo Eclipse e abra no seu navegador o endereço:
 localhost:8080/tenebris2016
 ```
 
+# Equipe
+
+Fábio Santos (Coordernador)
+Thiago Marques (Aluno)
+Lucas Coimbra (Aluno)
+
 
 _Escola Superior de Tecnologia - EST, desde 2016_
