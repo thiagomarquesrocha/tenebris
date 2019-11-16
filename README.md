@@ -2,6 +2,8 @@
 
 Um sistema de recomendação híbrido de trabalhos acadêmicos para apoio a pesquisa científica. O sistema de Recomendação é baseado em componentes de filtragem de informação que implementam as técnicas de Filtragem Colaborativa e Baseada em Conteúdo. Desenvolvido para Web, utilizando frameworks, tais como, Lucene, Mahout e Angular JS, o projeto encontra-se em fase de desenvolvimento dentro da Escola Superior de Tecnologia - EST, desde 2016.
 
+Publicado no [14º Simpósio Brasileiro de Sistemas Colaborativos (SBSC)](http://csbc2017.mackenzie.br/eventos/14-sbsc), Sessão técnica 3: Colaboração e ciência.
+
 1. [Instalação](https://github.com/thiagomarques2015/tenebris/wiki/Instala%C3%A7%C3%A3o)
 1. [Funcionalidades](https://github.com/thiagomarques2015/tenebris/wiki/Funcionalidades)
 1. Equipe
